@@ -170,7 +170,7 @@
             backdrop-filter: blur(6px);
         }
 
-        .blurred-bg>*:not(#viewDetailsModalOverlay):not(#appointmentDetailsModalOverlay):not(#availabilityModalOverlay):not(#rescheduleModalOverlay):not(#cancelModalOverlay):not(#addDoctorModalOverlay):not(#patientDetailsModalOverlay):not(#successModalOverlay):not(#viewDoctorProfileModalOverlay):not(#editDoctorProfileModalOverlay):not(#toast) {
+        .blurred-bg>*:not(#viewDetailsModalOverlay):not(#appointmentDetailsModalOverlay):not(#availabilityModalOverlay):not(#rescheduleModalOverlay):not(#revisitModalOverlay):not(#cancelModalOverlay):not(#addDoctorModalOverlay):not(#patientDetailsModalOverlay):not(#successModalOverlay):not(#viewDoctorProfileModalOverlay):not(#editDoctorProfileModalOverlay):not(#toast) {
             filter: blur(4px);
             pointer-events: none;
             user-select: none;
@@ -180,6 +180,7 @@
         #appointmentDetailsModalOverlay,
         #availabilityModalOverlay,
         #rescheduleModalOverlay,
+        #revisitModalOverlay,
         #cancelModalOverlay,
         #addDoctorModalOverlay,
         #patientDetailsModalOverlay,
@@ -309,14 +310,14 @@
             overflow: visible !important;
         }
 
-     
+    
         #appointmentsList {
             overflow: visible !important;
-        } 
+        }
 
         #appointmentsList > div {
             overflow: visible !important;
-        }  
+        }
 
         .action-menu:not(.hidden) {
             display: block !important;
@@ -403,12 +404,12 @@
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-} 
+}
 
- .appointments-list .action-menu::-webkit-scrollbar{
+.appointments-list .action-menu::-webkit-scrollbar{
 
   display: none;
-} 
+}
 
 body.dark {
     background-color: #0f172a; 
@@ -570,6 +571,14 @@ body.dark #doctorsTab .bg-gray-50.text-gray-800.border-b {
 }
 body.dark #doctorsTab .bg-gray-50.text-gray-800.border-b > div { color: #e5e7eb !important; }
 
+/* Appointments grid header (match doctors/patients) */
+body.dark #appointmentsHeader {
+    background-color: #0f172a !important;
+    color: #e5e7eb !important;
+    border-color: #334155 !important;
+}
+body.dark #appointmentsHeader > div { color: #e5e7eb !important; }
+
 
 body.dark #userDropdownMenu {
     background-color: #1e293b !important;
@@ -635,7 +644,19 @@ body.dark button.bg-red-600:hover {
 
 
 body.dark table tbody tr:hover td {
-    background-color: #1e293b !important;
+    background-color: #334155 !important;
+}
+
+/* Ensure Appointments tab headings and hover match Doctors/Patients in dark mode */
+body.dark #appointmentsTab thead tr {
+    background-color: #0f172a !important;
+}
+body.dark #appointmentsTab thead th {
+    color: #e5e7eb !important;
+    border-color: #334155 !important;
+}
+body.dark #appointmentsTab tbody tr:hover td {
+    background-color: #334155 !important;
 }
 
 
@@ -1288,8 +1309,173 @@ body.accent-brown:not(.dark) {
 body.accent-teal:not(.dark) {
   background-color: #f0fdfa !important;
 }
+
+
+.accent-select:hover {
+    border-color: #3b82f6 !important;
+}
+
+body.accent-blue .accent-select:hover {
+    border-color: #3b82f6 !important;
+}
+
+body.accent-green .accent-select:hover {
+    border-color: #10b981 !important;
+}
+
+body.accent-orange .accent-select:hover {
+    border-color: #ea580c !important;
+}
+
+body.accent-purple .accent-select:hover {
+    border-color: #8b5cf6 !important;
+}
+
+body.accent-pink .accent-select:hover {
+    border-color: #db2777 !important;
+}
+
+body.accent-teal .accent-select:hover {
+    border-color: #06b6d4 !important;
+}
+
+body.accent-brown .accent-select:hover {
+    border-color: #a16207 !important;
+}
+
+
+.accent-select option:hover {
+    background-color: #3b82f6 !important;
+    color: white !important;
+}
+
+body.accent-blue .accent-select option:hover {
+    background-color: #3b82f6 !important;
+    color: white !important;
+}
+
+body.accent-green .accent-select option:hover {
+    background-color: #10b981 !important;
+    color: white !important;
+}
+
+body.accent-orange .accent-select option:hover {
+    background-color: #ea580c !important;
+    color: white !important;
+}
+
+body.accent-purple .accent-select option:hover {
+    background-color: #8b5cf6 !important;
+    color: white !important;
+}
+
+body.accent-pink .accent-select option:hover {
+    background-color: #db2777 !important;
+    color: white !important;
+}
+
+body.accent-teal .accent-select option:hover {
+    background-color: #06b6d4 !important;
+    color: white !important;
+}
+
+body.accent-brown .accent-select option:hover {
+    background-color: #a16207 !important;
+    color: white !important;
+}
+
+
+.dropdown-option {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #374151;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.dropdown-option:last-child {
+    border-bottom: none;
+}
+
+.dropdown-option:hover {
+    background-color: #3b82f6 !important;
+    color: white !important;
+}
+
+body.accent-blue .dropdown-option:hover {
+    background-color: #3b82f6 !important;
+    color: white !important;
+}
+
+body.accent-green .dropdown-option:hover {
+    background-color: #10b981 !important;
+    color: white !important;
+}
+
+body.accent-orange .dropdown-option:hover {
+    background-color: #f59e0b  !important;
+    color: white !important;
+}
+
+body.accent-purple .dropdown-option:hover {
+    background-color: #8b5cf6 !important;
+    color: white !important;
+}
+
+body.accent-pink .dropdown-option:hover {
+    background-color: #db2777 !important;
+    color: white !important;
+}
+
+body.accent-teal .dropdown-option:hover {
+    background-color: #14b8a6  !important;
+    color: white !important;
+}
+
+body.accent-brown .dropdown-option:hover {
+    background-color: #b55656  !important;
+    color: white !important;
+}
+
+.custom-dropdown.open #filterDropdownTrigger svg {
+    transform: rotate(180deg);
+}
+
+/* Dark mode styles for custom dropdown */
+body.dark .dropdown-option {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-bottom-color: #334155 !important;
+}
+
+body.dark #filterDropdownMenu {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+body.dark #filterDropdownTrigger {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
 body.dark {
   background-color: #111827 !important;
+}
+body.dark .flatpickr-calendar { background: #0f172a !important; color: #cbd5e1 !important; }
+body.dark .flatpickr-weekdays { background: #0f172a !important; color: #cbd5e1 !important; }
+body.dark .flatpickr-day { color: #e2e8f0 !important; }
+body.dark .flatpickr-day.selected,
+body.dark .flatpickr-day.today {
+    background: #3b82f6 !important;
+    color: white !important;
+}
+body.dark .flatpickr-day:hover {
+    background: #334155 !important;
+}
+body.dark .text-gray-500,
+body.dark .text-gray-400 {
+    color: #94a3b8 !important;
 }
 
 
@@ -1411,20 +1597,157 @@ body.dark #rescheduleModal .calendar-day:disabled {
   color: #6b7280 !important;   
   font-weight: 500 !important;
 }
-
-
-
-
-/* Selected time slot */
 body.dark .time-slot.selected {
-    background-color: #22c55e !important;  /* Green when selected */
+    background-color: #22c55e !important;  
     color: #ffffff !important;
     border-color: #22c55e !important;
     font-weight: 600 !important;
 }
 
+ body.dark #logoutModal svg {
+    color: #ef4444 !important;
+    stroke: #ef4444 !important;
+
+ }  
 
 
+body.dark.accent-blue select,
+body.dark.accent-blue option:checked {
+    border-color: #3b82f6 !important;
+
+}
+
+body.dark.accent-green select,
+body.dark.accent-green option:checked {
+    border-color: #10b981 !important;
+  
+}
+
+body.dark.accent-brown select,
+body.dark.accent-brown option:checked {
+    border-color: #b55656 !important;
+   
+}
+
+body.dark.accent-purple select,
+body.dark.accent-purple option:checked {
+    border-color: #8b5cf6 !important;
+    
+}
+
+body.dark.accent-orange select,
+body.dark.accent-orange option:checked {
+    border-color: #f59e0b !important;
+ 
+}
+
+body.dark.accent-pink select,
+body.dark.accent-pink option:checked {
+    border-color: #ec4899 !important;
+ 
+}
+
+body.dark.accent-teal select, 
+body.dark.accent-teal option:checked {
+    border-color: #14b8a6 !important;
+   
+}
+body.dark .flatpickr-day {
+    color: #f8fafc !important;   
+    font-weight: 700 !important; 
+    background: transparent !important;
+}
+
+body.dark .flatpickr-day.selected,
+body.dark .flatpickr-day.today {
+    background: #22c55e !important; 
+    color: #ffffff !important;      
+    font-weight: 800 !important;
+}
+body.dark .flatpickr-day:hover {
+    background: #334155 !important; 
+    color: #ffffff !important;
+}
+
+body.dark .time-slot {
+    background-color: #1e293b !important;  
+    color: #f8fafc !important;            
+    font-weight: 600 !important;
+    border: 1px solid #334155 !important;  
+}
+body.dark .time-slot:hover {
+    background-color: #22c55e !important;  
+    color: #ffffff !important;
+    border-color: #22c55e !important;
+    border-width: 1px !important; 
+}
+body.dark .time-slot:disabled {
+    background-color: #334155 !important;
+    color: #64748b !important;
+}
+body.dark #rescheduleModal .calendar-day {
+  color: #000000 !important;   
+  font-weight: 600 !important;  
+  font-size: 15px !important;  
+}
+body.dark #rescheduleModal .calendar-day.selected {
+  background-color: #22c55e !important;  
+  color: #000000 !important;             
+  font-weight: 700 !important;          
+}
+body.dark #rescheduleModal .calendar-day:disabled {
+  color: #6b7280 !important;   
+  font-weight: 500 !important;
+}
+body.dark .time-slot.selected {
+    background-color: #22c55e !important;  
+    color: #ffffff !important;
+    border-color: #22c55e !important;
+    font-weight: 600 !important;
+}
+ body.dark #logoutModal svg {
+    color: #ef4444 !important;
+    stroke: #ef4444 !important;
+
+ }  
+
+
+
+/* Revisit modal calendar day styles */
+body.dark #revisitModal .calendar-day {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+}
+
+body.dark #revisitModal .calendar-day.selected {
+  background-color: #22c55e !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+body.dark #revisitModal .calendar-day:disabled {
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+}
+
+/* Revisit modal time slot styles */
+body.dark #revisitModal .time-slot.selected {
+  background-color: #22c55e !important;
+  color: #ffffff !important;
+  border-color: #22c55e !important;
+  font-weight: 600 !important;
+}
+
+
+
+
+
+
+
+
+
+ 
     </style>
   
 </head>
@@ -1436,15 +1759,14 @@ body.dark .time-slot.selected {
         }
     </script>
 
-   <nav class="bg-white shadow py-3 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-[110px]">
-        <div class="flex justify-between items-center w-full">
-            <div class="flex items-center">
-                <svg class="w-6 h-6 text-blue-600 dark:text-blue-50 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                <h1 class="text-xl font-bold text-blue-600">MediCare</h1>
-            </div>
+  <nav class="bg-white shadow py-3 px-[110px]">
+    <div class="flex justify-between items-center w-full">
+        
+        <div class="flex items-center">
+            <img id="orgLogo" class="w-8 h-8 mr-2" alt="Logo">
+            <h1 id="orgName" class="text-xl font-bold text-blue-600">MediCare</h1>
+        </div>
+
             <div class="flex items-center">
                 <div class="flex items-center gap-2">
                     <div id="userAvatar"
@@ -1642,10 +1964,22 @@ body.dark .time-slot.selected {
     </div>
     <div class="flex items-center gap-4">
       <div class="relative w-[400px] h-12">
-        <select id="filterDropdown"
-          class="w-full h-full px-4 py-2 border border-gray-800 rounded-md bg-white text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400">
-      
-        </select>
+        <div class="custom-dropdown w-full h-full">
+          <div id="filterDropdownTrigger" class="w-full h-full px-4 py-2 border border-gray-800 rounded-md bg-white text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400 accent-select cursor-pointer flex items-center justify-between">
+            <span id="filterDropdownText">All Fields</span>
+            <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+          <div id="filterDropdownMenu" class="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow-lg z-50 hidden">
+            <div class="dropdown-option" data-value="all">All Fields</div>
+            <div class="dropdown-option" data-value="patient">Patient</div>
+            <div class="dropdown-option" data-value="doctor">Doctor</div>
+            <div class="dropdown-option" data-value="time">Time</div>
+            <div class="dropdown-option" data-value="status">Status</div>
+            <div class="dropdown-option" data-value="referredby">Referred By</div>
+          </div>
+        </div>
       </div>
       <div class="relative w-[300px] h-12 flex items-center">
         <div id="datePickerDisplay"
@@ -1674,19 +2008,20 @@ body.dark .time-slot.selected {
                         <label for="appointmentStatusFilter" class="font-semibold text-gray-900 text-base"> Show:
                         </label>
                         <div class="relative">
-                            <select id="appointmentStatusFilter"
-                                class="block w-56 appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 text-sm font-medium text-gray-800 shadow-sm transition-all duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-gray-400">
-                                <option value="all">All Appointments</option>
-                                <option value="confirmed">Confirmed</option>
-                                <option value="rescheduled">Rescheduled</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
-
-                            <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                                </svg>
+                            <div class="custom-dropdown w-56">
+                                <div id="appointmentStatusFilterTrigger" class="block w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2 pr-10 text-sm font-medium text-gray-800 shadow-sm transition-all duration-150 ease-in-out focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-gray-400 accent-select cursor-pointer flex items-center justify-between">
+                                    <span id="appointmentStatusFilterText">All Appointments</span>
+                                    <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                                <div id="appointmentStatusFilterMenu" class="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50 hidden">
+                                    <div class="dropdown-option" data-value="all">All Appointments</div>
+                                    <div class="dropdown-option" data-value="confirmed">Confirmed</div>
+                                    <div class="dropdown-option" data-value="rescheduled">Rescheduled</div>
+                                    <div class="dropdown-option" data-value="revisited">Revisited</div>
+                                    <div class="dropdown-option" data-value="cancelled">Cancelled</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1700,9 +2035,18 @@ body.dark .time-slot.selected {
                                 class="bg-black text-white px-4 py-1 rounded font-semibold">+ Add
                                 Appointment</button></a>
                     </div>
-                    <div id="appointmentsList" ></div>
+                    <div id="appointmentsHeader"
+                        class="hidden md:grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b">
+                        <div class="col-span-3">Patient</div>
+                        <div class="col-span-3">Doctor</div>
+                        <div class="col-span-2">Time</div>
+                        <div class="col-span-2">Status</div>
+                        <div class="col-span-1">Referred By</div>
+                        <div class="col-span-1">Actions</div>
+                    </div>
+                    <!-- <div id="appointmentsList" ></div> -->
+                     <div id="appointmentsList" class="appointments-list space-y-2 mt-2"></div>
 
-                    
                 </div>
 
                 <div id="doctorsTab" class="tab-content hidden">
@@ -1737,7 +2081,7 @@ body.dark .time-slot.selected {
                         <div id="patientsTab" class="tab-content hidden">
                             <div class="flex justify-between items-center mb-4">
                                 <div>
-                                    <h3 class="text-xl font-semibold">Patients List</h3>
+                                    <h3 class="text-xl font-semibold">Patients List</h3>Appointment 
                                     <p class="text-gray-500">View and manage patient records</p>
                                 </div>
                             </div>
@@ -1952,7 +2296,34 @@ body.dark .time-slot.selected {
                 </form>
             </div>
         </div>
-
+   <div id="revisitModalOverlay"
+            class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+            <div id="revisitModal" class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
+                <h2 class="text-xl font-bold mb-2">Revisit Appointment</h2>
+                <div class="mb-4 text-gray-600" id="revisitPatientName"></div>
+                <form id="revisitForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-1">New Date</label>
+                        <div id="revisitCalendarContainer"></div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-1">New Time</label>
+                        <div id="revisitTimeSlotsContainer"></div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-1">Reason for Revisiting</label>
+                        <textarea id="revisitReason" class="w-full border border-gray-300 rounded px-3 py-2"
+                            placeholder="Optional reason for revisiting"></textarea>
+                    </div>
+                    <div class="flex justify-end gap-2 mt-6">
+                        <button type="button" id="cancelRevisitBtn"
+                            class="px-4 py-2 rounded border border-gray-300 bg-white text-black font-semibold">Cancel</button>
+                        <button type="submit" id="confirmRevisitBtn"
+                            class="px-4 py-2 rounded bg-blue-600 text-white font-semibold">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div id="cancelModalOverlay"
             class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
             <div id="cancelModal" class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
@@ -2230,7 +2601,7 @@ body.dark .time-slot.selected {
 
                     <div class="bg-gray-50 p-3 rounded-lg shadow-sm">
                         <label class="text-sm font-medium text-gray-600 mb-1 block">Qualification</label>
-                        <input type="text" id="editDoctorQualification" name="qualification"
+                        <input type="text" id="editDoctorQualification" name="qualificatioentColor" stroke-n"
                             class="w-full border rounded px-2 py-1 focus:ring-2 focus:ring-blue-500" />
                     </div>
 
@@ -2259,13 +2630,17 @@ body.dark .time-slot.selected {
 <div id="successModalOverlay"
     class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
     <div class="bg-white rounded-lg shadow-lg p-8 w-[400px] min-h-[220px] flex flex-col items-center">
-        <div class="mb-4">
-           
-            <svg class="w-16 h-16 text-green-500 mx-auto" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-        </div>
-        <div id="successModalMessage" class="text-center text-lg font-semibold mb-6 text-gray-800"></div>
+    
+ <div class="mb-4">
+  <svg class="w-16 h-16 mx-auto" viewBox="0 0 24 24" fill="none">
+   
+    <circle cx="12" cy="12" r="10" fill="#90EE90" /> 
+    
+    <path d="M7.5 12.5l3 3 6-6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div> 
+
+    <div id="successModalMessage" class="text-center text-lg font-semibold mb-6 text-gray-800"></div>
         <button id="successModalOkBtn"
             class="w-full py-2 rounded bg-blue-600 text-white text-lg font-bold hover:bg-blue-700 transition-colors duration-200">OK</button>
     </div>
@@ -2375,7 +2750,9 @@ body.dark .time-slot.selected {
             const appointmentsList = document.getElementById("appointmentsList");
             const addBtn = document.getElementById("addBtn");
             const searchInput = document.getElementById("searchInput");
-            const filterDropdown = document.getElementById("filterDropdown");
+            const filterDropdown = document.getElementById("filterDropdownTrigger");
+            const filterDropdownMenu = document.getElementById("filterDropdownMenu");
+            const filterDropdownText = document.getElementById("filterDropdownText");
 
             function getActiveTabId() {
                 const active = document.querySelector('.tab.tab-active');
@@ -2383,7 +2760,7 @@ body.dark .time-slot.selected {
             }
 
             function updateFilterDropdownOptions() {
-                if (!filterDropdown) return;
+                if (!filterDropdownMenu) return;
                 const activeTab = getActiveTabId();
                 let options = [];
                 if (activeTab === 'appointmentsTab') {
@@ -2394,7 +2771,6 @@ body.dark .time-slot.selected {
                         { value: 'time', label: 'Time' },
                         { value: 'status', label: 'Status' },
                         { value: 'referredby', label: 'Referred By' },
-
                     ];
                 } else if (activeTab === 'doctorsTab') {
                     options = [
@@ -2418,25 +2794,100 @@ body.dark .time-slot.selected {
                         { value: 'referredby', label: 'Referred By' },
                     ];
                 }
-                filterDropdown.innerHTML = options.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+                filterDropdownMenu.innerHTML = options.map(o => `<div class="dropdown-option" data-value="${o.value}">${o.label}</div>`).join('');
             }
+
+            let selectedFieldValue = 'all';
 
             function getSelectedField() {
-                return (filterDropdown && filterDropdown.value) ? filterDropdown.value : 'all';
+                return selectedFieldValue;
             }
 
-            if (filterDropdown) {
-                filterDropdown.addEventListener('change', () => {
-                    const date = datePicker.value;
-                    const searchTerm = searchInput.value.trim();
-                    const status = document.getElementById("appointmentStatusFilter") ? document.getElementById("appointmentStatusFilter").value : "all";
-                    const activeTab = getActiveTabId();
-                    if (activeTab === 'appointmentsTab') {
-                        renderAppointmentsList(date, searchTerm, status);
-                    } else if (activeTab === 'doctorsTab') {
-                        fetchAndDisplayDoctors(date);
-                    } else if (activeTab === 'patientsTab') {
-                        fetchAndDisplayPatients(date, searchTerm);
+            // Custom dropdown functionality
+            if (filterDropdown && filterDropdownMenu) {
+                filterDropdown.addEventListener('click', function() {
+                    const dropdown = this.closest('.custom-dropdown');
+                    dropdown.classList.toggle('open');
+                    filterDropdownMenu.classList.toggle('hidden');
+                });
+
+                filterDropdownMenu.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('dropdown-option')) {
+                        const value = e.target.getAttribute('data-value');
+                        const label = e.target.textContent;
+                        
+                        selectedFieldValue = value;
+                        filterDropdownText.textContent = label;
+                        
+                        const dropdown = filterDropdown.closest('.custom-dropdown');
+                        dropdown.classList.remove('open');
+                        filterDropdownMenu.classList.add('hidden');
+                        
+                        // Trigger search update
+                        const date = datePicker.value;
+                        const searchTerm = searchInput.value.trim();
+                        const status = getSelectedStatus();
+                        const activeTab = getActiveTabId();
+                        if (activeTab === 'appointmentsTab') {
+                            renderAppointmentsList(date, searchTerm, status);
+                        } else if (activeTab === 'doctorsTab') {
+                            fetchAndDisplayDoctors(date);
+                        } else if (activeTab === 'patientsTab') {
+                            fetchAndDisplayPatients(date, searchTerm);
+                        }
+                    }
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.custom-dropdown')) {
+                        const dropdown = filterDropdown.closest('.custom-dropdown');
+                        dropdown.classList.remove('open');
+                        filterDropdownMenu.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Initialize dropdown options
+            updateFilterDropdownOptions();
+
+            // Appointment status filter dropdown functionality
+            const appointmentStatusFilter = document.getElementById("appointmentStatusFilterTrigger");
+            const appointmentStatusFilterMenu = document.getElementById("appointmentStatusFilterMenu");
+            const appointmentStatusFilterText = document.getElementById("appointmentStatusFilterText");
+            let selectedStatusValue = 'all';
+
+            function getSelectedStatus() {
+                return selectedStatusValue;
+            }
+
+            if (appointmentStatusFilter && appointmentStatusFilterMenu) {
+                appointmentStatusFilter.addEventListener('click', function() {
+                    const dropdown = this.closest('.custom-dropdown');
+                    dropdown.classList.toggle('open');
+                    appointmentStatusFilterMenu.classList.toggle('hidden');
+                });
+
+                appointmentStatusFilterMenu.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('dropdown-option')) {
+                        const value = e.target.getAttribute('data-value');
+                        const label = e.target.textContent;
+                        
+                        selectedStatusValue = value;
+                        appointmentStatusFilterText.textContent = label;
+                        const dropdown = appointmentStatusFilter.closest('.custom-dropdown');
+                        dropdown.classList.remove('open');
+                        appointmentStatusFilterMenu.classList.add('hidden');
+                        const date = datePicker.value;
+                        const searchTerm = searchInput.value.trim();
+                        renderAppointmentsList(date, searchTerm, value);
+                    }
+                });
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.custom-dropdown')) {
+                        const dropdown = appointmentStatusFilter.closest('.custom-dropdown');
+                        dropdown.classList.remove('open');
+                        appointmentStatusFilterMenu.classList.add('hidden');
                     }
                 });
             }
@@ -2631,6 +3082,11 @@ body.dark .time-slot.selected {
             currentAppointmentsPage = 1;
         }
 
+        const appointmentsHeader = document.getElementById("appointmentsHeader");
+        if (appointmentsHeader) {
+            appointmentsHeader.style.display = filteredAppointments && filteredAppointments.length > 0 ? "grid" : "none";
+        }
+
         if (!filteredAppointments || filteredAppointments.length === 0) {
             const formattedDate = new Date(date).toLocaleDateString("en-US", {
                 weekday: "long",
@@ -2670,72 +3126,58 @@ body.dark .time-slot.selected {
         const endIndex = startIndex + appointmentsPerPage;
         const currentPageAppointments = filteredAppointments.slice(startIndex, endIndex);
 
-        let tableHTML = `
-        <div class="overflow-x-auto">
-          <table class="min-w-full bg-white rounded-lg shadow-sm">
-            <thead>
-              <tr class="bg-gray-50 text-gray-700 text-left">
-                <th class="px-4 py-3">Patient</th>
-                <th class="px-4 py-3">Doctor</th>
-                <th class="px-4 py-3">Time</th>
-                <th class="px-4 py-3">Status</th>
-                <th class="px-4 py-3">Referred By</th> 
-                <th class="px-4 py-3">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-    `;
+        let tableHTML = ``;
 
         tableHTML += currentPageAppointments
             .map((app, idx) => {
                 const doctorName = app.doctorData?.name || "";
                 const isCanceled = app.status === "canceled" || app.status === "cancelled";
                 const isRescheduled = app.status === "rescheduled";
+let statusLabel = `<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-200 text-green-700">Confirmed</span>`;
+if (isRescheduled) {
+    statusLabel = `<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-yellow-200 text-yellow-800">Rescheduled</span>`;
+} else if (isCanceled) {
+    statusLabel = `<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-red-200 text-red-700">Cancelled</span>`;
+} else if (app.status === "revisited") {
+    statusLabel = `<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-200 text-blue-800">Revisited</span>`;
+}
 
-                let statusLabel = `<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-200 text-green-700">Confirmed</span>`;
-                if (isRescheduled) {
-                    statusLabel = `<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-yellow-200 text-yellow-800">Rescheduled</span>`;
-                } else if (isCanceled) {
-                    statusLabel = `<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-red-200 text-red-700">Cancelled</span>`;
-                }
                 return `
-          <tr class="border-b hover:bg-gray-50 transition-colors">
-            <td class="px-4 py-3">
-              <div class="font-semibold text-gray-900">${app.patientData?.name || "N/A"}</div>
-              <div class="text-xs text-gray-500">${app.patientData?.contact || ""}</div>
-            </td>
-            <td class="px-4 py-3">
-              <div class="font-semibold text-blue-700">${doctorName}</div>
-              <div class="text-xs text-gray-500">${app.doctorData?.specialty || ""}</div>
-            </td>
-            <td class="px-4 py-3">
-              <div class="flex items-center gap-1">
-                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span>${app.dateData?.time || "N/A"}</span>
-              </div>
-            </td>
-            <td class="px-4 py-3">
-              ${statusLabel}
-            </td>
-            <td class="px-4 py-3">
-              <div class="text-gray-700">${app.referralData?.referredBy || "-"}</div>
-
-            </td>
-            <td class="px-4 py-3 relative">
-              <button class="action-btn text-xl focus:outline-none">...</button>
-              <div class="action-menu hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50">
-                <a href="#" class="view-details-btn block px-4 py-2 hover:bg-gray-100 text-gray-700" data-appointment='${JSON.stringify(app)}'>View details</a>
-                ${!isCanceled ? `<a href="#" class="edit-appointment-btn block px-4 py-2 hover:bg-gray-100 text-gray-700" data-appointment='${JSON.stringify(app)}'>Edit Appointment</a>` : ""}
-                ${!isCanceled ? `<a href="#" class="reschedule-btn block px-4 py-2 hover:bg-gray-100 text-gray-700" data-appointment='${JSON.stringify(app)}'>Reschedule</a>` : ""}
-                ${!isCanceled ? `<a href="#" class="cancel-btn block px-4 py-2 hover:bg-gray-100 text-red-600" data-appointment='${JSON.stringify(app)}'>Cancel Appointment</a>` : ""}
-              </div>
-            </td>
-          </tr>
-        `;
+  <div class="grid grid-cols-12 gap-4 items-center bg-white p-3 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+    <div class="col-span-3">
+      <div class="font-semibold text-gray-900">${app.patientData?.name || "N/A"}</div>
+      <div class="text-xs text-gray-500">${app.patientData?.contact || ""}</div>
+    </div>
+    <div class="col-span-3">
+      <div class="font-semibold text-blue-700">${doctorName}</div>
+      <div class="text-xs text-gray-500">${app.doctorData?.specialty || ""}</div>
+    </div>
+    <div class="col-span-2">
+      <div class="flex items-center gap-1">
+        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <span>${app.dateData?.time || "N/A"}</span>
+      </div>
+    </div>
+    <div class="col-span-2">
+      ${statusLabel}
+    </div>
+    <div class="col-span-1">
+      <div class="text-gray-700">${app.referralData?.referredBy || "-"}</div>
+    </div>
+    <div class="col-span-1 relative">
+      <button class="action-btn text-xl focus:outline-none">...</button>
+      <div class="action-menu hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50">
+        <a href="#" class="view-details-btn block px-4 py-2 hover:bg-gray-100 text-gray-700" data-appointment='${JSON.stringify(app)}'>View details</a>
+        ${!isCanceled ? `<a href="#" class="edit-appointment-btn block px-4 py-2 hover:bg-gray-100 text-gray-700" data-appointment='${JSON.stringify(app)}'>Edit Appointment</a>` : ""}
+        ${!isCanceled ? `<a href="#" class="reschedule-btn block px-4 py-2 hover:bg-gray-100 text-gray-700" data-appointment='${JSON.stringify(app)}'>Reschedule</a>` : ""}
+        ${!isCanceled ? `<a href="#" class="revisit-btn block px-4 py-2 hover:bg-gray-100 text-gray-700" data-appointment='${JSON.stringify(app)}'>Revisit</a>` : ""}
+        ${!isCanceled ? `<a href="#" class="cancel-btn block px-4 py-2 hover:bg-gray-100 text-red-600" data-appointment='${JSON.stringify(app)}'>Cancel Appointment</a>` : ""}
+      </div>
+    </div>
+  </div>
+                `;
             })
             .join("");
-
-        tableHTML += `</tbody></table></div>`;
 
         if (totalPages > 1) {
             tableHTML += `
@@ -2784,7 +3226,7 @@ body.dark .time-slot.selected {
 
                 const date = document.getElementById("datePicker").value;
                 const searchTerm = document.getElementById("searchInput").value.trim();
-                const status = document.getElementById("appointmentStatusFilter") ? document.getElementById("appointmentStatusFilter").value : "all";
+                const status = getSelectedStatus();
                 renderAppointmentsList(date, searchTerm, status);
             }
 
@@ -2794,7 +3236,7 @@ body.dark .time-slot.selected {
                 searchTimeout = setTimeout(() => {
                     const currentDate = datePicker.value;
                     const searchTerm = searchInput.value.trim();
-                    const status = document.getElementById("appointmentStatusFilter") ? document.getElementById("appointmentStatusFilter").value : "all";
+                    const status = getSelectedStatus();
                     console.log("Search term changed:", searchTerm);
                     currentAppointmentsPage = 1;
                     currentPatientsPage = 1;
@@ -2816,7 +3258,7 @@ body.dark .time-slot.selected {
                 if (e.key === "Escape") {
                     searchInput.value = "";
                     const currentDate = datePicker.value;
-                    const status = document.getElementById("appointmentStatusFilter") ? document.getElementById("appointmentStatusFilter").value : "all";
+                    const status = getSelectedStatus();
                     const activeTab = getActiveTabId();
 
                     if (activeTab === "appointmentsTab") {
@@ -2830,7 +3272,7 @@ body.dark .time-slot.selected {
                 }
             });
 
-            renderAppointmentsList(today, "", document.getElementById("appointmentStatusFilter") ? document.getElementById("appointmentStatusFilter").value : "all");
+            renderAppointmentsList(today, "", getSelectedStatus());
 
             document.addEventListener("click", function (e) {
                 if (e.target.classList.contains("reschedule-btn")) {
@@ -2840,7 +3282,14 @@ body.dark .time-slot.selected {
                     document.getElementById("rescheduleModalOverlay").classList.remove("hidden");
                 }
             });
-
+   document.addEventListener("click", function (e) {
+                if (e.target.classList.contains("revisit-btn")) {
+                    e.preventDefault();
+                    const appointment = JSON.parse(e.target.dataset.appointment);
+                    window.selectedAppointment = appointment;
+                    document.getElementById("revisitModalOverlay").classList.remove("hidden");
+                }
+            });
             const tabs = document.querySelectorAll(".tab");
             const tabContents = document.querySelectorAll(".tab-content");
 
@@ -3439,7 +3888,13 @@ body.dark .time-slot.selected {
                         openRescheduleModal(appointmentData);
                         e.target.closest(".action-menu").classList.add("hidden");
                     }
-
+                    if (e.target.classList.contains("revisit-btn")) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const appointmentData = JSON.parse(e.target.getAttribute("data-appointment"));
+                        openRevisitModal(appointmentData);
+                        e.target.closest(".action-menu").classList.add("hidden");
+                    }
                     if (e.target.classList.contains("cancel-btn")) {
                         e.preventDefault();
                         e.stopPropagation();
@@ -3454,113 +3909,143 @@ body.dark .time-slot.selected {
                 });
             });
 
-            let rescheduleAppointmentData = null;
-            let cancelAppointmentData = null;
+          let rescheduleAppointmentData = null;
+let rescheduleSelectedDate = null;
+let rescheduleSelectedTime = null;
 
-            let rescheduleSelectedDate = null;
-            let rescheduleSelectedTime = null;
+function openRescheduleModal(app) {
+  rescheduleAppointmentData = app;
+  rescheduleSelectedDate = null;
+  rescheduleSelectedTime = null;
 
-            function openRescheduleModal(app) {
-                rescheduleAppointmentData = app;
-                document.getElementById("reschedulePatientName").textContent = `Reschedule appointment for ${app.patientData?.name || ""}`;
-                document.getElementById("rescheduleReason").value = "";
-                document.getElementById("rescheduleModalOverlay").classList.remove("hidden");
-                document.body.classList.add("blurred-bg");
+  const patientNameElem = document.getElementById("reschedulePatientName");
+  if (patientNameElem) patientNameElem.textContent = `Reschedule appointment for ${app.patientData?.name || ""}`;
 
-                renderRescheduleCalendar(app);
-            }
+  document.getElementById("rescheduleReason").value = "";
+  document.getElementById("rescheduleModal").scrollTop = 0;
 
-            function closeRescheduleModal() {
-                document.getElementById("rescheduleModalOverlay").classList.add("hidden");
-                document.body.classList.remove("blurred-bg");
-                rescheduleAppointmentData = null;
-                rescheduleSelectedDate = null;
-                rescheduleSelectedTime = null;
-            }
-            document.getElementById("cancelRescheduleBtn").onclick = closeRescheduleModal;
+  const modalOverlay = document.getElementById("rescheduleModalOverlay");
+  if (modalOverlay) modalOverlay.classList.remove("hidden");
+  document.body.classList.add("blurred-bg");
 
-            async function renderRescheduleCalendar(app) {
-                const container = document.getElementById("rescheduleCalendarContainer");
-                container.innerHTML = "";
-                const today = new Date();
-                let currentMonth = today.getMonth();
-                let currentYear = today.getFullYear();
-                let selectedDate = null;
-                let doctorName = app.doctorData?.name || app.doctorName || "";
+  renderRescheduleCalendar(app);
+}
 
-                function renderCalendar(month, year) {
-                    container.innerHTML = "";
-                    const monthName = new Date(year, month).toLocaleString("default", { month: "long" });
-                    const header = document.createElement("div");
-                    header.className = "flex justify-between items-center mb-2";
-                    header.innerHTML = `
-        <button type="button" class="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded" id="reschedulePrevMonth">&lt;</button>
-        <span class="font-semibold">${monthName} ${year}</span>
-        <button type="button" class="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded" id="rescheduleNextMonth">&gt;</button>
-      `;
-                    container.appendChild(header);
-                    const daysRow = document.createElement("div");
-                    daysRow.className = "grid grid-cols-7 text-center text-xs text-gray-600 mb-1";
-                    daysRow.innerHTML = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => `<div>${d}</div>`).join("");
-                    container.appendChild(daysRow);
-                    const daysGrid = document.createElement("div");
-                    daysGrid.className = "grid grid-cols-7 gap-1";
+function closeRescheduleModal() {
+  const modalOverlay = document.getElementById("rescheduleModalOverlay");
+  if (modalOverlay) modalOverlay.classList.add("hidden");
+  document.body.classList.remove("blurred-bg");
 
-                    const firstDay = new Date(year, month, 1).getDay();
-                    const daysInMonth = new Date(year, month + 1, 0).getDate();
-                    for (let i = 0; i < firstDay; i++) {
-                        daysGrid.appendChild(document.createElement("div"));
-                    }
-                    for (let day = 1; day <= daysInMonth; day++) {
-                        const dateObj = new Date(year, month, day);
-                        const dateStr = `${month + 1}/${day}/${year}`;
-                        const btn = document.createElement("button");
-                        btn.type = "button";
-                        btn.className = "calendar-day h-8 w-8 flex items-center justify-center rounded-full font-medium";
-                        btn.textContent = day;
-                        if (dateObj < today) {
-                            btn.classList.add("text-gray-300", "cursor-not-allowed");
-                            btn.disabled = true;
-                        } else {
-                            btn.classList.add("bg-green-100", "text-gray-800", "hover:bg-green-200", "cursor-pointer");
-                            btn.onclick = () => {
-                                rescheduleSelectedDate = dateStr;
-                                selectedDate = dateStr;
-                                renderRescheduleTimeSlots(doctorName, dateStr);
-                                Array.from(daysGrid.children).forEach((c) => c.classList.remove("selected", "bg-green-500", "text-white"));
-                                btn.classList.add("selected", "bg-green-500", "text-white");
-                            };
-                        }
-                        daysGrid.appendChild(btn);
-                    }
-                    container.appendChild(daysGrid);
-                    document.getElementById("reschedulePrevMonth").onclick = () => {
-                        if (month > today.getMonth() || year > today.getFullYear()) {
-                            if (month === 0) {
-                                currentMonth = 11;
-                                currentYear--;
-                            } else {
-                                currentMonth--;
-                            }
-                            renderCalendar(currentMonth, currentYear);
-                        }
-                    };
-                    document.getElementById("rescheduleNextMonth").onclick = () => {
-                        if (month < today.getMonth() + 2 || year > today.getFullYear()) {
-                            if (month === 11) {
-                                currentMonth = 0;
-                                currentYear++;
-                            } else {
-                                currentMonth++;
-                            }
-                            renderCalendar(currentMonth, currentYear);
-                        }
-                    };
-                }
-                renderCalendar(currentMonth, currentYear);
-            }
+  rescheduleAppointmentData = null;
+  rescheduleSelectedDate = null;
+  rescheduleSelectedTime = null;
+}
+
+document.getElementById("cancelRescheduleBtn").onclick = closeRescheduleModal;
+
+function renderRescheduleCalendar(app) {
+  const container = document.getElementById("rescheduleCalendarContainer");
+  if (!container) return;
+
+  let currentMonth = (new Date()).getMonth();
+  let currentYear = (new Date()).getFullYear();
+  const doctorName = app.doctorData?.name || app.doctorName || "";
+
+  function renderCalendar(month, year) {
+    container.innerHTML = "";
+
+    const monthName = new Date(year, month).toLocaleString("default", { month: "long" });
+    const header = document.createElement("div");
+    header.className = "flex justify-between items-center mb-2";
+    header.innerHTML = `
+      <button type="button" id="reschedulePrev" class="btn">&lt;</button>
+      <span class="font-semibold">${monthName} ${year}</span>
+      <button type="button" id="rescheduleNext" class="btn">&gt;</button>
+    `;
+    container.appendChild(header);
+
+    const daysRow = document.createElement("div");
+    daysRow.className = "grid grid-cols-7 text-center text-xs text-gray-600 mb-1";
+    daysRow.innerHTML = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=>`<div>${d}</div>`).join("");
+    container.appendChild(daysRow);
+
+    const daysGrid = document.createElement("div");
+    daysGrid.className = "grid grid-cols-7 gap-1";
+
+    const today = new Date();
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() + 14);
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+
+    // blank slots for days before month start
+    for (let i=0; i<firstDay; i++) {
+      daysGrid.appendChild(document.createElement("div"));
+    }
+
+    for (let day=1; day <= daysInMonth; day++) {
+      const dateObj = new Date(year, month, day);
+      const dateStr = `${month+1}/${day}/${year}`;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "calendar-day h-8 w-8 flex items-center justify-center rounded-full font-medium";
+      btn.textContent = day;
+
+      if (dateObj < today || dateObj > maxDate) {
+        btn.disabled = true;
+        btn.classList.add("text-gray-300", "cursor-not-allowed");
+      } else {
+        btn.classList.add("bg-green-100", "hover:bg-green-200", "cursor-pointer");
+        btn.onclick = () => {
+          rescheduleSelectedDate = dateStr;
+          renderRescheduleCalendarSelection(daysGrid, btn);
+          renderRescheduleTimeSlots(doctorName, dateStr);
+        };
+      }
+      daysGrid.appendChild(btn);
+    }
+    container.appendChild(daysGrid);
+
+    // Manage month navigation buttons
+    const prevMonthStart = new Date(year, month-1, 1);
+    const nextMonthStart = new Date(year, month+1,1);
+    const btnPrev = document.getElementById("reschedulePrev");
+    const btnNext = document.getElementById("rescheduleNext");
+
+    btnPrev.disabled = prevMonthStart < today;
+    btnNext.disabled = nextMonthStart > maxDate;
+
+    btnPrev.onclick = () => {
+      if (currentMonth > 0) currentMonth--;
+      else {
+        currentMonth = 11;
+        currentYear--;
+      }
+      renderCalendar(currentMonth, currentYear);
+    };
+
+    btnNext.onclick = () => {
+      if (currentMonth < 11) currentMonth++;
+      else {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderCalendar(currentMonth, currentYear);
+    };
+
+    // Initial highlight of selected date
+    renderRescheduleCalendarSelection(daysGrid);
+
+  } // end renderCalendar
+
+  renderCalendar(currentMonth, currentYear);
+}
 
             async function renderRescheduleTimeSlots(doctorName, dateStr) {
+
+
                 const container = document.getElementById("rescheduleTimeSlotsContainer");
                 container.innerHTML = '<div class="text-gray-500">Loading time slots...</div>';
 
@@ -3582,11 +4067,15 @@ body.dark .time-slot.selected {
                             btn.disabled = true;
                         } else {
                             btn.classList.add("bg-green-100", "hover:bg-green-200", "cursor-pointer");
-                            btn.onclick = () => {
-                                rescheduleSelectedTime = time;
-                                Array.from(container.children).forEach((c) => c.classList.remove("selected", "bg-green-500", "text-white"));
-                                btn.classList.add("selected", "bg-green-500", "text-white");
-                            };
+    btn.onclick = () => {
+    rescheduleSelectedDate = dateStr;
+    selectedDate = dateStr;
+    renderRescheduleTimeSlots(doctorName, dateStr);
+    Array.from(daysGrid.children).forEach(c => c.classList.remove("selected", "bg-green500", "text-white"));
+    btn.classList.add("selected", "bg-green500", "text-white");
+};
+
+
                         }
                         container.appendChild(btn);
                     });
@@ -3623,13 +4112,207 @@ body.dark .time-slot.selected {
                     try {
                         const currentDate = datePicker.value;
                         const searchTerm = searchInput.value.trim();
-                        const status = document.getElementById("appointmentStatusFilter") ? document.getElementById("appointmentStatusFilter").value : "all";
+                        const status = getSelectedStatus();
                         await renderAppointmentsList(currentDate, searchTerm, status);
                     } catch (refreshError) {
                         window.location.reload();
                     }
                 } catch (err) {
                     showToast("Error rescheduling appointment: " + err.message, 'error');
+                }
+            };
+  let revisitAppointmentData = null;
+            let cancelRevisitAppointmentData = null;
+
+            let revisitSelectedDate = null;
+            let revisitSelectedTime = null;
+
+            function openRevisitModal(app) {
+                revisitAppointmentData = app;
+                document.getElementById("revisitPatientName").textContent = `Revisit appointment for ${app.patientData?.name || ""}`;
+                document.getElementById("revisitReason").value = "";
+                document.getElementById("revisitModalOverlay").classList.remove("hidden");
+                document.body.classList.add("blurred-bg");
+
+                renderRevisitCalendar(app);
+            }
+
+            function closeRevisitModal() {
+                document.getElementById("revisitModalOverlay").classList.add("hidden");
+                document.body.classList.remove("blurred-bg");
+                revisitAppointmentData = null;
+                revisitSelectedDate = null;
+                revisitSelectedTime = null;
+            }
+            document.getElementById("cancelRevisitBtn").onclick = closeRevisitModal;
+
+            async function renderRevisitCalendar(app) {
+                const container = document.getElementById("revisitCalendarContainer");
+                container.innerHTML = "";
+                const today = new Date();
+                let currentMonth = today.getMonth();
+                let currentYear = today.getFullYear();
+                let selectedDate = null;
+                let doctorName = app.doctorData?.name || app.doctorName || "";
+function renderCalendar(month, year) {
+    container.innerHTML = "";
+    const monthName = new Date(year, month).toLocaleString("default", { month: "long" });
+    const header = document.createElement("div");
+    header.className = "flex justify-between items-center mb-2";
+    header.innerHTML = `
+        <button type="button" class="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded" id="revisitPrevMonth">&lt;</button>
+        <span class="font-semibold">${monthName} ${year}</span>
+        <button type="button" class="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded" id="revisitNextMonth">&gt;</button>
+    `;
+    container.appendChild(header);
+
+    const daysRow = document.createElement("div");
+    daysRow.className = "grid grid-cols-7 text-center text-xs text-gray-600 mb-1";
+    daysRow.innerHTML = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(d => `<div>${d}</div>`).join("");
+    container.appendChild(daysRow);
+
+    const daysGrid = document.createElement("div");
+    daysGrid.className = "grid grid-cols-7 gap-1";
+
+    const today = new Date();
+    const maxDate = new Date();
+    maxDate.setDate(today.getDate() +30); 
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Add blank slots before first day of month
+    for (let i = 0; i < firstDay; i++) {
+        daysGrid.appendChild(document.createElement("div"));
+    }
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dateObj = new Date(year, month, day);
+        const dateStr = `${month + 1}/${day}/${year}`;
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "calendar-day h-8 w-8 flex items-center justify-center rounded-full font-medium";
+        btn.textContent = day;
+
+        if (dateObj < today || dateObj > maxDate) {
+            btn.classList.add("text-gray-300", "cursor-not-allowed");
+            btn.disabled = true;
+        } else {
+            btn.classList.add("bg-green-100", "text-gray-800", "hover:bg-green-200", "cursor-pointer");
+            btn.onclick = () => {
+                  revisitSelectedDate = dateStr;
+                selectedDate = dateStr;
+
+                renderRevisitTimeSlots(doctorName, dateStr);
+                Array.from(daysGrid.children).forEach(c => c.classList.remove("selected", "bg-green-500", "text-white"));
+                btn.classList.add("selected", "bg-green-500", "text-white");
+            };
+        }
+        daysGrid.appendChild(btn);
+    }
+    container.appendChild(daysGrid);
+
+    const prevMonthStart = new Date(year, month - 1, 1);
+    const nextMonthStart = new Date(year, month + 1, 1);
+
+    document.getElementById("revisitPrevMonth").disabled = prevMonthStart < today;
+    document.getElementById("revisitNextMonth").disabled = nextMonthStart > maxDate;
+
+    document.getElementById("revisitPrevMonth").onclick = () => {
+        if (prevMonthStart >= today) {
+            month -= 1;
+            if (month < 0) {
+                month = 11;
+                year -= 1;
+            }
+            renderCalendar(month, year);
+        }
+    };
+
+    document.getElementById("revisitNextMonth").onclick = () => {
+        if (nextMonthStart <= maxDate) {
+            month += 1;
+            if (month > 11) {
+                month = 0;
+                year += 1;
+            }
+            renderCalendar(month, year);
+        }
+    };
+}
+
+                renderCalendar(currentMonth, currentYear);
+            }
+
+            async function renderRevisitTimeSlots(doctorName, dateStr) {
+                const container = document.getElementById("revisitTimeSlotsContainer");
+                container.innerHTML = '<div class="text-gray-500">Loading time slots...</div>';
+
+                let slots = [];
+                try {
+                    const response = await fetch(`/api/confirmations/booked-slots?doctorName=${encodeURIComponent(doctorName)}&date=${encodeURIComponent(dateStr)}`);
+                    const data = await response.json();
+                    const bookedTimes = data.bookedTimes || [];
+
+                    slots = ["9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM"];
+                    container.innerHTML = "";
+                    slots.forEach((time) => {
+                        const btn = document.createElement("button");
+                        btn.type = "button";
+                        btn.className = "time-slot p-2 m-1 border rounded";
+                        btn.textContent = time;
+                        if (bookedTimes.includes(time)) {
+                            btn.classList.add("bg-red-100", "text-red-600", "cursor-not-allowed");
+                            btn.disabled = true;
+                        } else {
+                            btn.classList.add("bg-green-100", "hover:bg-green-200", "cursor-pointer");
+                            btn.onclick = () => {
+                                revisitSelectedTime = time;
+                                Array.from(container.children).forEach((c) => c.classList.remove("selected", "bg-green-500", "text-white"));
+                                btn.classList.add("selected", "bg-green-500", "text-white");
+                            };
+                        }
+                        container.appendChild(btn);
+                    });
+                } catch (e) {
+                    container.innerHTML = '<div class="text-red-500">Failed to load time slots.</div>';
+                }
+            }
+
+            document.getElementById("revisitForm").onsubmit = async function (e) {
+                e.preventDefault();
+                if (!revisitAppointmentData || !revisitAppointmentData._id) {
+                    showToast("Error: Missing appointment ID.", 'error');
+                    return;
+                }
+                if (!revisitSelectedDate || !revisitSelectedTime) {
+                    showToast("Please select both date and time.", 'warning');
+                    return;
+                }
+                try {
+                    const formattedDate = revisitSelectedDate;
+                    const response = await fetch(`/api/confirmations/${revisitAppointmentData._id}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            action: "revisit",
+                            date: formattedDate,
+                            time: revisitSelectedTime,
+                            reason: document.getElementById("revisitReason").value,
+                        }),
+                    });
+                    if (!response.ok) throw new Error("Failed to revisit appointment");
+                    closeRevisitModal();
+                    showSuccessModal("Appointment revisited successfully!", "Appointment revisited successfully!", "success");
+                    try {
+                        const currentDate = datePicker.value;
+                        const searchTerm = searchInput.value.trim();
+                        const status = getSelectedStatus();
+                        await renderAppointmentsList(currentDate, searchTerm, status);
+                    } catch (refreshError) {
+                        window.location.reload();
+                    }
+                } catch (err) {
+                    showToast("Error revisiting appointment: " + err.message, 'error');
                 }
             };
 
@@ -4087,7 +4770,7 @@ body.dark .time-slot.selected {
               <th class="px-4 py-3">Contact</th>
               <th class="px-4 py-3">Upcoming Date</th>
               <th class="px-4 py-3">Last Visit</th>
-              <th class="px-4 py-3">Referred By</th> <!-- ✅ New column header -->
+              <th class="px-4 py-3">Referred By</th> 
             </tr>
           </thead>
           <tbody>
@@ -4101,7 +4784,7 @@ body.dark .time-slot.selected {
         <td class="px-4 py-3">${patient.details.contact || "-"}</td>
         <td class="px-4 py-3">${patient.upcomingDateText || "-"}</td>
         <td class="px-4 py-3">${patient.lastVisitText || "-"}</td>
-        <td class="px-4 py-3">${patient.referredBy || "-"}</td> <!-- ✅ Value -->
+        <td class="px-4 py-3">${patient.referredBy || "-"}</td> 
       </tr>
     `).join("");
 
@@ -4116,15 +4799,7 @@ body.dark .time-slot.selected {
 
 
             testPatientsPagination();
-            if (document.getElementById("appointmentStatusFilter")) {
-                document.getElementById("appointmentStatusFilter").addEventListener("change", function () {
-                    const status = this.value;
-                    const currentDate = datePicker.value;
-                    const searchTerm = searchInput.value.trim();
-                    console.log("Dropdown changed", status);
-                    renderAppointmentsList(currentDate, searchTerm, status);
-                });
-            }
+            
 
             let currentDoctorForEdit = null;
 
@@ -4306,7 +4981,7 @@ body.dark .time-slot.selected {
                         document.getElementById("rescheduleModalOverlay").classList.add("hidden");
 
                         const date = document.getElementById("datePicker").value;
-                        const status = document.getElementById("appointmentStatusFilter").value;
+                        const status = getSelectedStatus();
                         renderAppointmentsList(date, searchInput.value.trim(), status);
                     } else {
                         throw new Error(result.error || "Failed to reschedule appointment");
@@ -4324,18 +4999,58 @@ body.dark .time-slot.selected {
                     document.getElementById("rescheduleModalOverlay").classList.remove("hidden");
                 }
             });
+   document.getElementById("revisitForm").addEventListener("submit", async function (e) {
+                e.preventDefault();
 
-            document.addEventListener("DOMContentLoaded", function () {
-                const statusFilter = document.getElementById("appointmentStatusFilter");
-                if (statusFilter) {
-                    statusFilter.addEventListener("change", function () {
-                        const status = this.value;
-                        const currentDate = datePicker.value;
-                        const searchTerm = searchInput.value.trim();
-                        console.log("Dropdown changed", status);
-                        renderAppointmentsList(currentDate, searchTerm, status);
-                    });
+                const appointmentId = window.selectedAppointment?._id;
+                const newDate = document.querySelector("#revisitCalendarContainer input")?.value;
+                const newTime = document.querySelector("#revisitTimeSlotsContainer input")?.value;
+
+                if (!appointmentId || !newDate || !newTime) {
+                    showToast("Please select both date and time.", 'warning');
+                    return;
                 }
+
+                try {
+                    const response = await fetch(`/api/confirmations/${appointmentId}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            action: "revisit",
+                            date: newDate,
+                            time: newTime,
+                        }),
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        showToast("Appointment successfully revisited!", 'success');
+                        document.getElementById("revisitModalOverlay").classList.add("hidden");
+
+                        const date = document.getElementById("datePicker").value;
+                        const status = getSelectedStatus();
+                        renderAppointmentsList(date, searchInput.value.trim(), status);
+                    } else {
+                        throw new Error(result.error || "Failed to revisit appointment");
+                    }
+                } catch (err) {
+                    showToast("Error revisiting appointment: " + err.message, 'error');
+                }
+            });
+
+            document.addEventListener("click", function (e) {
+                if (e.target.classList.contains("revisit-btn")) {
+                    e.preventDefault();
+                    const appointment = JSON.parse(e.target.dataset.appointment);
+                    window.selectedAppointment = appointment;
+                    document.getElementById("revisitModalOverlay").classList.remove("hidden");
+                }
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+                
             });
 
             let currentDoctorForEditProfile = null;
@@ -4586,19 +5301,7 @@ body.dark .time-slot.selected {
 
         <script>
             console.log("[DEBUG] Script loaded at end of HTML");
-            document.addEventListener("DOMContentLoaded", function () {
-                const statusFilter = document.getElementById("appointmentStatusFilter");
-                console.log("Attaching event to:", statusFilter);
-                if (statusFilter) {
-                    statusFilter.addEventListener("change", function () {
-                        const status = this.value;
-                        const currentDate = datePicker.value;
-                        const searchTerm = searchInput.value.trim();
-                        console.log("Dropdown changed", status);
-                        renderAppointmentsList(currentDate, searchTerm, status);
-                    });
-                }
-            });
+
         </script>
 
         <script>
@@ -4899,7 +5602,7 @@ body.dark .time-slot.selected {
 
                 const date = datePicker.value;
                 const searchTerm = searchInput.value.trim();
-                const status = document.getElementById('appointmentStatusFilter') ? document.getElementById('appointmentStatusFilter').value : 'all';
+                const status = getSelectedStatus();
                 updateFilterDropdownOptions();
                 if (activeTab === 'appointmentsTab') {
                     renderAppointmentsList(date, searchTerm, status);
@@ -4960,10 +5663,14 @@ body.dark .time-slot.selected {
             document.getElementById("userAvatar").textContent = getInitials(userName);
             
         </script>
-   <script>
+  <script>
     async function logout() {
         try {
             const token = localStorage.getItem('admin_jwt');                               
+            const orgId = localStorage.getItem('orgId');
+            const savedTheme = localStorage.getItem("theme");
+            const savedAccent = localStorage.getItem("accent");
+
             const res = await fetch("/api/admin/logout", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -4972,13 +5679,8 @@ body.dark .time-slot.selected {
 
             const result = await res.json();
             if (res.ok) {
-               
-                const savedTheme = localStorage.getItem("theme");
-                const savedAccent = localStorage.getItem("accent");
-
                 localStorage.clear();
-
-                
+                if (orgId) localStorage.setItem("orgId", orgId);
                 if (savedTheme) localStorage.setItem("theme", savedTheme);
                 if (savedAccent) localStorage.setItem("accent", savedAccent);
 
@@ -4990,6 +5692,44 @@ body.dark .time-slot.selected {
             showToast("Error: " + err.message, 'error');
         }
     };
+</script>
+<script>
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  const fallbackOrg = { name: "Medicare", logo: "/images/Medicare-Emblem.png" };
+
+  const orgId = getQueryParam("org") || localStorage.getItem("orgId");
+
+  if (orgId) {
+    fetch(`/api/organization/${orgId}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Not Found");
+        return res.json();
+      })
+      .then(org => {
+        document.getElementById('orgName').textContent = org.name;
+        document.getElementById('orgLogo').src = org.logo;
+
+        
+        localStorage.setItem("orgId", orgId);
+        localStorage.setItem("orgName", org.name);
+        localStorage.setItem("orgLogo", org.logo);
+      })
+      .catch(() => {
+        document.getElementById('orgName').textContent = fallbackOrg.name;
+        document.getElementById('orgLogo').src = fallbackOrg.logo;
+      });
+  } else {
+    
+    const savedName = localStorage.getItem("orgName") || "MediCare";
+    const savedLogo = localStorage.getItem("orgLogo") || "/images/Medicare-Emblem.png";
+
+    document.getElementById('orgName').textContent = savedName;
+    document.getElementById('orgLogo').src = savedLogo;
+  }
 </script>
 
 
@@ -5589,21 +6329,18 @@ applyTheme(localStorage.getItem("theme") || "light");
         </script>
         
 
-<!-- ఇతర script tags ఉంటే వాటి తర్వాత -->
+
+
 <script>
   document.querySelectorAll('.time-slot').forEach(slot => {
     slot.addEventListener('click', () => {
-      // ఇప్పటికే select అయినదాన్ని తొలగించు
+  
       document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-      // కొత్తగా click అయిన slot select అవుతుంది
+     
       slot.classList.add('selected');
     });
   });
 </script>
-
-
-   
-
 
 </body>
 </html>

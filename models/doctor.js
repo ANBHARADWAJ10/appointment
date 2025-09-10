@@ -5,8 +5,8 @@ const doctorSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   specialty: { type: String, required: true },
-  experience: { type: String },
-  qualification: { type: String },
+  experience: { type: Number, required: true},
+  qualification: { type: String, required:true },
 
   availability: { type: String, required: true },
     

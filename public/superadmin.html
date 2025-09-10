@@ -1005,19 +1005,77 @@ body.dark {
   color: #f87171 !important; 
 }
 
+
+body.dark #deleteAdminModal svg {
+    color: #ef4444 !important;
+    stroke: #ef4444 !important;
+ 
+}
+
+
+body.dark #deleteDoctorModal svg {
+    color: #ef4444 !important;
+    stroke: #ef4444 !important;
+
+}
+
+body.dark textarea {
+    background-color: #1e293b !important;  
+    border-color: #334155 !important;      
+    color: #f1f5f9 !important;           
+}
+
+body.dark textarea::placeholder {
+    color: #94a3b8 !important;  
+}
+
+
+.action-menu a:hover,
+.action-menu button:hover {
+    background-color: var(--accent-color) !important;
+    color: #fafafa !important;
+}
+
+body.dark .action-menu a:hover,
+body.dark .action-menu button:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+body.accent-blue   { --accent-color: #3b82f6; }
+body.accent-green  { --accent-color: #10b981; }
+body.accent-orange { --accent-color: #f59e0b; }
+body.accent-pink   { --accent-color: #ec4899; }
+body.accent-purple { --accent-color: #8b5cf6; }
+body.accent-brown  { --accent-color: #b55656; }
+body.accent-teal   { --accent-color: #14b8a6; }
+
+
+body.dark button.bg-gray-300,
+body.dark button.bg-gray-400 {
+  background-color: #475569 !important;  
+  color: #f1f5f9 !important;             
+  border-color: #64748b !important;
+}
+
+body.dark button.bg-gray-300:hover,
+body.dark button.bg-gray-400:hover {
+  background-color: #64748b !important;  
+  color: #fff !important;
+}
+
+
   </style>
 </head>
 
 <body class="bg-gray-100 font-sans">
-    <nav class="bg-white shadow py-3 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-[110px]">
-        <div class="flex justify-between items-center w-full">
-            <div class="flex items-center">
-                <svg class="w-6 h-6 text-blue-600 svg-accent-blue mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                <h1 class="text-xl font-bold text-blue-600">MediCare</h1>
-            </div>
+    <nav class="bg-white shadow py-3 px-[110px]">
+    <div class="flex justify-between items-center w-full">
+       
+        <div class="flex items-center">
+            <img id="orgLogo" class="w-8 h-8 mr-2" alt="Logo">
+            <h1 id="orgName" class="text-xl font-bold text-blue-600">MediCare</h1>
+        </div>
       <div class="flex items-center">
         <div class="flex items-center gap-2">
           <div id="userAvatar"
@@ -3646,6 +3704,44 @@ body.dark {
             const savedAccent = localStorage.getItem("accent") || "blue";
             applyAccentColor(savedAccent);
         </script>
+        <script>
+  function getOrgId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const orgFromUrl = urlParams.get("org");
+
+    if (orgFromUrl) {
+      localStorage.setItem("orgId", orgFromUrl);
+      return orgFromUrl;
+    }
+    return localStorage.getItem("orgId");
+  }
+
+  const defaultOrg = { name: "MediCare", logo: "/images/Medicare-Emblem.png" };
+  const fallbackOrg = { name: "Unknown Organization", logo: "/images/fallback-logo.png" };
+
+  const orgId = getOrgId();
+
+  if (orgId) {
+    fetch(`/api/organization/${orgId}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Not Found");
+        return res.json();
+      })
+      .then(org => {
+        document.getElementById('orgName').textContent = org.name;
+        document.getElementById('orgLogo').src = org.logo;
+      })
+      .catch(() => {
+        document.getElementById('orgName').textContent = fallbackOrg.name;
+        document.getElementById('orgLogo').src = fallbackOrg.logo;
+      });
+  } else {
+    document.getElementById('orgName').textContent = defaultOrg.name;
+    document.getElementById('orgLogo').src = defaultOrg.logo;
+  }
+</script>
+
 </body>
+
 
 </html>

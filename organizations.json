@@ -1,0 +1,17 @@
+[
+  {
+    "id": "yashoda",
+    "name": "Yashoda Hospitals",
+    "logo": "/images/yashoda-logo.png"
+  },
+  {
+    "id": "apollo",
+    "name": "Apollo Hospitals",
+    "logo": "/images/apollo-logo.png"
+  },
+  {
+    "id": "kims",
+    "name": "KIMS Hospitals",
+    "logo": "/images/kims-logo.png"
+  }
+]
