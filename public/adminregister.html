@@ -1,255 +1,261 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MediCare</title>
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MediCare</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="bg-blue-50 min-h-screen flex flex-col">
-  <div id="toast-container" class="fixed bottom-4 right-0 transform -translate-x-1/2 z-50 space-y-3"></div>
-  <div class="p-3 flex justify-between items-center bg-white shadow">
-    <div class="flex items-center">
-      <svg class="w-6 h-6 text-blue-600 mr-2 ml-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-      <h1 class="text-xl font-bold text-blue-600">MediCare</h1>
-    </div>
-    <button onclick="window.location.href='superadmin.html'"
-      class="text-gray-600 hover:text-gray-800 flex items-center">
-      Back to Dashboard
-      <svg class="w-4 h-4 mr-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
-    </button>
-  </div>
-  <div class="flex-grow flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md -mt-12">
-      <div class="flex flex-col items-center">
-        <div class="bg-blue-500 rounded-full p-3 mb-4">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M5.121 17.804A13.937 13.937 0 0112 15c2.003 0 3.89.435 5.56 1.21M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
+    <body class="bg-blue-50 min-h-screen flex flex-col">
+        <div id="toast-container" class="fixed bottom-4 right-0 transform -translate-x-1/2 z-50 space-y-3"></div>
+        <div class="p-3 flex justify-between items-center bg-white shadow">
+            <div class="flex items-center">
+                <svg class="w-6 h-6 text-blue-600 mr-2 ml-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                </svg>
+                <h1 class="text-xl font-bold text-blue-600">MediCare</h1>
+            </div>
+            <button onclick="window.location.href='superadmin.html'" class="text-gray-600 hover:text-gray-800 flex items-center">
+                Back to Dashboard
+                <svg class="w-4 h-4 mr-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+            </button>
         </div>
-        <h2 class="text-xl font-semibold mb-4">Admin Registration</h2>
-      </div>
-      <form id="adminRegForm" autocomplete="off" novalidate>
-        <input type="text" name="username" placeholder="Username"
-          class="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          required />
-        <p id="username" class="text-red-600 text-sm mb-2 hidden">Username is mandatory</p>
-        <input type="email" name="email" placeholder="Email"
-          class="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          required />
-        <p id="email" class="text-red-600 text-sm mb-2 hidden">Valid email is mandatory</p>
-        <input type="tel" name="contact" placeholder="Contact" pattern="[6-9][0-9]{9}" maxlength="10" minlength="10"
-          class="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^(?![6-9]).*/, ''); if(this.value.length > 10) this.value = this.value.slice(0,10);"
-          required />
-        <p id="contact" class="text-red-600 text-sm mb-2 hidden">Contact number is mandatory (10 digits, starts with 6-9)</p>
-        <input type="password" name="password" placeholder="Password"
-          class="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          required />
-        <p id="password" class="text-red-600 text-sm mb-2 hidden">Password is mandatory (min 6 characters)</p>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password"
-          class="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          required />
-        <p id="confirmPassword" class="text-red-600 text-sm mb-4 hidden">Confirm Password must match</p>
-        <button type="submit"
-          class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold">REGISTER</button>
-      </form>
-    </div>
-  </div>
-  <!-- <footer class="w-full bg-white shadow py-4 mt-8 fixed bottom-0 left-0 z-30 flex items-center justify-between px-8">
+        <div class="flex-grow flex items-center justify-center">
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md -mt-12">
+                <div class="flex flex-col items-center">
+                    <div class="bg-blue-500 rounded-full p-3 mb-4">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M5.121 17.804A13.937 13.937 0 0112 15c2.003 0 3.89.435 5.56 1.21M15 10a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-semibold mb-4">Admin Registration</h2>
+                </div>
+                <form id="adminRegForm" autocomplete="off" novalidate>
+                    <input type="text" name="username" placeholder="Username" class="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+                    <p id="username" class="text-red-600 text-sm mb-2 hidden">Username is mandatory</p>
+                    <input type="email" name="email" placeholder="Email" class="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+                    <p id="email" class="text-red-600 text-sm mb-2 hidden">Valid email is mandatory</p>
+                    <input
+                        type="tel"
+                        name="contact"
+                        placeholder="Contact"
+                        pattern="[6-9][0-9]{9}"
+                        maxlength="10"
+                        minlength="10"
+                        class="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^(?![6-9]).*/, ''); if(this.value.length > 10) this.value = this.value.slice(0,10);"
+                        required
+                    />
+                    <p id="contact" class="text-red-600 text-sm mb-2 hidden">Contact number is mandatory (10 digits, starts with 6-9)</p>
+                    <input type="password" name="password" placeholder="Password" class="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+                    <p id="password" class="text-red-600 text-sm mb-2 hidden">Password is mandatory (min 6 characters)</p>
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        class="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                    />
+                    <p id="confirmPassword" class="text-red-600 text-sm mb-4 hidden">Confirm Password must match</p>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold">REGISTER</button>
+                </form>
+            </div>
+        </div>
+        <!-- <footer class="w-full bg-white shadow py-4 mt-8 fixed bottom-0 left-0 z-30 flex items-center justify-between px-8">
     <div class="w-full flex justify-center">
       <div class="text-gray-500 font-semibold">medicare@2000</div>
     </div>
   </footer> -->
-  <script>
-    function showToast(message, type = "success") {
-      const toast = document.createElement("div");
-      const icons = {
-        success: `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <script>
+            function showToast(message, type = "success") {
+                const toast = document.createElement("div");
+                const icons = {
+                    success: `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M5 13l4 4L19 7" />
         </svg>`,
-        error: `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    error: `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M6 18L18 6M6 6l12 12" />
         </svg>`,
-        warning: `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    warning: `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 9v2m0 4h.01M4.93 19h14.14c.88 0 1.34-1.06.71-1.71L13.41 4.59c-.38-.38-1.04-.38-1.41 0L4.22 17.29c-.63.65-.17 1.71.71 1.71z" />
-        </svg>`
-      };
-      const bgColors = {
-        success: "bg-green-600 text-white",
-        error: "bg-red-600 text-white",
-        warning: "bg-yellow-600 text-white"
-      };
+        </svg>`,
+                };
+                const bgColors = {
+                    success: "bg-green-600 text-white",
+                    error: "bg-red-600 text-white",
+                    warning: "bg-yellow-600 text-white",
+                };
 
-      toast.className = `${bgColors[type]} px-4 py-4 rounded shadow flex items-center gap-2 animate-slide-in`;
-      toast.innerHTML = `
+                toast.className = `${bgColors[type]} px-4 py-4 rounded shadow flex items-center gap-2 animate-slide-in`;
+                toast.innerHTML = `
         ${icons[type] || ""}
         <span class="text-sm font-medium">${message}</span>
       `;
 
-      document.getElementById("toast-container").appendChild(toast);
-      setTimeout(() => toast.remove(), 4000);
-    }
-  </script>
-  <style>
-    @keyframes slide-in {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
+                document.getElementById("toast-container").appendChild(toast);
+                setTimeout(() => toast.remove(), 4000);
+            }
+        </script>
+        <style>
+            @keyframes slide-in {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-    .animate-slide-in {
-      animation: slide-in 0.3s ease-out;
-    }
-  </style>
-  <script>
-    
-    function getFormAndInput(fieldName) {
-      const form = document.getElementById('adminRegForm');
-      return { form, input: form && form.elements[fieldName] };
-    }
+            .animate-slide-in {
+                animation: slide-in 0.3s ease-out;
+            }
+        </style>
+        <script>
+            function getFormAndInput(fieldName) {
+                const form = document.getElementById("adminRegForm");
+                return { form, input: form && form.elements[fieldName] };
+            }
 
-    function setInputErrorStyle(fieldName, enable) {
-      const { input } = getFormAndInput(fieldName);
-      if (!input) return;
-      if (enable) {
-        input.classList.add('border-red-500', 'focus:ring-red-400');
-        input.classList.remove('focus:ring-blue-400');
-      } else {
-        input.classList.remove('border-red-500', 'focus:ring-red-400');
-        input.classList.add('focus:ring-blue-400');
-      }
-    }
+            function setInputErrorStyle(fieldName, enable) {
+                const { input } = getFormAndInput(fieldName);
+                if (!input) return;
+                if (enable) {
+                    input.classList.add("border-red-500", "focus:ring-red-400");
+                    input.classList.remove("focus:ring-blue-400");
+                } else {
+                    input.classList.remove("border-red-500", "focus:ring-red-400");
+                    input.classList.add("focus:ring-blue-400");
+                }
+            }
 
-    function setFieldError(fieldName, message) {
-      const errorEl = document.getElementById(`err-${fieldName}`);
-      if (!errorEl) return;
-      errorEl.textContent = message;
-      errorEl.classList.remove('hidden');
-      setInputErrorStyle(fieldName, true);
-    }
+            function setFieldError(fieldName, message) {
+                const errorEl = document.getElementById(`err-${fieldName}`);
+                if (!errorEl) return;
+                errorEl.textContent = message;
+                errorEl.classList.remove("hidden");
+                setInputErrorStyle(fieldName, true);
+            }
 
-    function clearFieldError(fieldName) {
-      const errorEl = document.getElementById(`err-${fieldName}`);
-      if (!errorEl) return;
-      errorEl.classList.add('hidden');
-      setInputErrorStyle(fieldName, false);
-    }
+            function clearFieldError(fieldName) {
+                const errorEl = document.getElementById(`err-${fieldName}`);
+                if (!errorEl) return;
+                errorEl.classList.add("hidden");
+                setInputErrorStyle(fieldName, false);
+            }
 
-    function clearAllErrors() {
-      ['username','email','contact','password','confirmPassword'].forEach(clearFieldError);
-    }
+            function clearAllErrors() {
+                ["username", "email", "contact", "password", "confirmPassword"].forEach(clearFieldError);
+            }
 
-    const emailPattern = /^(?=.*[A-Za-z])[A-Za-z\d._%+-]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}$/;
+            const emailPattern = /^(?=.*[A-Za-z])[A-Za-z\d._%+-]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}$/;
 
-    
-    (function attachLiveValidation(){
-      const form = document.getElementById('adminRegForm');
-      const username = form.username;
-      const email = form.email;
-      const contact = form.contact;
-      const password = form.password;
-      const confirmPassword = form.confirmPassword;
+            (function attachLiveValidation() {
+                const form = document.getElementById("adminRegForm");
+                const username = form.username;
+                const email = form.email;
+                const contact = form.contact;
+                const password = form.password;
+                const confirmPassword = form.confirmPassword;
 
-      username.addEventListener('input', () => {
-        if (username.value.trim()) clearFieldError('username');
-      });
-      email.addEventListener('input', () => {
-        if (emailPattern.test(email.value.trim())) clearFieldError('email');
-      });
-      contact.addEventListener('input', () => {
-        const v = contact.value.trim();
-        if (/^[6-9][0-9]{9}$/.test(v)) clearFieldError('contact');
-      });
-      password.addEventListener('input', () => {
-        if (password.value.length >= 6) clearFieldError('password');
-      });
-      confirmPassword.addEventListener('input', () => {
-        if (confirmPassword.value && confirmPassword.value === password.value) clearFieldError('confirmPassword');
-      });
-    })();
+                username.addEventListener("input", () => {
+                    if (username.value.trim()) clearFieldError("username");
+                });
+                email.addEventListener("input", () => {
+                    if (emailPattern.test(email.value.trim())) clearFieldError("email");
+                });
+                contact.addEventListener("input", () => {
+                    const v = contact.value.trim();
+                    if (/^[6-9][0-9]{9}$/.test(v)) clearFieldError("contact");
+                });
+                password.addEventListener("input", () => {
+                    if (password.value.length >= 6) clearFieldError("password");
+                });
+                confirmPassword.addEventListener("input", () => {
+                    if (confirmPassword.value && confirmPassword.value === password.value) clearFieldError("confirmPassword");
+                });
+            })();
 
-    document.getElementById("adminRegForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-      var form = e.target;
-      var username = form.username.value.trim();
-      var email = form.email.value.trim();
-      var contact = form.contact.value.trim();
-      var password = form.password.value;
-      var confirmPassword = form.confirmPassword.value;
+            document.getElementById("adminRegForm").addEventListener("submit", async function (e) {
+                e.preventDefault();
+                var form = e.target;
+                var username = form.username.value.trim();
+                var email = form.email.value.trim();
+                var contact = form.contact.value.trim();
+                var password = form.password.value;
+                var confirmPassword = form.confirmPassword.value;
 
-      clearAllErrors();
-      let hasError = false;
+                clearAllErrors();
+                let hasError = false;
 
-      if (!username) {
-        setFieldError('username', 'Username is mandatory');
-        hasError = true;
-      }
-      if (!email || !emailPattern.test(email)) {
-        setFieldError('email', 'Valid email is mandatory');
-        hasError = true;
-      }
-      if (!/^[6-9][0-9]{9}$/.test(contact)) {
-        setFieldError('contact', 'Contact number is mandatory (10 digits, starts with 6-9)');
-        hasError = true;
-      }
-      if (password.length < 6) {
-        setFieldError('password', 'Password is mandatory (min 6 characters)');
-        hasError = true;
-      }
-      if (!confirmPassword || password !== confirmPassword) {
-        setFieldError('confirmPassword', 'Confirm Password must match');
-        hasError = true;
-      }
+                if (!username) {
+                    setFieldError("username", "Username is mandatory");
+                    hasError = true;
+                }
+                if (!email || !emailPattern.test(email)) {
+                    setFieldError("email", "Valid email is mandatory");
+                    hasError = true;
+                }
+                if (!/^[6-9][0-9]{9}$/.test(contact)) {
+                    setFieldError("contact", "Contact number is mandatory (10 digits, starts with 6-9)");
+                    hasError = true;
+                }
+                if (password.length < 6) {
+                    setFieldError("password", "Password is mandatory (min 6 characters)");
+                    hasError = true;
+                }
+                if (!confirmPassword || password !== confirmPassword) {
+                    setFieldError("confirmPassword", "Confirm Password must match");
+                    hasError = true;
+                }
 
-      if (hasError) {
-        
-        const order = ['username','email','contact','password','confirmPassword'];
-        const firstInvalid = order.find(name => !document.getElementById(`err-${name}`).classList.contains('hidden'));
-        if (firstInvalid) {
-          const { input } = getFormAndInput(firstInvalid);
-          if (input) input.focus();
-        }
-        return;
-      }
+                if (hasError) {
+                    const order = ["username", "email", "contact", "password", "confirmPassword"];
+                    const firstInvalid = order.find((name) => !document.getElementById(`err-${name}`).classList.contains("hidden"));
+                    if (firstInvalid) {
+                        const { input } = getFormAndInput(firstInvalid);
+                        if (input) input.focus();
+                    }
+                    return;
+                }
 
-      try {
-        const res = await fetch("/api/admin/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, email, password, contact }),
-        });
+                try {
+                    const res = await fetch("/api/admin/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ username, email, password, contact }),
+                    });
 
-        if (res.ok) {
-          showToast("Registration successful!", "success");
-          setTimeout(() => {
-            window.location.href = "superadmin.html";
-          }, 1000);
-        } else {
-          const err = await res.json();
-          showToast(err.error || "Registration failed", "error");
-        }
-      } catch (err) {
-        showToast("Error: " + err.message, "error");
-      }
-    });
-  </script>
-</body>
-
+                    if (res.ok) {
+                        showToast("Registration successful!", "success");
+                        setTimeout(() => {
+                            window.location.href = "superadmin.html";
+                        }, 1000);
+                    } else {
+                        const err = await res.json();
+                        showToast(err.error || "Registration failed", "error");
+                    }
+                } catch (err) {
+                    showToast("Error: " + err.message, "error");
+                }
+            });
+        </script>
+    </body>
 </html>
