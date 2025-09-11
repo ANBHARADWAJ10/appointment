@@ -171,6 +171,8 @@ router.put("/:id", async (req, res) => {
       const populated = await Confirmation.findById(confirmation._id).populate("doctor").populate("patient").populate("date");
       return res.json({ message: "Appointment rescheduled", confirmation: populated });
     }
+   
+
 
 
 
@@ -257,3 +259,4 @@ if (action === "revisit") {
 });
 
 module.exports = router;
+
