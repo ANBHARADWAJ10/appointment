@@ -71,12 +71,12 @@ mongoose.connect(mongoURI).then(() => {
 });
 
 
-cron.schedule('0 * * * *', () => {
+cron.schedule(' * * * * *', () => {
   console.log('cron')
   removeDeletedAdminsFromDb();  
 })
 
-cron.schedule('0 * * * *', () => {
+cron.schedule('* * * * *', () => {
   console.log('cron')
   removeDeletedDoctors();
 })

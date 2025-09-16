@@ -9,6 +9,7 @@ const labReportSchema = new mongoose.Schema({
   testName: { type: String, required: true },
   result: { type: String, required: true },
   unit: String,
+  referenceRange: String,
   normalRange: String,
   reportDate: { type: Date, default: Date.now },
  

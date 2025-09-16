@@ -7,6 +7,7 @@ async function removeDeletedDoctors() {
   try {
     const result = await Doctor.deleteMany({
       isDeleted: true,
+      status:"deleted",
       updatedAt: { $lt: removeBefore }
     });
 

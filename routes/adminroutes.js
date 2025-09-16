@@ -4,8 +4,13 @@ const Admin = require("../models/admin");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { encrypt } = require("../utils/encryption");
+const{deleteAdmin,getAdmin}=require("../controllers/admincontroller");
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+
+router.delete("/:id", deleteAdmin);
+
+router.get("/", getAdmin);
 
 router.post("/register", async (req, res) => {
     try {
