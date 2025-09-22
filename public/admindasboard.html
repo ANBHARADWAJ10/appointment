@@ -1759,13 +1759,14 @@ body.dark #revisitModal .time-slot.selected {
         }
     </script>
 
-  <nav class="bg-white shadow py-3 px-[110px]">
-    <div class="flex justify-between items-center w-full">
-        
-        <div class="flex items-center">
-            <img id="orgLogo" class="w-8 h-8 mr-2" alt="Logo">
-            <h1 id="orgName" class="text-xl font-bold text-blue-600">MediCare</h1>
-        </div>
+ <nav class="bg-white shadow py-3 px-[110px]">
+  <div class="flex justify-between items-center w-full">
+    <div class="flex items-center">
+      <img id="orgLogo" src="/images/Medicare-Emblem.png" class="w-8 h-8 mr-2" alt="Organization Logo">
+      <h1 id="orgName" class="text-xl font-bold text-blue-600">MediCare</h1>
+    </div>
+
+
 
             <div class="flex items-center">
                 <div class="flex items-center gap-2">
@@ -2081,7 +2082,7 @@ body.dark #revisitModal .time-slot.selected {
                         <div id="patientsTab" class="tab-content hidden">
                             <div class="flex justify-between items-center mb-4">
                                 <div>
-                                    <h3 class="text-xl font-semibold">Patients List</h3>Appointment 
+                                    <h3 class="text-xl font-semibold">Patients List</h3>
                                     <p class="text-gray-500">View and manage patient records</p>
                                 </div>
                             </div>
@@ -5488,41 +5489,49 @@ function renderCalendar(month, year) {
     };
 </script>
 <script>
+ 
   function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
   }
 
-  const fallbackOrg = { name: "Medicare", logo: "/images/Medicare-Emblem.png" };
 
+  const fallbackOrg = { name: "MediCare", logo: "/images/Medicare-Emblem.png" };
+
+ 
   const orgId = getQueryParam("org") || localStorage.getItem("orgId");
 
+  const orgNameEl = document.getElementById('orgName');
+  const orgLogoEl = document.getElementById('orgLogo');
+
   if (orgId) {
+
     fetch(`/api/organization/${orgId}`)
       .then(res => {
-        if (!res.ok) throw new Error("Not Found");
+        if (!res.ok) throw new Error("Organization Not Found");
         return res.json();
       })
       .then(org => {
-        document.getElementById('orgName').textContent = org.name;
-        document.getElementById('orgLogo').src = org.logo;
+        if (orgNameEl) orgNameEl.textContent = org.name;
+        if (orgLogoEl) orgLogoEl.src = org.logo;
 
-        
+       
         localStorage.setItem("orgId", orgId);
         localStorage.setItem("orgName", org.name);
         localStorage.setItem("orgLogo", org.logo);
       })
       .catch(() => {
-        document.getElementById('orgName').textContent = fallbackOrg.name;
-        document.getElementById('orgLogo').src = fallbackOrg.logo;
+
+        if (orgNameEl) orgNameEl.textContent = fallbackOrg.name;
+        if (orgLogoEl) orgLogoEl.src = fallbackOrg.logo;
       });
   } else {
-    
-    const savedName = localStorage.getItem("orgName") || "MediCare";
-    const savedLogo = localStorage.getItem("orgLogo") || "/images/Medicare-Emblem.png";
+   
+    const savedName = localStorage.getItem("orgName") || fallbackOrg.name;
+    const savedLogo = localStorage.getItem("orgLogo") || fallbackOrg.logo;
 
-    document.getElementById('orgName').textContent = savedName;
-    document.getElementById('orgLogo').src = savedLogo;
+    if (orgNameEl) orgNameEl.textContent = savedName;
+    if (orgLogoEl) orgLogoEl.src = savedLogo;
   }
 </script>
 
@@ -5710,6 +5719,7 @@ function renderCalendar(month, year) {
                             originalEmail = adminProfileEmail.value;
                             originalContact = adminProfileContact.value;
                             currentAdminId = data.admin._id;
+                            setProfileInitials(data.admin.username || '');
                         } else {
                             adminProfileName.value = 'N/A';
                             adminProfileNameTop.value = 'N/A';

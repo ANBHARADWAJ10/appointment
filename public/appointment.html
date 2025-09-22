@@ -614,6 +614,11 @@ body.dark .calendar-day.selected {
   border: 2px solid #065f46 !important; 
 }
 
+@media print {
+  .confirmation-actions {
+    display: none !important;
+  }
+}
 
 
 
@@ -780,6 +785,11 @@ body.dark .calendar-day.selected {
                             title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9"
                             autocomplete="off" />
                     </div>
+                    <div class="form-group">
+                        <label for="symptoms">Symptoms</label>
+                        <input type="text" id="symptoms" name="symptoms" placeholder="Enter symptoms" />
+                    </div>
+
                 </div>
                 <div class="text-right mt-6">
                     <button type="button" id="patientNextBtn"
@@ -990,6 +1000,10 @@ body.dark .calendar-day.selected {
                                         id="confirmPatientBlood"></span></div>
                                 <div><span class="text-gray-500">Gender:</span> <span class="text-gray-800 ml-1"
                                         id="confirmPatientGender"></span></div>
+                                        <div>
+                                     <span class="text-gray-500">Symptoms:</span> 
+                                     <span class="text-gray-800 ml-1" id="confirmPatientSymptoms"></span>
+                                       </div>
                             </div>
                         </div>
                     </div>
@@ -1004,15 +1018,22 @@ body.dark .calendar-day.selected {
                                 id="confirmReferral"></span></div>
                     </div>
                 </div>
+<div class="flex justify-between mt-6 confirmation-actions">
+  <button onclick="goBackToReferral()" 
+          class="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 confirmation-action">
+    Back
+  </button>
+   <button id="printBtn" 
+          class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors confirmation-action">
+    Print
+  </button>
+  <button onclick="confirmBooking()" id="confirmBookingBtn"
+          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 confirmation-action">
+    Confirm Appointment
+  </button>
+ 
+</div>
 
-                <div class="flex justify-between mt-6">
-                    <button onclick="goBackToReferral()"
-                        class="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200">Back</button>
-                    <button onclick="confirmBooking()" id="confirmBookingBtn"
-                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                        Confirm Appointment
-                    </button>
-                </div>
             </div>
         </div>
     </section>
@@ -1394,6 +1415,8 @@ body.dark .calendar-day.selected {
                 gender: formData.get("gender"),
                 blood: formData.get("blood"),
                 contact: formData.get("contact"),
+                symptoms: formData.get("symptoms")
+
             };
 
             localStorage.setItem("patientData", JSON.stringify(patientData));
@@ -1822,7 +1845,23 @@ body.dark .calendar-day.selected {
                 const timeB = b.split(" - ")[0];
                 return convertTo24Hour(timeA) - convertTo24Hour(timeB);
             });
-            
+function timeStringToMinutes(timeStr) {
+    let [time, period] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    if (period === 'PM' && hours < 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+    return hours * 60 + (minutes || 0);
+}
+function isSlotInLunch(slot, lunchStart, lunchEnd) {
+    const m = timeStringToMinutes;
+    return m(slot) >= m(lunchStart) && m(slot) < m(lunchEnd);
+}
+const lunchStart = "1:00 PM";
+const lunchEnd = "2:00 PM";
+doctorAvailableSlots = doctorAvailableSlots.filter(
+    slot => !isSlotInLunch(slot, lunchStart, lunchEnd)
+);
+
 
             doctorAvailableSlots.forEach((time) => {
                 if (time === "1:00 PM - 2:00 PM") return;
@@ -2203,6 +2242,7 @@ body.dark .calendar-day.selected {
             document.getElementById("confirmPatientGender").textContent = patientData.gender;
             document.getElementById("confirmPatientBlood").textContent = patientData.blood;
             document.getElementById("confirmPatientContact").textContent = patientData.contact;
+            document.getElementById("confirmPatientSymptoms").textContent = patientData.symptoms;
 
     
             const referralInfo = document.getElementById("referralInfo");
@@ -2802,7 +2842,19 @@ function clearReferralField() {
     }
   });
 </script>
->
+<script>
+ document.getElementById('printBtn').addEventListener('click', () => {
+  const printContents = document.getElementById('confirmationSection').innerHTML;
+  const originalContents = document.body.innerHTML;
+
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
+  window.location.reload(); 
+});
+
+
+</script>
 </body>
 
 </html>
