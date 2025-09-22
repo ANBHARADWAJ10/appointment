@@ -2,18 +2,18 @@ const Doctor = require("../models/doctor");
 
 async function removeDeletedDoctors() {
   
-  const removeBefore = new Date(Date.now() - 7*24* 60 * 60 * 1000);
+  const remove = new Date(Date.now() - 1* 60 * 1000);
 
   try {
     const result = await Doctor.deleteMany({
       isDeleted: true,
       status:"deleted",
-      updatedAt: { $lt: removeBefore }
+      updatedAt: { $lt: remove }
     });
 
-    console.log(`cron deleted ${result.deletedCount} doctors`);
+    console.log(`Deleted ${result.deletedCount} doctors`);
   } catch (err) {
-    console.error("cron Error deleting doctors:", err);
+    console.error("Error in deleting doctors:", err);
   }
 }
 

@@ -72,12 +72,12 @@ mongoose.connect(mongoURI).then(() => {
 
 
 cron.schedule(' * * * * *', () => {
-  console.log('cron')
+  // console.log('cron')
   removeDeletedAdminsFromDb();  
 })
 
-cron.schedule('* * * * *', () => {
-  console.log('cron')
+cron.schedule(' * * * * *', () => {
+  // console.log('cron')
   removeDeletedDoctors();
 })
 const organizations = require("./organizations.json");

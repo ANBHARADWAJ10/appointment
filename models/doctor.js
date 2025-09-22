@@ -21,6 +21,7 @@ const doctorSchema = new mongoose.Schema({
   gender: { type: String },
   phone: { type: String },
   address: { type: String },
+  status: { type: String, default: "active" },
   isDeleted: { type: Boolean, default: false }
 }, { timestamps: true });
 

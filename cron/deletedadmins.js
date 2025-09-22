@@ -1,7 +1,8 @@
 const Admin = require('../models/admin'); 
 
 async function removeDeletedAdminsFromDb() {
-  const remove = new Date(Date.now() - 7 *24* 60 * 60 * 1000);
+  
+  const remove = new Date(Date.now() - 1* 60 * 1000);
 
   try {
     const result = await Admin.deleteMany({
@@ -10,7 +11,7 @@ async function removeDeletedAdminsFromDb() {
       updatedAt: { $lt: remove }
     });
 
-    console.log(`cron deleted ${result.deletedCount} admins`);
+    console.log(`Deleted ${result.deletedCount} admins`);
   } catch (err) {
     console.error("cron Error deleting admins:", err);
   }
