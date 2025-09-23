@@ -619,11 +619,25 @@ body.dark .calendar-day.selected {
     display: none !important;
   }
 }
+.suggestions-box {
+  
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  background: #fff;
+  z-index: 1000;
+  width: 215px; 
+}
+.suggestion-item {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.suggestion-item:hover {
+  background: #e2e8f0;
+}
 
 
-
-
- </style>
+</style>
 </head>
 
 <body class="bg-blue-50 font-sans">
@@ -787,7 +801,9 @@ body.dark .calendar-day.selected {
                     </div>
                     <div class="form-group">
                         <label for="symptoms">Symptoms</label>
-                        <input type="text" id="symptoms" name="symptoms" placeholder="Enter symptoms" />
+                    <input type="text" id="symptoms" name="symptoms" placeholder="Enter symptoms" autocomplete="off">
+                    <div id="symptom-suggestions" class="suggestions-box"></div>
+
                     </div>
 
                 </div>
@@ -2094,6 +2110,7 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                         gender: (patientData.gender || "").trim(),
                         blood: (patientData.blood || "").trim(),
                         contact: (patientData.contact || "").trim(),
+                        
                     },
                     doctorData: {
                         name: (doctorData.name || "").trim(),
@@ -2175,6 +2192,7 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                             date: confirmationData.dateData.date,
                             time: confirmationData.dateData.time,
                             referralData: confirmationData.referralData,
+                           
                         }),
                     });
                 } else {
@@ -2853,6 +2871,58 @@ function clearReferralField() {
   window.location.reload(); 
 });
 
+</script>
+<script>
+   
+const symptomList = [
+  "Fever",
+  "Cough",
+  "Cold",
+  "Headache",
+  "Stomach pain",
+  "Sore throat",
+  "Fatigue",
+  "Nausea",
+  "Vomiting",
+  "Diarrhea"
+];
+
+const symptomInput = document.getElementById("symptoms");
+const suggestionsBox = document.getElementById("symptom-suggestions");
+
+symptomInput.addEventListener("input", function() {
+  const value = this.value.toLowerCase();
+  suggestionsBox.innerHTML = "";
+  if (!value) {
+    suggestionsBox.style.display = "none";
+    return;
+  }
+  const suggestions = symptomList.filter(symptom => 
+    symptom.toLowerCase().includes(value)
+  );
+  if (suggestions.length === 0) {
+    suggestionsBox.style.display = "none";
+    return;
+  }
+  suggestionsBox.style.display = "block";
+  suggestions.forEach(symptom => {
+    const div = document.createElement("div");
+    div.classList.add("suggestion-item");
+    div.textContent = symptom;
+    div.onclick = function() {
+      symptomInput.value = symptom;
+      suggestionsBox.style.display = "none";
+    };
+    suggestionsBox.appendChild(div);
+  });
+});
+
+
+document.addEventListener("click", function(e) {
+  if (!symptomInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+    suggestionsBox.style.display = "none";
+  }
+});
 
 </script>
 </body>
