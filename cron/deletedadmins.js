@@ -2,7 +2,7 @@ const Admin = require('../models/admin');
 
 async function removeDeletedAdminsFromDb() {
   
-  const remove = new Date(Date.now() - 1* 60 * 1000);
+  const remove = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
   try {
     const result = await Admin.deleteMany({

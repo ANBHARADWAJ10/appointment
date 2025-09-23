@@ -7,8 +7,8 @@ const dotenv = require("dotenv");
 const nodemailer = require('nodemailer');
 dotenv.config();
 const mongoURI = process.env.DATABASE_URL;
-console.log(mongoURI);
-console.log(typeof (mongoURI));
+// console.log(mongoURI);
+// console.log(typeof (mongoURI));
 const port = process.env.PORT;
 const cron = require('node-cron');
 
@@ -71,12 +71,12 @@ mongoose.connect(mongoURI).then(() => {
 });
 
 
-cron.schedule(' * * * * *', () => {
+cron.schedule(' 0 * * * *', () => {
   // console.log('cron')
   removeDeletedAdminsFromDb();  
 })
 
-cron.schedule(' * * * * *', () => {
+cron.schedule(' 0 * * * *', () => {
   // console.log('cron')
   removeDeletedDoctors();
 })

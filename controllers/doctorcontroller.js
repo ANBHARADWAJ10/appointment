@@ -18,7 +18,7 @@ const deleteDoctor = async (req, res) => {
 
 const getDoctors = async (req, res) => {
   try {
-    const oneWeekAgo = new Date(Date.now() - 1* 60 * 1000);
+    const oneWeekAgo = new Date(Date.now() - 7*24*60* 60 * 1000);
 
     const doctors = await Doctor.find({
       $or: [

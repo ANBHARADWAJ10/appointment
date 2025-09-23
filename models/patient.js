@@ -5,7 +5,8 @@ const patientSchema = new mongoose.Schema({
   age: Number,
   gender: String,
   blood: String,
-  contact: String
+  contact: String,
+  symptoms: { type: String, default: "" },
 });
 
 module.exports = mongoose.model("Patient", patientSchema); 

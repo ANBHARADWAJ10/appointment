@@ -2094,6 +2094,7 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                         gender: (patientData.gender || "").trim(),
                         blood: (patientData.blood || "").trim(),
                         contact: (patientData.contact || "").trim(),
+                        symptoms: (patientData.symptoms || "").trim()
                     },
                     doctorData: {
                         name: (doctorData.name || "").trim(),
@@ -2106,6 +2107,7 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                     referralData: {
                         referredBy: (referralData.referredBy || "").trim(),
                     },
+                    
                 };
                 console.log("Sending confirmationData:", confirmationData);
 
@@ -2175,6 +2177,7 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                             date: confirmationData.dateData.date,
                             time: confirmationData.dateData.time,
                             referralData: confirmationData.referralData,
+                            symptoms:confirmationData.patientData.symptoms,
                         }),
                     });
                 } else {
