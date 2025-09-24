@@ -2861,15 +2861,23 @@ function clearReferralField() {
   });
 </script>
 <script>
- document.getElementById('printBtn').addEventListener('click', () => {
+ function printHandler() {
   const printContents = document.getElementById('confirmationSection').innerHTML;
   const originalContents = document.body.innerHTML;
 
   document.body.innerHTML = printContents;
   window.print();
   document.body.innerHTML = originalContents;
-  window.location.reload(); 
-});
+  attachPrintHandler(); 
+}
+
+function attachPrintHandler() {
+  const printBtn = document.getElementById('printBtn');
+  if (printBtn) {
+    printBtn.addEventListener('click', printHandler);
+  }
+}
+attachPrintHandler();
 
 </script>
 <script>
