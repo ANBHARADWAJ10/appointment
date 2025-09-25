@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+     <!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+     <style>
+        /* .tab-active {
+            background-color: white;
+            color: #1f2937;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.375rem;
+        }
+
+        .tab-inactive {
+            background-color: transparent;
+            color: #4b5563;
+        }
+
+        .tab-inactive:hover {
+            color: #1f2937;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 0.375rem;
+        } */
+       
+     </style>
+     <style>
+
+body.accent-blue { --accent: #2563eb; --accent-hover: #1d4ed8; }
+body.accent-green { --accent: #22c55e; --accent-hover: #16a34a; }
+.accent-green .tab-active {background-color: #22c55e !important;color: white !important;}
+body.accent-brown { --accent: #a16207; --accent-hover: #713f12; }
+.accent-brown .tab-active {background-color: #b55656 !important;color: white !important;}
+body.accent-purple { --accent: #a21caf; --accent-hover: #86198f; }
+.accent-brown .tab-active {background-color: #b55656 !important;color: white !important;}
+body.accent-orange { --accent: #f97316; --accent-hover: #ea580c; }
+body.accent-pink { --accent: #ec4899; --accent-hover: #db2777; }
+body.accent-teal { --accent: #14b8a6; --accent-hover: #0d9488; }
+
+body.dark.accent-blue { --accent: #60a5fa; --accent-hover: #3b82f6; }
+body.dark.accent-green { --accent: #4ade80; --accent-hover: #22d3ee; }
+body.dark.accent-brown { --accent: #fde68a; --accent-hover: #f59e42; }
+body.dark.accent-purple { --accent: #c084fc; --accent-hover: #a78bfa; }
+body.dark.accent-orange { --accent: #fdba74; --accent-hover: #fb923c; }
+body.dark.accent-pink { --accent: #f9a8d4; --accent-hover: #ec4899; }
+body.dark.accent-teal { --accent: #5eead4; --accent-hover: #2dd4bf; }
+
+.accent-btn {
+  background-color: var(--accent) !important;
+  color: #fff !important;
+  transition: background .2s;
+}
+.accent-btn:hover,
+.accent-btn:focus {
+  background-color: var(--accent-hover) !important;
+  color: #fff !important;
+}
+</style>
+
+</head>
+<body class="bg-gray-100 accent-blue font-sans">
+
+      <nav class="bg-white shadow py-3 px-[110px]">
+    <div class="flex justify-between items-center w-full">
+        
+        <div class="flex items-center">
+            <img id="orgLogo" class="w-8 h-8 mr-2" alt="Logo">
+            <h1 id="orgName" class="text-xl font-bold text-blue-600">MediCare</h1>
+        </div>
+
+            <div class="flex items-center">
+                <div class="flex items-center gap-2">
+                    <div id="userAvatar"
+                        class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-black font-bold text-lg">
+                    </div>
+                    <span id="userName" class="font-bold text-sm text-black"></span>
+                    <div class="mr-2 font-bold text-sm text-black cursor-pointer flex items-center gap-1"
+                        id="userDropdownToggle">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" fill="none" width="24" height="24" />
+                            <g>
+                                <path d="M7 10l5 5 5-5" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div id="userDropdownMenu"
+                        class="absolute right-0 mt-32 w-44 bg-white border border-gray-200 rounded shadow-md hidden z-50">
+                        <ul class="py-1 text-sm text-gray-700">
+                            <li>
+                                <a href=""
+                                    class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 transition-colors duration-150">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M16.5 7.063C16.5 10.258 14.57 13 12 13c-2.572 0-4.5-2.742-4.5-5.938C7.5 3.868 9.16 2 12 2s4.5 1.867 4.5 5.063zM4.102 20.142C4.487 20.6 6.145 22 12 22c5.855 0 7.512-1.4 7.898-1.857a.416.416 0 0 0 .09-.317C19.9 18.944 19.106 15 12 15s-7.9 3.944-7.989 4.826a.416.416 0 0 0 .091.317z"
+                                            fill="#000000" />
+                                    </svg>
+                                    <span>Profile</span>
+                                </a>
+                            </li>
+                            <li class="relative">
+                                <button id="themesDropdownToggle"
+                                    class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                    <div class="flex items-center gap-2">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" 
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Themes</span>
+                                    </div>
+                                    <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="themes-dropdown-arrow transition-transform duration-200">
+                                        <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <div id="themesSubDropdown" 
+                                    class="absolute left-0 top-full mt-1 w-32 bg-white border border-gray-200 rounded shadow-md hidden z-50">
+                                    <ul class="py-1 text-sm text-gray-700">
+                                        <li>
+                                            <button id="lightThemeBtn"
+                                                class="w-full flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                                                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" 
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span>Light</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button id="darkThemeBtn"
+                                                class="w-full flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" 
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span>Dark</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="relative">
+                                <button id="accentsDropdownToggle"
+                                    class="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                    <div class="flex items-center gap-2">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" 
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Accents</span>
+                                    </div>
+                                    <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="accents-dropdown-arrow transition-transform duration-200">
+                                        <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <div id="accentsSubDropdown" 
+                                    class="absolute left-0 top-full mt-1 w-40 bg-white border border-gray-200 rounded shadow-md hidden z-50">
+                                    <ul class="py-2 text-sm text-gray-700">
+                                        <li>
+                                            <button id="blueAccentBtn" data-color="blue"
+                                                class="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <div class="w-4 h-4 rounded-full bg-blue-500 border-2 border-gray-300 accent-color-preview"></div>
+                                                <span>Blue</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button id="greenAccentBtn" data-color="green"
+                                                class="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <div class="w-4 h-4 rounded-full bg-green-500 border-2 border-gray-300 accent-color-preview"></div>
+                                                <span>Green</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button id="greenAccentBtn" data-color="brown"
+                                                class="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <div class="w-4 h-4 rounded-full bg-blue-200 border-2 border-gray-300 accent-color-preview"></div>
+                                                <span>Brown</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button id="purpleAccentBtn" data-color="purple"
+                                                class="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <div class="w-4 h-4 rounded-full bg-purple-500 border-2 border-gray-300 accent-color-preview"></div>
+                                                <span>Purple</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button id="orangeAccentBtn" data-color="orange"
+                                                class="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <div class="w-4 h-4 rounded-full bg-orange-500 border-2 border-gray-300 accent-color-preview"></div>
+                                                <span>Orange</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button id="pinkAccentBtn" data-color="pink"
+                                                class="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <div class="w-4 h-4 rounded-full bg-pink-500 border-2 border-gray-300 accent-color-preview"></div>
+                                                <span>Pink</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button id="tealAccentBtn" data-color="teal"
+                                                class="w-full flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-150">
+                                                <div class="w-4 h-4 rounded-full bg-teal-500 border-2 border-gray-300 accent-color-preview"></div>
+                                                <span>Teal</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <button onclick="showLogoutModal()"
+                                    class="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-gray-100 transition-colors duration-150">
+
+                                    <svg width="20px" height="20px" viewBox="0 0 15 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M1 1L8 1V2L2 2L2 13H8V14H1L1 1ZM10.8536 4.14645L14.1932 7.48614L10.8674 11.0891L10.1326 10.4109L12.358 8L4 8V7L12.2929 7L10.1464 4.85355L10.8536 4.14645Z"
+                                            fill="#ff0000" />
+                                    </svg>
+                                    <span>Logout</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </nav>    
+            <div class="p-8">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
+            <div>
+                <h2 class="text-2xl font-semibold px-20">Lab Dashboard</h2>
+                <div id="addAdmin" class="text-lg text-blue-500"></div>
+                <p class="text-gray-500 px-20">Manage lab appointments and patients</p>
+            </div>
+          <button class="accent-btn py-2 px-10 rounded shadow font-semibold transition-colors">
+  Add New Lab Test
+</button>
+        </div>
+ <div class="px-20 mt-4">
+
+
+  <div class="bg-gray-200 p-1 rounded-lg flex items-center mb-4">
+    <button
+      class="tab flex-1 text-center py-1.5 font-semibold transition-colors duration-200 tab-active bg-white shadow rounded"
+      data-tab="labTab">Lab Appointment</button>
+    <button class="tab flex-1 text-center py-1.5 font-semibold transition-colors duration-200 tab-inactive"
+      data-tab="patientsTab">Patient</button>
+  </div>
+   <div class="px-20">
+  <div class="flex items-center gap-4 mb-4 justify-between">
+
+   
+    <div class="relative w-[1200px] h-12 flex items-center">
+      <img src="/search.webp" alt="Search"
+        class="absolute left-2 top-1/2 transform -translate-y-1/2 w-5 h-5 pointer-events-none" />
+      <input type="text" id="searchInput" placeholder="Search"
+        class="pl-8 h-full rounded w-full bg-white border border-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 text-gray-900 font-semibold placeholder-gray-500 placeholder:text-lg" />
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="relative w-[600px] h-12">
+        <div class="custom-dropdown w-full h-full">
+          <div id="filterDropdownTrigger" class="w-full h-full px-4 py-2 border border-gray-800 rounded-md bg-white text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400 accent-select cursor-pointer flex items-center justify-between">
+            <span id="filterDropdownText">All Fields</span>
+            <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+          <div id="filterDropdownMenu" class="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow-lg z-50 hidden ">
+            <div class="dropdown-option px-3 py-2 hover:bg-blue-100 rounded cursor-pointer" data-value="all">All Fields</div>
+            <div class="dropdown-option px-3 py-2 hover:bg-blue-100 rounded cursor-pointer" data-value="patientId">Patient ID</div>
+            <div class="dropdown-option px-3 py-2 hover:bg-blue-100 rounded cursor-pointer" data-value="patientName">Patient Name</div>
+            <div class="dropdown-option px-3 py-2 hover:bg-blue-100 rounded cursor-pointer" data-value="doctorName">Doctor Name</div>
+            <div class="dropdown-option px-3 py-2 hover:bg-blue-100 rounded cursor-pointer" data-value="prescribedTest">Prescribed Test</div>
+            <div class="dropdown-option px-3 py-2 hover:bg-blue-100 rounded cursor-pointer" data-value="time">Time</div>
+            <div class="dropdown-option px-3 py-2 hover:bg-blue-100 rounded cursor-pointer" data-value="actions">Actions</div>
+          </div>
+        </div>
+      </div>
+      <div class="relative w-[200px] h-12 flex items-center">
+        <input type="text" id="datePicker" class="w-full h-full px-4 py-2 border border-gray-800 rounded bg-white text-gray-900 font-semibold" autocomplete="off" />
+      </div>
+
+    </div>
+  </div>
+</div>
+ <div class="bg-white rounded-xl shadow-md p-6 border mx-auto" style="max-width: 98%;">
+
+  <div class="flex justify-between items-center mb-4">
+    <div>
+      <h3 class="text-xl font-semibold" id="appointmentsTitle">Today's Appointments</h3>
+    </div>
+    <a href="lab.html">
+  <button class="accent-btn px-4 py-2 rounded font-semibold transition-colors">
+  + New Lab Appointment
+</button>
+    </a>
+  </div>
+ 
+  <div id="appointmentsHeader"
+    class="hidden md:grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b rounded-t-lg">
+    <div class="col-span-3">Patient ID</div>
+    <div class="col-span-3">Patient Name</div>
+    <div class="col-span-2">Doctor Name</div>
+    <div class="col-span-2">Prescribed Test</div>
+    <div class="col-span-1">Time</div>
+    <div class="col-span-1">Actions</div>
+    
+  </div>
+  <!-- Actions column in appointment row
+<div class="col-span-1 relative flex items-center justify-center">
+  <button class="action-btn text-2xl text-gray-700 hover:text-gray-900 px-2 py-1 rounded focus:outline-none" aria-label="Appointment Actions">...</button>
+  <div class="action-menu hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+    <ul class="py-2">
+      <li>
+        <button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-800">View details</button>
+      </li>
+      <li>
+        <button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-800">Edit Appointment</button>
+      </li>
+      <li>
+        <button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-800">Reschedule</button>
+      </li>
+      <li>
+        <button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-800">Cancel Appointment</button>
+      </li>
+    </ul>
+  </div>
+</div> -->
+
+  <div id="appointmentsList" class="appointments-list space-y-2 mt-2"></div>
+</div>
+ 
+
+<div class="bg-white rounded-xl shadow-md p-6 border mx-auto" style="max-width: 98%;">
+
+  <div class="flex justify-between items-center mb-4">
+    <div>
+      <h3 class="text-xl font-semibold" id="appointmentsTitle">Patients List</h3>
+    </div>
+    
+  </div>
+ 
+  <div id="patientsHeader"
+    class="hidden md:grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b rounded-t-lg">
+    <div class="col-span-3">Patient Name</div>
+    <div class="col-span-3">Patient Id</div>
+    <!-- <div class="col-span-2">Doctor Name</div> -->
+    <div class="col-span-2">Prescribed Test Count</div>
+    <div class="col-span-2">Status</div>
+    <div class="col-span-2">Actions</div>
+  </div>
+  
+  <div id="patientsList" class="appointments-list space-y-2 mt-2"></div>
+</div>
+
+               
+                 <div id="blurredBg" class="hidden fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40"></div>
+                   <div id="blurredBg" class="fixed inset-0 bg-white/30 backdrop-blur-sm hidden z-40"></div>
+<div id="logoutModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+  <div class="bg-white dark:bg-gray-900 p-6 rounded shadow-lg w-full max-w-sm text-center">
+    <div class="flex justify-center mb-4">
+      <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-200/20">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-6 w-6 text-red-600 dark:text-red-500"
+             fill="none" viewBox="0 0 24 24" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 9v4M12 17h.01"/>
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        </svg>
+      </span>
+    </div>
+    <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Logout</h2>
+    <p class="mb-6 text-gray-600 dark:text-gray-300">Are you sure you want to logout?</p>
+    <div class="flex justify-center gap-4">
+      <button onclick="closeModals()" 
+        class="px-4 py-2 rounded-lg bg-gray-200 text-gray-800 hover:bg-gray-300 
+               dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300">
+        Cancel
+      </button>
+      <button onclick="logout()" 
+        class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
+                 <script>
+            const userName = localStorage.getItem("admin_name");
+            document.getElementById("userName").textContent = userName;
+        </script>
+        <script>
+            const dropdownToggle = document.getElementById("userDropdownToggle");
+            const dropdownMenu = document.getElementById("userDropdownMenu");
+           
+            dropdownToggle.addEventListener("click", () => {
+                dropdownMenu.classList.toggle("hidden");
+            });
+
+            document.addEventListener("click", (event) => {
+                if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.add("hidden");
+                }
+            });
+        </script>
+                 <script>
+            function showLogoutModal() {
+                document.getElementById("logoutModal")?.classList.remove("hidden");
+                document.getElementById("blurredBg")?.classList.remove("hidden");
+                dropdownMenu.classList.add("hidden");
+
+            }
+
+            function closeModals() {
+                document.getElementById("logoutModal")?.classList.add("hidden");
+                document.getElementById("deleteDoctorModal")?.classList.add("hidden");
+                document.getElementById("restoreDoctorModal")?.classList.add("hidden");
+                document.getElementById("blurredBg")?.classList.add("hidden");
+                selectedDoctorId = null;
+                selectedRestoreDoctorId = null;
+            }
+        </script>
+
+        <script>
+            function getInitials(name) {
+                if (!name) return "";
+                const parts = name.trim().split(" ");
+                if (parts.length === 1) return parts[0][0].toUpperCase();
+                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+            }
+            const AdminName = localStorage.getItem("admin_name") || "admin";
+            document.getElementById("userName").textContent = userName;
+            document.getElementById("userAvatar").textContent = getInitials(userName);
+            
+        </script>
+  <script>
+    async function logout() {
+        try {
+            const token = localStorage.getItem('admin_jwt');                               
+            const orgId = localStorage.getItem('orgId');
+            const savedTheme = localStorage.getItem("theme");
+            const savedAccent = localStorage.getItem("accent");
+
+            const res = await fetch("/api/admin/logout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ token }),
+            });
+
+            const result = await res.json();
+            if (res.ok) {
+                localStorage.clear();
+                if (orgId) localStorage.setItem("orgId", orgId);
+                if (savedTheme) localStorage.setItem("theme", savedTheme);
+                if (savedAccent) localStorage.setItem("accent", savedAccent);
+
+                window.location.href = "login.html";
+            } else {
+                showToast(result.error, 'error');
+            }
+        } catch (err) {
+            showToast("Error: " + err.message, 'error');
+        }
+    };
+</script>
+<script>
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  const fallbackOrg = { name: "Medicare", logo: "/images/Medicare-Emblem.png" };
+
+  const orgId = getQueryParam("org") || localStorage.getItem("orgId");
+
+  if (orgId) {
+    fetch(`/api/organization/${orgId}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Not Found");
+        return res.json();
+      })
+      .then(org => {
+        document.getElementById('orgName').textContent = org.name;
+        document.getElementById('orgLogo').src = org.logo;
+
+        
+        localStorage.setItem("orgId", orgId);
+        localStorage.setItem("orgName", org.name);
+        localStorage.setItem("orgLogo", org.logo);
+      })
+      .catch(() => {
+        document.getElementById('orgName').textContent = fallbackOrg.name;
+        document.getElementById('orgLogo').src = fallbackOrg.logo;
+      });
+  } else {
+    
+    const savedName = localStorage.getItem("orgName") || "MediCare";
+    const savedLogo = localStorage.getItem("orgLogo") || "/images/Medicare-Emblem.png";
+
+    document.getElementById('orgName').textContent = savedName;
+    document.getElementById('orgLogo').src = savedLogo;
+  }
+</script>
+ <script>
+            const themeToggle = document.getElementById("themeToggle");
+
+function applyTheme(theme) {
+    if (theme === "dark") {
+        document.body.classList.add("dark");
+        themeToggle.textContent = "☀️ Light Mode";
+    } else {
+        document.body.classList.remove("dark");
+        themeToggle.textContent = "🌙 Dark Mode";
+    }
+    localStorage.setItem("theme", theme);
+}
+
+themeToggle.addEventListener("click", () => {
+    const currentTheme = localStorage.getItem("theme") || "light";
+    applyTheme(currentTheme === "light" ? "dark" : "light");
+});
+
+applyTheme(localStorage.getItem("theme") || "light");
+
+        </script>
+        <script>
+            
+            const themesDropdownToggle = document.getElementById("themesDropdownToggle");
+            const themesSubDropdown = document.getElementById("themesSubDropdown");
+            const themesDropdownArrow = document.querySelector(".themes-dropdown-arrow");
+            const lightThemeBtn = document.getElementById("lightThemeBtn");
+            const darkThemeBtn = document.getElementById("darkThemeBtn");
+
+            function applyTheme(theme) {
+                if (theme === "dark") {
+                    document.body.classList.add("dark");
+                } else {
+                    document.body.classList.remove("dark");
+                }
+                localStorage.setItem("theme", theme);
+            }
+
+
+            themesDropdownToggle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                themesSubDropdown.classList.toggle("hidden");
+                themesDropdownArrow.classList.toggle("rotate-180");
+            });
+
+            
+            lightThemeBtn.addEventListener("click", () => {
+                applyTheme("light");
+                themesSubDropdown.classList.add("hidden");
+                themesDropdownArrow.classList.remove("rotate-180");
+            });
+
+            
+            darkThemeBtn.addEventListener("click", () => {
+                applyTheme("dark");
+                themesSubDropdown.classList.add("hidden");
+                themesDropdownArrow.classList.remove("rotate-180");
+            });
+
+           
+            document.addEventListener("click", (e) => {
+                if (!themesDropdownToggle.contains(e.target) && !themesSubDropdown.contains(e.target)) {
+                    themesSubDropdown.classList.add("hidden");
+                    themesDropdownArrow.classList.remove("rotate-180");
+                }
+            });
+
+          
+            applyTheme(localStorage.getItem("theme") || "light");
+        </script>
+        <script>
+           
+            const accentsDropdownToggle = document.getElementById("accentsDropdownToggle");
+            const accentsSubDropdown = document.getElementById("accentsSubDropdown");
+            const accentsDropdownArrow = document.querySelector(".accents-dropdown-arrow");
+            const accentButtons = document.querySelectorAll('[id$="AccentBtn"]');
+
+          function applyAccentColor(color) {
+  document.body.classList.remove(
+    'accent-blue', 'accent-green', 'accent-brown', 'accent-purple',
+    'accent-orange', 'accent-pink', 'accent-teal'
+  );
+  document.body.classList.add('accent-' + color);{
+                }
+                document.querySelectorAll('.accent-color-preview').forEach(preview => {
+                    preview.classList.remove('active');
+                });
+                
+                const activeButton = document.getElementById(`${color}AccentBtn`);
+                if (activeButton) {
+                    const preview = activeButton.querySelector('.accent-color-preview');
+                    if (preview) {
+                        preview.classList.add('active');
+                    }
+                }
+                localStorage.setItem("accent", color);
+            }
+            accentsDropdownToggle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                accentsSubDropdown.classList.toggle("hidden");
+                accentsDropdownArrow.classList.toggle("rotate-180");
+            });
+            accentButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const color = button.getAttribute('data-color');
+                    applyAccentColor(color);
+                    accentsSubDropdown.classList.add("hidden");
+                    accentsDropdownArrow.classList.remove("rotate-180");
+                });
+            });
+            document.addEventListener("click", (e) => {
+                if (!accentsDropdownToggle.contains(e.target) && !accentsSubDropdown.contains(e.target)) {
+                    accentsSubDropdown.classList.add("hidden");
+                    accentsDropdownArrow.classList.remove("rotate-180");
+                }
+            });
+            const savedAccent = localStorage.getItem("accent") || "blue";
+            applyAccentColor(savedAccent);
+        </script>
+         <script>
+   const tabs = document.querySelectorAll('.tab');
+const tabContents = {
+  labTab: document.getElementById('appointmentsHeader').parentElement,
+  patientsTab: document.getElementById('patientsHeader').parentElement
+};
+
+tabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    tabs.forEach((t) => {
+      t.classList.remove('tab-active', 'bg-white', 'shadow', 'rounded');
+      t.classList.add('tab-inactive');
+    });
+
+    tab.classList.remove('tab-inactive');
+    tab.classList.add('tab-active', 'bg-white', 'shadow', 'rounded');
+    Object.values(tabContents).forEach(container => {
+      container.style.display = 'none';
+    });
+
+    const targetId = tab.getAttribute('data-tab');
+    if (tabContents[targetId]) {
+      tabContents[targetId].style.display = 'block';
+    }
+    if (targetId === "patientsTab") fetchAndDisplayDoctors();
+    if (targetId === "labTab") fetchAdmins();
+  });
+});
+window.addEventListener('DOMContentLoaded', () => {
+  Object.values(tabContents).forEach(container => {
+    container.style.display = 'none';
+  });
+  if (tabContents['labTab']) {
+    tabContents['labTab'].style.display = 'block';
+  }
+});
+
+  </script>
+<script>
+  
+  const container = document.getElementById('appointmentsList');
+container.innerHTML = ''; 
+
+appointments.forEach((app) => {
+  container.innerHTML += `
+  <div class="grid grid-cols-12 gap-4 px-4 py-3 border border-gray-100 rounded-lg shadow-sm items-center">
+    <div class="col-span-3">
+      <div class="font-semibold text-gray-900">${app.patientName}</div>
+      <div class="text-sm text-gray-400">${app.patientId}</div>
+    </div>
+    <div class="col-span-3 text-blue-600 hover:underline cursor-pointer">${app.doctorName}
+      <div class="text-xs text-gray-500">${app.speciality}</div>
+    </div>
+    <div class="col-span-2">${app.prescribedTest}</div>
+    <div class="col-span-1 flex items-center gap-2 text-gray-700">${app.time}</div>
+    <div class="col-span-1 relative flex items-center justify-center">
+      <button class="action-btn text-2xl text-gray-700 hover:text-gray-900 px-2 py-1 rounded focus:outline-none" aria-label="Appointment Actions">...</button>
+      <div class="action-menu hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+        <ul class="py-2">
+          <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-800">View details</button></li>
+          <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-800">Edit Appointment</button></li>
+          <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-800">Reschedule</button></li>
+          <li><button class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-800">Cancel Appointment</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  `;
+});
+
+  document.querySelectorAll('.action-btn').forEach(btn => {
+  btn.onclick = function(e) {
+    e.stopPropagation();
+    document.querySelectorAll('.action-menu').forEach(menu => menu.classList.add('hidden'));
+    const menu = btn.nextElementSibling;
+    if (menu && menu.classList.contains('action-menu')) {
+      menu.classList.toggle('hidden');
+    }
+  };
+});
+
+
+document.addEventListener('click', function(e) {
+  if (!e.target.classList.contains('action-btn') && !e.target.closest('.action-menu')) {
+    document.querySelectorAll('.action-menu').forEach(menu => menu.classList.add('hidden'));
+  }
+});
+
+</script>
+<script>
+  const searchInput = document.getElementById('searchInput');
+const filterDropdownText = document.getElementById('filterDropdownText');
+const filterDropdownMenu = document.getElementById('filterDropdownMenu');
+const filterDropdownTrigger = document.getElementById('filterDropdownTrigger');
+filterDropdownTrigger.addEventListener('click', (e) => {
+  e.stopPropagation();
+  filterDropdownMenu.classList.toggle('hidden');
+});
+document.addEventListener('click', (e) => {
+  if (!filterDropdownTrigger.contains(e.target) && !filterDropdownMenu.contains(e.target)) {
+    filterDropdownMenu.classList.add('hidden');
+  }
+});
+
+let appointments = []; // Your appointments array data
+let patients = []; // Your patients array data
+
+function filterAppointments(searchTerm, field) {
+  return appointments.filter(app => {
+    if (!searchTerm) return true;
+    searchTerm = searchTerm.toLowerCase();
+    if (field === 'all') {
+      return (
+        (app.patientId && app.patientId.toLowerCase().includes(searchTerm)) ||
+        (app.patientName && app.patientName.toLowerCase().includes(searchTerm)) ||
+        (app.doctorName && app.doctorName.toLowerCase().includes(searchTerm)) ||
+        (app.prescribedTest && app.prescribedTest.toLowerCase().includes(searchTerm)) ||
+        (app.time && app.time.toLowerCase().includes(searchTerm))
+      );
+    } else if (field === 'patientId') {
+      return app.patientId && app.patientId.toLowerCase().includes(searchTerm);
+    } else if (field === 'patientName') {
+      return app.patientName && app.patientName.toLowerCase().includes(searchTerm);
+    } else if (field === 'doctorName') {
+      return app.doctorName && app.doctorName.toLowerCase().includes(searchTerm);
+    } else if (field === 'prescribedTest') {
+      return app.prescribedTest && app.prescribedTest.toLowerCase().includes(searchTerm);
+    } else if (field === 'time') {
+      return app.time && app.time.toLowerCase().includes(searchTerm);
+    } else if (field === 'actions') {
+      // Implement action search logic if needed, otherwise return false
+      return false;
+    }
+    return false;
+  });
+}
+
+function filterPatients(searchTerm, field) {
+  return patients.filter(pat => {
+    if (!searchTerm) return true;
+    searchTerm = searchTerm.toLowerCase();
+    if (field === 'all') {
+      return (
+        pat.patientName.toLowerCase().includes(searchTerm) ||
+        pat.patientId.toLowerCase().includes(searchTerm) ||
+        (pat.status && pat.status.toLowerCase().includes(searchTerm)) ||
+        (pat.prescribedTestCount && pat.prescribedTestCount.toString().includes(searchTerm))
+      );
+    } else if (field === 'patient') {
+      return pat.patientName.toLowerCase().includes(searchTerm);
+    } else if (field === 'status') {
+      return pat.status && pat.status.toLowerCase().includes(searchTerm);
+    }
+    // add other fields if needed...
+    return false;
+  });
+}
+
+function renderAppointments(filteredApps) {
+  const container = document.getElementById('appointmentsList');
+  container.innerHTML = '';
+  filteredApps.forEach(app => {
+    container.innerHTML += `
+      <div class="grid grid-cols-12 gap-4 px-4 py-3 border border-gray-100 rounded-lg shadow-sm items-center">
+        <div class="col-span-3">
+          <div class="font-semibold text-gray-900">${app.patientName}</div>
+          <div class="text-sm text-gray-400">${app.patientId}</div>
+        </div>
+        <div class="col-span-3 text-blue-600 hover:underline cursor-pointer">${app.doctorName}
+          <div class="text-xs text-gray-500">${app.speciality || ''}</div>
+        </div>
+        <div class="col-span-2">${app.prescribedTest}</div>
+        <div class="col-span-1 flex items-center gap-2 text-gray-700">${app.time}</div>
+        <div class="col-span-1 relative flex items-center justify-center">
+          <!-- Actions here -->
+        </div>
+      </div>
+    `;
+  });
+}
+
+function renderPatients(filteredPatients) {
+  const container = document.getElementById('patientsList');
+  container.innerHTML = '';
+  filteredPatients.forEach(pat => {
+    container.innerHTML += `
+      <div class="grid grid-cols-12 gap-4 px-4 py-3 border border-gray-100 rounded-lg shadow-sm items-center">
+        <div class="col-span-3">${pat.patientName}</div>
+        <div class="col-span-3">${pat.patientId}</div>
+        <div class="col-span-2">${pat.prescribedTestCount || 0}</div>
+        <div class="col-span-2">${pat.status || ''}</div>
+        <div class="col-span-2">
+          <!-- Actions here -->
+        </div>
+      </div>
+    `;
+  });
+}
+
+function handleFilter() {
+  const searchTerm = searchInput.value.trim();
+  // Use the selected dropdown's data-value for field
+  const selectedOption = filterDropdownMenu.querySelector('.dropdown-option.selected');
+  const field = selectedOption ? selectedOption.getAttribute('data-value') : 'all';
+  const activeTab = document.querySelector('.tab-active').getAttribute('data-tab');
+
+  if (activeTab === 'labTab') {
+    const filtered = filterAppointments(searchTerm, field);
+    renderAppointments(filtered);
+  } else if (activeTab === 'patientsTab') {
+    const filtered = filterPatients(searchTerm, field);
+    renderPatients(filtered);
+  }
+}
+
+searchInput.addEventListener('input', handleFilter);
+filterDropdownMenu.querySelectorAll('.dropdown-option').forEach(option => {
+  option.addEventListener('click', () => {
+    filterDropdownText.textContent = option.textContent;
+    handleFilter();
+    filterDropdownMenu.classList.add('hidden');
+  });
+});
+
+// On page load render all
+handleFilter();
+filterDropdownMenu.querySelectorAll('.dropdown-option').forEach(option => {
+  option.addEventListener('click', () => {
+    filterDropdownMenu.querySelectorAll('.dropdown-option').forEach(opt => opt.classList.remove('selected'));
+    option.classList.add('selected');
+    filterDropdownText.textContent = option.textContent;
+    handleFilter();
+    filterDropdownMenu.classList.add('hidden');
+  });
+});
+
+</script>
+<script>
+  flatpickr("#datePicker", {
+    dateFormat: "Y-m-d",
+    defaultDate: new Date(),
+    onChange: function(selectedDates, dateStr, instance) {
+      document.getElementById("datePickerText").textContent = dateStr;
+      // Optionally, trigger your filter/search here
+      handleFilter();
+    }
+  });
+</script>
+
+</body>
+</html>
