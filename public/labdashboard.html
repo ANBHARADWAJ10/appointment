@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
      <script src="https://cdn.tailwindcss.com"></script>
-     <!-- Flatpickr CSS -->
+     
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<!-- Flatpickr JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
      <style>
         /* .tab-active {
@@ -736,8 +736,8 @@ document.addEventListener('click', (e) => {
   }
 });
 
-let appointments = []; // Your appointments array data
-let patients = []; // Your patients array data
+let appointments = []; 
+let patients = []; 
 
 function filterAppointments(searchTerm, field) {
   return appointments.filter(app => {
@@ -762,7 +762,7 @@ function filterAppointments(searchTerm, field) {
     } else if (field === 'time') {
       return app.time && app.time.toLowerCase().includes(searchTerm);
     } else if (field === 'actions') {
-      // Implement action search logic if needed, otherwise return false
+
       return false;
     }
     return false;
@@ -785,7 +785,7 @@ function filterPatients(searchTerm, field) {
     } else if (field === 'status') {
       return pat.status && pat.status.toLowerCase().includes(searchTerm);
     }
-    // add other fields if needed...
+  
     return false;
   });
 }
@@ -824,7 +824,7 @@ function renderPatients(filteredPatients) {
         <div class="col-span-2">${pat.prescribedTestCount || 0}</div>
         <div class="col-span-2">${pat.status || ''}</div>
         <div class="col-span-2">
-          <!-- Actions here -->
+          
         </div>
       </div>
     `;
@@ -833,7 +833,7 @@ function renderPatients(filteredPatients) {
 
 function handleFilter() {
   const searchTerm = searchInput.value.trim();
-  // Use the selected dropdown's data-value for field
+
   const selectedOption = filterDropdownMenu.querySelector('.dropdown-option.selected');
   const field = selectedOption ? selectedOption.getAttribute('data-value') : 'all';
   const activeTab = document.querySelector('.tab-active').getAttribute('data-tab');
@@ -856,7 +856,7 @@ filterDropdownMenu.querySelectorAll('.dropdown-option').forEach(option => {
   });
 });
 
-// On page load render all
+
 handleFilter();
 filterDropdownMenu.querySelectorAll('.dropdown-option').forEach(option => {
   option.addEventListener('click', () => {
@@ -875,7 +875,7 @@ filterDropdownMenu.querySelectorAll('.dropdown-option').forEach(option => {
     defaultDate: new Date(),
     onChange: function(selectedDates, dateStr, instance) {
       document.getElementById("datePickerText").textContent = dateStr;
-      // Optionally, trigger your filter/search here
+      
       handleFilter();
     }
   });
