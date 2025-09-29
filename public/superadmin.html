@@ -1055,14 +1055,12 @@ body.dark #availabilityModal {
     </head>
 
     <body class="bg-gray-100 font-sans">
-      <nav class="bg-white shadow py-3 px-[110px]">
-  <div class="flex justify-between items-center w-full">
-    <div class="flex items-center">
-      <img id="orgLogo" src="/images/Medicare-Emblem.png" class="w-8 h-8 mr-2" alt="Organization Logo">
-      <h1 id="orgName" class="text-xl font-bold text-blue-600">MediCare</h1>
-    </div>
- 
-
+        <nav class="bg-white shadow py-3 px-[110px]">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center">
+                    <img id="orgLogo" class="w-8 h-8 mr-2" alt="Logo" />
+                    <h1 id="orgName" class="text-xl font-bold text-blue-600">MediCare</h1>
+                </div>
                 <div class="flex items-center">
                     <div class="flex items-center gap-2">
                         <div id="userAvatar" class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-black font-bold text-lg"></div>
@@ -1292,10 +1290,11 @@ body.dark #availabilityModal {
                 </div>
             </div> -->
             </div>
+
             <div class="px-20 mt-4">
                 <div class="bg-gray-200 p-1 rounded-lg flex items-center mb-4">
                     <button class="tab flex-1 text-center py-1.5 font-semibold transition-colors duration-200 tab-active bg-white shadow rounded" data-tab="adminsTab">Admins</button>
-                    <button class="tab flex-1 text-center py-1.5 font-semibold transition-colors duration-200 tab-inactive" data-tab="employeeTab">Employee</button>
+                      <button class="tab flex-1 text-center py-1.5 font-semibold transition-colors duration-200 tab-inactive" data-tab="employeesTab">Employee</button>
                     <button class="tab flex-1 text-center py-1.5 font-semibold transition-colors duration-200 tab-inactive" data-tab="doctorsTab">Doctors</button>
                 </div>
 
@@ -1342,210 +1341,46 @@ body.dark #availabilityModal {
                         </div>
                         <div id="adminList" class="space-y-2 mt-4"></div>
                     </div>
-                     <div id="employeeTab" class="tab-content hidden">
+
+
+
+
+<div id="employeesTab" class="tab-content hidden">
   <div class="flex justify-between items-center mb-4">
     <h3 class="text-xl font-semibold mb-1">Employee List</h3>
-    <button id="addEmployeeBtn" class="bg-green-500 text-white px-6 h-12 flex items-center rounded font-semibold">Add Employee</button>
+    <button id="addEmployeeBtn" class="bg-black text-white px-6 h-12 flex items-center rounded font-semibold">+ Add Employee</button>
   </div>
+
   <div class="grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b">
-    <div class="col-span-3">Employee Name</div>
+    <div class="col-span-2">Employee Name</div>
+    <div class="col-span-2">Department</div>
+    <div class="col-span-2">Role</div>
     <div class="col-span-3">Email</div>
-    <div class="col-span-3">Contact</div>
-    <div class="col-span-3 text-right">Actions</div>
+    <div class="col-span-2">Contact</div>
+    <div class="col-span-1 text-right">Actions</div>
   </div>
   <div id="employeeList" class="space-y-2 mt-4"></div>
-  <div id="employeePagination" class="flex justify-center items-center space-x-2 mt-4 hidden">
-    <button id="prevEmployeesPage" class="px-3 py-1 text-sm border rounded hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
-    <span id="employeesPageInfo" class="text-sm text-gray-600">Page 1 of 1</span>
-    <button id="nextEmployeesPage" class="px-3 py-1 text-sm border rounded hover:bg-blue-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed">Next</button>
-  </div>
-
-  <!-- Add Employee -->
-  <div id="addEmployeeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30 hidden">
-    <div class="bg-white p-8 rounded shadow-md max-w-5xl w-full relative max-h-screen overflow-y-auto">
-      <button id="closeAddEmployee" class="absolute top-2 right-2 text-2xl font-bold text-gray-400 hover:text-gray-700">&times;</button>
-      <h2 class="text-2xl font-semibold mb-6">Add Employee</h2>
-      <form class="grid grid-cols-2 gap-x-12 gap-y-6">
-        <!-- Column 1 -->
-        <div class="space-y-4">
-          <div>
-            <label class="block font-medium mb-1">Salutation<span class="text-red-600">*</span></label>
-            <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" required>
-              <option>--select--</option>
-              <option>Mr</option>
-              <option>Ms</option>
-              <option>Dr</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">First Name<span class="text-red-600">*</span></label>
-            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="First Name" required>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Middle Name</label>
-            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Middle Name">
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Last Name<span class="text-red-600">*</span></label>
-            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Last Name" required>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Date Of Birth<span class="text-red-600">*</span></label>
-            <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" required>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Gender<span class="text-red-600">*</span></label>
-            <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" required>
-              <option>--select--</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Contact Number</label>
-            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Employee Contact Number">
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Email Id</label>
-            <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Employee Email Id">
-          </div>
-        </div>
-  
-        <!-- Column 2 -->
-        <div class="space-y-4">
-          <div>
-            <label class="block font-medium mb-1 ">Employee Department<span class="text-red-600">*</span></label>
-            <select id="employeeDepartment" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" required>
-              <option>--select--</option>
-              <option>Admin</option>
-              <option>Doctor</option>
-              
-            </select>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Employee Role</label>
-            <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400">
-              <option>--select--</option>
-        
-            </select>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Employee Type</label>
-            <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400">
-              <option>--select--</option>
-              
-            </select>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Date Of Joining</label>
-            <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400">
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Contact Address</label>
-            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" rows="2"></textarea>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">PAN No</label>
-            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="PAN No">
-          </div>
-           <div>
-            <label class="block font-medium mb-1">Blood Group</label>
-            <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400">
-              <option>--select--</option>
-              <option>A+</option>
-              <option>A-</option>
-              <option>B+</option>
-              <option>B-</option>
-              <option>O+</option>
-              <option>O-</option>
-              <option>AB+</option>
-              <option>AB-</option>
-            </select>
-          </div>
-          <!-- <div class="flex items-center space-x-2 mt-2">
-            <input type="checkbox" class="form-checkbox w-5 h-5 scale-125">
-            <label class="font-medium">Is Active</label>
-          </div> -->
-        </div>
-  
-        <!-- Column 3 -->
-         <!-- <div class="space-y-4"></div> -->
-        <div id="adminFields" class="space-y-4 hidden mt-4 col-span-3">
-  <div>
-    <label class="block font-medium mb-1">Password <span class="text-red-600">*</span></label>
-    <input type="password" 
-      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" 
-      placeholder="Password">
-  </div>
-  <div>
-    <label class="block font-medium mb-1">Confirm Password <span class="text-red-600">*</span></label>
-    <input type="password" 
-      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" 
-      placeholder="Confirm Password">
-  </div>
 </div>
 
 
-<div id="doctorFields" class="space-y-4 hidden mt-4 col-span-2">
-  <div>
-    <label class="block font-medium mb-1">Specialization <span class="text-red-600">*</span></label>
-    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400">
-      <option>Select Specialty</option>
-      <option>Cardiology</option>
-      <option>Neurology</option>
-      <option>Orthopedics</option>
-    
-    </select>
-  </div>
-
-  <div>
-    <label class="block font-medium mb-1">Experience <span class="text-red-600">*</span></label>
-    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Years of Experience">
-  </div>
-
-  <div>
-    <label class="block font-medium mb-1">Qualification</label>
-    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="e.g. MBBS, MD, PhD">
-  </div>
-
-  <div class="grid grid-cols-2 gap-6">
-    <div>
-      <label class="block font-medium mb-1">Start Time <span class="text-red-600">*</span></label>
-      <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400">
-        <option>Select Time</option>
-    
-      </select>
-    </div>
-    <div>
-      <label class="block font-medium mb-1">End Time <span class="text-red-600">*</span></label>
-      <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400">
-        <option>Select Time</option>
-        
-      </select>
-    </div>
-  </div>
-</div>
-
- 
 
 
-        <div class="flex items-center justify-between mt-4 col-span-2">
-  <div class="flex items-center space-x-2">
-    <input type="checkbox" class="form-checkbox w-5 h-5 scale-125" checked>
-    <label class="font-medium">Is Active</label>
-  </div>
-  <button type="submit" class="bg-green-500 text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition duration-200">
-    Add
-  </button>
-</div>
-      </form>
-     
-    </div>
-    
-  </div>
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div id="doctorsTab" class="tab-content hidden">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-xl font-semibold mb-1">Doctors List</h3>
@@ -2063,118 +1898,193 @@ body.dark #availabilityModal {
                     </div>
                 </form>
             </div>
-            
         </div>
-        
-        <!-- <footer class="w-full bg-white shadow py-4 mt-8 fixed bottom-0 left-0 z-30 flex items-center justify-center">
-    <div class="text-gray-500 font-semibold">medicare@2000</div>
-  </footer> -->
+    
 
-  
+
+
+ <!-- Add Employee Modal -->
+  <div id="addEmployeeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+    <div class="modal-backdrop absolute inset-0"></div>
+    <div class="relative bg-white w-full max-w-3xl mx-4 rounded shadow-lg z-10 p-6 overflow-auto max-h-[90vh]">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-semibold">Add Employee</h3>
+        <button id="closeAddEmployee" class="text-gray-600">Close ✖</button>
+      </div>
+
+      <form id="addEmployeeForm" class="grid grid-cols-2 gap-x-8 gap-y-4">
+        <!-- LEFT -->
+        <div class="space-y-2">
+          <label class="block"><small>Salutation</small>
+            <select id="salutation" name="salutation" class="w-full px-2 py-1 border rounded">
+              <option value="">--select--</option><option>Mr</option><option>Ms</option><option>Dr</option>
+            </select>
+          </label>
+
+          <label class="block"><small>First Name *</small>
+            <input id="firstName" name="firstName" required class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Middle Name</small>
+            <input id="middleName" name="middleName" class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Last Name *</small>
+            <input id="lastName" name="lastName" required class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Date of Birth</small>
+            <input id="dob" name="dob" type="date" class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Gender</small>
+            <select id="gender" name="gender" class="w-full px-2 py-1 border rounded">
+              <option value="">--select--</option><option>Male</option><option>Female</option><option>Other</option>
+            </select>
+          </label>
+
+          <label class="block"><small>Contact</small>
+            <input id="contact" name="contact" class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Email</small>
+            <input id="email" name="email" type="email" class="w-full px-2 py-1 border rounded">
+          </label>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="space-y-2">
+          <label class="block"><small>Department *</small>
+            <select id="employeeDepartment" name="department" required class="w-full px-2 py-1 border rounded">
+              <option value="">--select--</option>
+              <option>Admin</option>
+              <option>Doctor</option>
+            </select>
+          </label>
+
+          <label class="block"><small>Role</small>
+            <input id="role" name="role" class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Type</small>
+            <input id="type" name="type" class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Date of Joining</small>
+            <input id="dateOfJoining" name="dateOfJoining" type="date" class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Address</small>
+            <textarea id="address" name="address" rows="2" class="w-full px-2 py-1 border rounded"></textarea>
+          </label>
+
+          <label class="block"><small>PAN No</small>
+            <input id="panNo" name="panNo" class="w-full px-2 py-1 border rounded">
+          </label>
+
+          <label class="block"><small>Blood Group</small>
+            <select id="bloodGroup" name="bloodGroup" class="w-full px-2 py-1 border rounded">
+              <option value="">--select--</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Admin Fields -->
+        <div id="adminFields" class="col-span-2 hidden space-y-2 mt-2">
+          <label><small>Password *</small>
+            <input id="password" name="password" type="password" class="w-full px-2 py-1 border rounded">
+          </label>
+          <label><small>Confirm Password *</small>
+            <input id="confirmPassword" type="password" class="w-full px-2 py-1 border rounded">
+          </label>
+        </div>
+
+        <!-- Doctor Fields -->
+        <div id="doctorFields" class="col-span-2 hidden space-y-2 mt-2">
+          <label><small>Specialization *</small>
+            <select id="specialization" name="specialization" class="w-full px-2 py-1 border rounded">
+              <option value="">Select Specialty</option>
+              <option>Cardiology</option><option>Neurology</option><option>Orthopedics</option><option>General</option>
+            </select>
+          </label>
+
+          <label><small>Experience (years) *</small>
+            <input id="experience" name="experience" class="w-full px-2 py-1 border rounded" placeholder="e.g. 5">
+          </label>
+
+          <label><small>Qualification</small>
+            <input id="qualification" name="qualification" class="w-full px-2 py-1 border rounded" placeholder="e.g. MBBS">
+          </label>
+
+          <div class="grid grid-cols-2 gap-3">
+            <label><small>Start Time</small>
+              <input id="startTime" name="startTime" type="time" class="w-full px-2 py-1 border rounded">
+            </label>
+            <label><small>End Time</small>
+              <input id="endTime" name="endTime" type="time" class="w-full px-2 py-1 border rounded">
+            </label>
+          </div>
+        </div>
+
+        <div class="col-span-2 flex items-center justify-between mt-4">
+          <div class="flex items-center gap-2">
+            <input id="isActive" name="isActive" type="checkbox" checked>
+            <label>Is Active</label>
+          </div>
+          <div>
+            <button type="button" id="cancelAddEmployee" class="px-3 py-1 border rounded mr-2">Cancel</button>
+            <button type="submit" class="px-4 py-1 bg-green-600 text-white rounded">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+<!-- Toast Notification -->
+<div id="toast" class="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300">
+  Employee added successfully!
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script>
-            const tabs = document.querySelectorAll('.tab');
-const tabContents = document.querySelectorAll('.tab-content');
-
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => {
-      t.classList.remove('tab-active', 'bg-white', 'shadow', 'rounded');
-      t.classList.add('tab-inactive');
-    });
-    tab.classList.remove('tab-inactive');
-    tab.classList.add('tab-active', 'bg-white', 'shadow', 'rounded');
-
-    const targetId = tab.getAttribute('data-tab');
-    tabContents.forEach(content => content.classList.add('hidden'));
-    document.getElementById(targetId).classList.remove('hidden');
-
-    if (targetId === 'adminsTab') {
-      fetchAdmins();
-    } else if (targetId === 'doctorsTab') {
-      fetchAndDisplayDoctors();
-    } else if (targetId === 'employeeTab') {
-      fetchAndDisplayEmployees();
-    }
-  });
-});
-
-let allEmployees = [];
-let currentEmployeesPage = 1;
-const employeesPerPage = 7;
-
-async function fetchAndDisplayEmployees() {
-  const employeeList = document.getElementById('employeeList');
-  employeeList.innerHTML = '<div class="text-gray-500 text-center py-4">Loading employees...</div>';
-  
-  try {
-    const res = await fetch('/api/employees');
-    if (!res.ok) throw new Error('Failed to fetch employees');
-    allEmployees = await res.json();
-
-    currentEmployeesPage = 1;
-    renderEmployeesPage();
-  } catch (err) {
-    employeeList.innerHTML = `<div class="text-red-500 text-center py-4">Failed to load employees.</div>`;
-  }
-}
-
-function renderEmployeesPage() {
-  const employeeList = document.getElementById('employeeList');
-  const totalPages = Math.ceil(allEmployees.length / employeesPerPage);
-  const startIndex = (currentEmployeesPage - 1) * employeesPerPage;
-  const endIndex = startIndex + employeesPerPage;
-  const currentEmployees = allEmployees.slice(startIndex, endIndex);
-
-  if (currentEmployees.length === 0) {
-    employeeList.innerHTML = `<div class="text-gray-500 text-center py-4">No employees found.</div>`;
-  } else {
-    employeeList.innerHTML = currentEmployees.map(employee => `
-      <div class="grid grid-cols-12 gap-4 items-center bg-white p-3 rounded-lg shadow-sm border border-gray-100 text-sm">
-        <div class="col-span-3 font-semibold text-gray-800">${employee.name}</div>
-        <div class="col-span-3 text-gray-700">${employee.email}</div>
-        <div class="col-span-3 text-gray-700">${employee.contact}</div>
-        <div class="col-span-3 text-right">
-          <button class="text-blue-600 hover:underline mr-2" onclick="editEmployee('${employee.id}')">Edit</button>
-          <button class="text-red-600 hover:underline" onclick="deleteEmployee('${employee.id}')">Delete</button>
-        </div>
-      </div>
-    `).join('');
-  }
-  document.getElementById('employeePagination').classList.toggle('hidden', totalPages <= 1);
-  document.getElementById('employeesPageInfo').textContent = `Page ${currentEmployeesPage} of ${totalPages}`;
-  document.getElementById('prevEmployeesPage').disabled = currentEmployeesPage === 1;
-  document.getElementById('nextEmployeesPage').disabled = currentEmployeesPage === totalPages;
-}
-
-document.getElementById('prevEmployeesPage').addEventListener('click', () => {
-  if (currentEmployeesPage > 1) {
-    currentEmployeesPage--;
-    renderEmployeesPage();
-  }
-});
-
-document.getElementById('nextEmployeesPage').addEventListener('click', () => {
-  const totalPages = Math.ceil(allEmployees.length / employeesPerPage);
-  if (currentEmployeesPage < totalPages) {
-    currentEmployeesPage++;
-    renderEmployeesPage();
-  }
-});
-
-function editEmployee(employeeId) {
-}
-
-function deleteEmployee(employeeId) {
-}
-  document.getElementById('addEmployeeBtn').addEventListener('click', () => {
-    document.getElementById('addEmployeeModal').classList.remove('hidden');
-  });
-
-  // Hide modal on close click
-  document.getElementById('closeAddEmployee').addEventListener('click', () => {
-    document.getElementById('addEmployeeModal').classList.add('hidden');
-  })
+            const tabs = document.querySelectorAll(".tab");
+            const tabContents = document.querySelectorAll(".tab-content");
+            tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                    tabs.forEach((t) => t.classList.remove("tab-active", "bg-white", "shadow", "rounded"));
+                    tabs.forEach((t) => t.classList.add("tab-inactive"));
+                    tab.classList.remove("tab-inactive");
+                    tab.classList.add("tab-active", "bg-white", "shadow", "rounded");
+                    const targetId = tab.getAttribute("data-tab");
+                    tabContents.forEach((content) => content.classList.add("hidden"));
+                    document.getElementById(targetId).classList.remove("hidden");
+                    if (targetId === "doctorsTab") fetchAndDisplayDoctors();
+                    if (targetId === "adminsTab") fetchAdmins();
+                });
+            });
+            window.addEventListener("click", function (e) {
+                document.querySelectorAll(".action-menu").forEach((menu) => {
+                    if (!menu.contains(e.target) && !menu.previousElementSibling.contains(e.target)) {
+                        menu.classList.add("hidden");
+                    }
+                });
+            });
         </script>
         <script>
             let allAdmins = [];
@@ -2255,13 +2165,13 @@ function deleteEmployee(employeeId) {
       class="absolute inset-y-0 right-1 flex items-center"
       onclick="togglePasswordVisibility(this)">
       
-    
+      <!-- Eye hidden -->
       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 eye-hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.957 9.957 0 012.186-3.302M6.42 6.42A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.959 9.959 0 01-4.063 5.148M15 12a3 3 0 01-4.95 2.121M3 3l18 18" />
       </svg>
 
-
+      <!-- Eye open -->
       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 eye-visible hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -3693,7 +3603,7 @@ function deleteEmployee(employeeId) {
                 const contact = form.contact.value.trim();
                 const password = form.password.value;
                 const confirmPassword = form.confirmPassword.value;
-                //    const organizationId = localStorage.getItem("orgId");
+
                 if (!username || !email || !password || !confirmPassword || !contact) {
                     showToast("Please fill in all fields.", "warning");
                     return;
@@ -3714,13 +3624,6 @@ function deleteEmployee(employeeId) {
                     showToast("Passwords do not match.", "error");
                     return;
                 }
-//                    const payload = {
-//     username,
-//     email,
-//     contact,
-//     password,
-//     organizationId,
-//   };
 
                 try {
                     const res = await fetch("/api/admin/register", {
@@ -3950,85 +3853,283 @@ function deleteEmployee(employeeId) {
             const savedAccent = localStorage.getItem("accent") || "blue";
             applyAccentColor(savedAccent);
         </script>
-     <script>
+        <script>
+            function getOrgId() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const orgFromUrl = urlParams.get("org");
 
-  function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-  }
+                if (orgFromUrl) {
+                    localStorage.setItem("orgId", orgFromUrl);
+                    return orgFromUrl;
+                }
+                return localStorage.getItem("orgId");
+            }
 
-  const fallbackOrg = { name: "MediCare", logo: "/images/Medicare-Emblem.png" };
+            const defaultOrg = { name: "MediCare", logo: "/images/Medicare-Emblem.png" };
+            const fallbackOrg = { name: "Unknown Organization", logo: "/images/fallback-logo.png" };
+
+            const orgId = getOrgId();
+
+            if (orgId) {
+                fetch(`/api/organization/${orgId}`)
+                    .then((res) => {
+                        if (!res.ok) throw new Error("Not Found");
+                        return res.json();
+                    })
+                    .then((org) => {
+                        document.getElementById("orgName").textContent = org.name;
+                        document.getElementById("orgLogo").src = org.logo;
+                    })
+                    .catch(() => {
+                        document.getElementById("orgName").textContent = fallbackOrg.name;
+                        document.getElementById("orgLogo").src = fallbackOrg.logo;
+                    });
+            } else {
+                document.getElementById("orgName").textContent = defaultOrg.name;
+                document.getElementById("orgLogo").src = defaultOrg.logo;
+            }
+        </script>
 
 
-  const orgId = getQueryParam("org") || localStorage.getItem("orgId");
 
- 
-  const orgNameEl = document.getElementById('orgName');
-  const orgLogoEl = document.getElementById('orgLogo');
 
-  if (orgId) {
-    
-    fetch(`/api/organization/${orgId}`)
-      .then(res => {
-        if (!res.ok) throw new Error("Organization Not Found");
-        return res.json();
-      })
-      .then(org => {
-        if (orgNameEl) orgNameEl.textContent = org.name;
-        if (orgLogoEl) orgLogoEl.src = org.logo;
 
-      
-        localStorage.setItem("orgId", orgId);
-        localStorage.setItem("orgName", org.name);
-        localStorage.setItem("orgLogo", org.logo);
-      })
-      .catch(() => {
-  
-        if (orgNameEl) orgNameEl.textContent = fallbackOrg.name;
-        if (orgLogoEl) orgLogoEl.src = fallbackOrg.logo;
-      });
-  } else {
-   
-    const savedName = localStorage.getItem("orgName") || fallbackOrg.name;
-    const savedLogo = localStorage.getItem("orgLogo") || fallbackOrg.logo;
+<!-- <script>
+  // -------------------------
+  // Modal & Form Elements
+  // -------------------------
+  const addEmployeeModal = document.getElementById('addEmployeeModal');
+  const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+  const closeAddEmployeeBtn = document.getElementById('closeAddEmployee');
+  const cancelAddEmployeeBtn = document.getElementById('cancelAddEmployee');
+  const departmentSelect = document.getElementById('employeeDepartment');
+  const adminFields = document.getElementById('adminFields');
+  const doctorFields = document.getElementById('doctorFields');
+  const addEmployeeForm = document.getElementById('addEmployeeForm');
+  const employeeListContainer = document.getElementById('employeeList');
 
-    if (orgNameEl) orgNameEl.textContent = savedName;
-    if (orgLogoEl) orgLogoEl.src = savedLogo;
-  }
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const departmentSelect = document.getElementById("employeeDepartment");
-    const adminFields = document.getElementById("adminFields");
-
-    departmentSelect.addEventListener("change", function () {
-      if (this.value === "Admin") {
-        adminFields.classList.remove("hidden");
-      } else {
-        adminFields.classList.add("hidden");
-      }
-    });
+  // -------------------------
+  // Open Modal
+  // -------------------------
+  addEmployeeBtn.addEventListener('click', () => {
+    addEmployeeModal.classList.remove('hidden');
   });
-</script>
 
+  // -------------------------
+  // Close Modal
+  // -------------------------
+  function closeAddEmployeeModal() {
+    addEmployeeModal.classList.add('hidden');
+    resetAddEmployeeForm();
+  }
 
-<script>
-  const departmentSelect = document.getElementById("employeeDepartment");
-  const adminFields = document.getElementById("adminFields");
-  const doctorFields = document.getElementById("doctorFields");
+  closeAddEmployeeBtn.addEventListener('click', closeAddEmployeeModal);
+  cancelAddEmployeeBtn.addEventListener('click', closeAddEmployeeModal);
 
-  departmentSelect.addEventListener("change", function () {
-    // Hide both initially
-    adminFields.classList.add("hidden");
-    doctorFields.classList.add("hidden");
-
-    if (this.value === "Admin") {
-      adminFields.classList.remove("hidden");
-    } else if (this.value === "Doctor") {
-      doctorFields.classList.remove("hidden");
+  // Close modal on clicking outside
+  window.addEventListener('click', (e) => {
+    if (e.target === addEmployeeModal) {
+      closeAddEmployeeModal();
     }
   });
+
+  // -------------------------
+  // Reset Form & Hide Fields
+  // -------------------------
+  function resetAddEmployeeForm() {
+    addEmployeeForm.reset();
+    adminFields.classList.add('hidden');
+    doctorFields.classList.add('hidden');
+  }
+
+  // -------------------------
+  // Show/hide fields based on department
+  // -------------------------
+  departmentSelect.addEventListener('change', function () {
+    const selectedDept = this.value;
+    if (selectedDept === 'Admin') {
+      adminFields.classList.remove('hidden');
+      doctorFields.classList.add('hidden');
+    } else if (selectedDept === 'Doctor') {
+      doctorFields.classList.remove('hidden');
+      adminFields.classList.add('hidden');
+    } else {
+      adminFields.classList.add('hidden');
+      doctorFields.classList.add('hidden');
+    }
+  });
+
+  // -------------------------
+  // Handle Form Submission
+  // -------------------------
+  addEmployeeForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Gather form data
+    const formData = new FormData(addEmployeeForm);
+    const employeeData = Object.fromEntries(formData.entries());
+
+    console.log('Employee Data:', employeeData);
+
+    // -------------------------
+    // Append to employee list (simple frontend example)
+    // -------------------------
+    const fullName = `${employeeData.salutation ? employeeData.salutation + ' ' : ''}${employeeData.firstName} ${employeeData.lastName}`;
+    const dept = employeeData.department || '';
+    const role = employeeData.role || '';
+    const email = employeeData.email || '';
+    const contact = employeeData.contact || '';
+
+    const employeeRow = document.createElement('div');
+    employeeRow.classList.add('grid', 'grid-cols-12', 'gap-4', 'px-4', 'py-2', 'border-b', 'items-center');
+    employeeRow.innerHTML = `
+      <div class="col-span-2">${fullName}</div>
+      <div class="col-span-2">${dept}</div>
+      <div class="col-span-2">${role}</div>
+      <div class="col-span-3">${email}</div>
+      <div class="col-span-2">${contact}</div>
+      <div class="col-span-1 text-right">
+        <button class="text-blue-600 hover:underline">Edit</button>
+      </div>
+    `;
+    employeeListContainer.appendChild(employeeRow);
+
+    // Close modal after adding
+    closeAddEmployeeModal();
+  });
 </script>
+
+
+
+
+ -->
+
+
+
+
+<script>
+  const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+  const addEmployeeModal = document.getElementById('addEmployeeModal');
+  const closeAddEmployee = document.getElementById('closeAddEmployee');
+  const cancelAddEmployee = document.getElementById('cancelAddEmployee');
+  const addEmployeeForm = document.getElementById('addEmployeeForm');
+  const employeeListContainer = document.getElementById('employeeList');
+  const toast = document.getElementById('toast');
+  const employeeDepartment = document.getElementById('employeeDepartment');
+  const adminFields = document.getElementById('adminFields');
+  const doctorFields = document.getElementById('doctorFields');
+
+  const API_BASE = 'http://localhost:3022/api/employees';
+
+  // --- Modal open/close ---
+  addEmployeeBtn.addEventListener('click', () => addEmployeeModal.classList.remove('hidden'));
+  closeAddEmployee.addEventListener('click', () => addEmployeeModal.classList.add('hidden'));
+  cancelAddEmployee.addEventListener('click', () => addEmployeeModal.classList.add('hidden'));
+
+  // --- Show/Hide Admin & Doctor fields ---
+  employeeDepartment.addEventListener('change', () => {
+    const dept = employeeDepartment.value;
+    adminFields.classList.toggle('hidden', dept !== 'Admin');
+    doctorFields.classList.toggle('hidden', dept !== 'Doctor');
+  });
+
+  // --- Toast ---
+  function showToast(message, type = 'success') {
+    toast.textContent = message;
+    toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded shadow-lg transition-opacity duration-300 ${
+      type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+    }`;
+    toast.classList.remove('opacity-0');
+    toast.classList.add('opacity-100');
+
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0');
+    }, 3000);
+  }
+
+  // --- Append employee to DOM ---
+  function appendEmployeeToDOM(emp) {
+    const fullName = `${emp.salutation ? emp.salutation + ' ' : ''}${emp.firstName} ${emp.lastName}`;
+    const dept = emp.department || '';
+    const role = emp.role || '';
+    const email = emp.email || '';
+    const contact = emp.contact || '';
+
+    const row = document.createElement('div');
+    row.className = 'grid grid-cols-12 gap-4 items-center bg-white p-3 rounded-lg shadow-sm border border-gray-100';
+    row.innerHTML = `
+      <div class="col-span-2 font-medium">${fullName}</div>
+      <div class="col-span-2">${dept}</div>
+      <div class="col-span-2">${role}</div>
+      <div class="col-span-2">${email}</div>
+      <div class="col-span-2">${contact}</div>
+      <div class="col-span-2 text-right">
+        <button class="text-blue-600 hover:underline" onclick="viewEmployee('${emp._id}')">View</button>
+        <button class="text-red-600 hover:underline ml-2" onclick="deleteEmployee('${emp._id}')">Delete</button>
+      </div>
+    `;
+    employeeListContainer.prepend(row);
+  }
+
+  
+  // --- Fetch and display employees ---
+  async function fetchAndDisplayEmployees() {
+    try {
+      const res = await fetch(API_BASE);
+      const employees = await res.json();
+      employeeListContainer.innerHTML = '';
+      employees.forEach(emp => appendEmployeeToDOM(emp));
+    } catch (err) {
+      console.error('Failed to fetch employees:', err);
+      showToast('Failed to load employees', 'error');
+    }
+  }
+
+  // --- Form submit ---
+  addEmployeeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(addEmployeeForm);
+    const payload = Object.fromEntries(formData.entries());
+
+    // Map Doctor availability
+    if (payload.department === 'Doctor') {
+      payload.availability = {
+        start: payload.startTime || '',
+        end: payload.endTime || ''
+      };
+    }
+
+    try {
+      const res = await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error('Failed to add employee');
+      const newEmployee = await res.json();
+
+      appendEmployeeToDOM(newEmployee);
+      showToast('Employee added successfully!');
+      addEmployeeModal.classList.add('hidden');
+      addEmployeeForm.reset();
+      adminFields.classList.add('hidden');
+      doctorFields.classList.add('hidden');
+
+    } catch (err) {
+      console.error(err);
+      showToast('Error adding employee', 'error');
+    }
+  });
+
+  // --- Initial load ---
+  document.addEventListener('DOMContentLoaded', fetchAndDisplayEmployees);
+</script>
+
+
+
 
 
     </body>
