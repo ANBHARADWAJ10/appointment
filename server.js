@@ -1,4 +1,4 @@
-
+// ===== Imports =====
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -9,6 +9,7 @@ const cron = require("node-cron");
 
 dotenv.config();
 
+// ===== App Setup =====
 const app = express();
 const port = process.env.PORT || 3022;
 const mongoURI = process.env.DATABASE_URL;
@@ -74,28 +75,35 @@ app.get("/api/organization/:id", (req, res) => {
 
 // ===== MongoDB Connection =====
 mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(mongoURI)
   .then(() => {
+    console.log("✅ MongoDB Connected");
     app.listen(port, () =>
-      console.log(` Server running at http://localhost:${port}`)
+      console.log(`🚀 Server running at http://localhost:${port}`)
     );
   })
   .catch((err) => {
-    console.error(" MongoDB connection error:", err);
+    console.error("❌ MongoDB connection error:", err.message);
     process.exit(1);
   });
+
+// ===== MongoDB Connection Events =====
+mongoose.connection.on("disconnected", () => {
+  console.warn("⚠️ MongoDB disconnected");
+});
+
+mongoose.connection.on("reconnected", () => {
+  console.log("🔄 MongoDB reconnected");
+});
 
 // ===== Cron Jobs =====
 // Runs every hour on the hour
 cron.schedule("0 * * * *", async () => {
-  console.log(" Running hourly admin cleanup");
+  console.log("🧹 Running hourly admin cleanup");
   await removeDeletedAdminsFromDb();
 });
 
 cron.schedule("0 * * * *", async () => {
-  console.log(" Running hourly doctor cleanup");
+  console.log("🧹 Running hourly doctor cleanup");
   await removeDeletedDoctors();
 });
