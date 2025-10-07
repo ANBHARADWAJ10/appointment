@@ -619,11 +619,25 @@ body.dark .calendar-day.selected {
     display: none !important;
   }
 }
+.suggestions-box {
+  
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  background: #fff;
+  z-index: 1000;
+  width: 215px; 
+}
+.suggestion-item {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.suggestion-item:hover {
+  background: #e2e8f0;
+}
 
 
-
-
- </style>
+</style>
 </head>
 
 <body class="bg-blue-50 font-sans">
@@ -721,16 +735,30 @@ body.dark .calendar-day.selected {
 
 
     <section id="patientSection" class="section active">
-        <div class="form-section">
-            <h2>Patient Details</h2>
+       <div class="w-full flex justify-center">
+  <div class="bg-white rounded-lg shadow py-10 p-8 mt-10" style="width: 80%;  max-width: 1100px;">
+            <h2 class="text-bold">Patient Details</h2>
             <form id="patientForm">
                 <div class="form-grid">
-                    <div class="form-group">
-                        <label for="patient-name">Patient Name<span class="text-red-500">*</span></label>
-                        <div id="patient-name-error" class="text-red-500 text-sm mt-1"></div>
-                        <input type="text" id="patient-name" name="name" placeholder="Enter full name" required
-                            title="Enter name using only letters and spaces" maxlength="50" />
-                    </div>
+                   <div class="form-group">
+  <label for="firstName">First Name<span class="text-red-500">*</span></label>
+  <div id="firstName-error" class="text-red-500 text-sm mt-1"></div>
+  <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required
+    title="Enter first name using only letters and spaces" maxlength="30" />
+</div>
+
+<div class="form-group">
+  <label for="middleName">Middle Name</label>
+  <input type="text" id="middleName" name="middleName" placeholder="Enter Middle Name"
+    title="Enter middle name using only letters and spaces" maxlength="30" />
+</div>
+
+<div class="form-group">
+  <label for="lastName">Last Name<span class="text-red-500">*</span></label>
+  <div id="lastName-error" class="text-red-500 text-sm mt-1"></div>
+  <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required
+    title="Enter last name using only letters and spaces" maxlength="30" />
+</div>
 
                    <div class="form-group">
   <label for="age">Age<span class="text-red-500">*</span></label>
@@ -787,10 +815,20 @@ body.dark .calendar-day.selected {
                     </div>
                     <div class="form-group">
                         <label for="symptoms">Symptoms</label>
-                        <input type="text" id="symptoms" name="symptoms" placeholder="Enter symptoms" />
-                    </div>
+                    <input type="text" id="symptoms" name="symptoms" placeholder="Enter symptoms" autocomplete="off">
+                    <div id="symptom-suggestions" class="suggestions-box"></div>
 
+                    </div>
+<div class="form-group">
+  <label for="visitType">Visit Type<span class="text-red-500">*</span></label>
+  <select id="visitType" name="visitType" required>
+    <option value="">Select Visit Type</option>
+    <option value="newPatient">New Patient</option>
+    <option value="followUp">Follow-up</option>
+  </select>
+</div>
                 </div>
+                
                 <div class="text-right mt-6">
                     <button type="button" id="patientNextBtn"
                         class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">Next</button>
@@ -992,6 +1030,10 @@ body.dark .calendar-day.selected {
                                         id="confirmPatientName"></span></div>
                                 <div><span class="text-gray-500">Age:</span> <span class="text-gray-800 ml-1"
                                         id="confirmPatientAge"></span></div>
+                                        <div>
+                               <span class="text-gray-500">Visit Type:</span> 
+                                <span class="text-gray-800 ml-1" id="confirmVisitType"></span>
+                                  </div>
                             </div>
                         </div>
                         <div class="border rounded-lg p-4 bg-gray-50">
@@ -1409,7 +1451,9 @@ body.dark .calendar-day.selected {
             e.preventDefault();
             const formData = new FormData(this);
             const patientData = {
-                name: formData.get("name"),
+                firstName: formData.get("firstName"),
+               middleName: formData.get("middleName") || "",
+                lastName: formData.get("lastName"),
                 age: formData.get("age"),
                 ageDisplay: document.getElementById("age").options[document.getElementById("age").selectedIndex].text,
                 gender: formData.get("gender"),
@@ -1443,16 +1487,21 @@ body.dark .calendar-day.selected {
                 }
 
                 showSection("patientSection");
-                updateStepper(1);
-                const patientData = JSON.parse(localStorage.getItem("patientData") || "{}");
-                if (patientData) {
-                    document.getElementById("patient-name").value = patientData.name || "";
-                    document.getElementById("age").value = patientData.age || "";
-                    document.getElementById("patient-gender").value = patientData.gender || "";
-                    document.getElementById("blood-group").value = patientData.blood || "";
-                    document.getElementById("contact-number").value = patientData.contact || "";
-                    checkPatientForm();
-                }
+updateStepper(1);
+const patientData = JSON.parse(localStorage.getItem("patientData") || "{}");
+if (patientData) {
+    const fullName = 
+      (patientData.firstName || '') + 
+      (patientData.middleName ? ' ' + patientData.middleName : '') + 
+      (patientData.lastName || '');
+      
+    document.getElementById("patient-name").value = fullName.trim();
+    document.getElementById("age").value = patientData.age || "";
+    document.getElementById("patient-gender").value = patientData.gender || "";
+    document.getElementById("blood-group").value = patientData.blood || "";
+    document.getElementById("contact-number").value = patientData.contact || "";
+    checkPatientForm();
+}
             }
         }
 
@@ -1561,16 +1610,18 @@ body.dark .calendar-day.selected {
         }
 
         function checkPatientForm() {
-            const name = document.getElementById("patient-name").value.trim();
-            const age = document.getElementById("age").value;
-            const gender = document.getElementById("patient-gender").value;
-            const blood = document.getElementById("blood-group").value;
-            const contact = document.getElementById("contact-number").value;
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const age = document.getElementById('age').value;
+  const gender = document.getElementById('patient-gender').value;
+  const blood = document.getElementById('blood-group').value;
+  const contact = document.getElementById('contact-number').value;
+
             const nextButton = document.getElementById("patientNextBtn");
-            if (name && age && gender && blood && contact.length === 10) {
-                nextButton.disabled = false;
-                nextButton.classList.remove("bg-gray-400");
-                nextButton.classList.add("bg-blue-600");
+             if (firstName && lastName && age && gender && blood && contact.length === 10) {
+    nextButton.disabled = false;
+    nextButton.classList.remove('bg-gray-400');
+    nextButton.classList.add('bg-blue-600');
                 return true;
             } else {
                 nextButton.disabled = true;
@@ -1584,12 +1635,14 @@ body.dark .calendar-day.selected {
             nextButton.disabled = true;
             nextButton.classList.add("bg-gray-400");
             nextButton.classList.remove("bg-blue-600");
-            document.getElementById("patient-name").required = true;
-            document.getElementById("age").required = true;
-            document.getElementById("patient-gender").required = true;
-            document.getElementById("blood-group").required = true;
-            document.getElementById("contact-number").required = true;
-            const formInputs = ["patient-name", "age", "patient-gender", "blood-group", "contact-number"];
+document.getElementById("firstName").required = true;
+document.getElementById("middleName").required = false;  
+document.getElementById("lastName").required = true;
+document.getElementById("age").required = true;
+document.getElementById("patient-gender").required = true;
+document.getElementById("blood-group").required = true;
+document.getElementById("contact-number").required = true;
+           const formInputs = ["firstName", "middleName", "lastName", "age", "patient-gender", "blood-group", "contact-number"];
 
             formInputs.forEach((inputId) => {
                 const element = document.getElementById(inputId);
@@ -2086,31 +2139,35 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                 if (!patientData || !doctorData || !appointmentData) {
                     throw new Error("Missing required appointment information");
                 }
+const fullName = 
+  (patientData.firstName || '') + 
+  (patientData.middleName ? ' ' + patientData.middleName : '') + 
+  (patientData.lastName || '');
 
-                const confirmationData = {
-                    patientData: {
-                        name: (patientData.name || "").trim(),
-                        age: Number(patientData.age),
-                        gender: (patientData.gender || "").trim(),
-                        blood: (patientData.blood || "").trim(),
-                        contact: (patientData.contact || "").trim(),
-                        symptoms: (patientData.symptoms || "").trim()
-                    },
-                    doctorData: {
-                        name: (doctorData.name || "").trim(),
-                        specialty: (doctorData.specialty || "").trim(),
-                    },
-                    dateData: {
-                        date: (appointmentData.date || "").trim(),
-                        time: (appointmentData.time || "").trim(),
-                    },
-                    referralData: {
-                        referredBy: (referralData.referredBy || "").trim(),
-                    },
-                    
-                };
-                console.log("Sending confirmationData:", confirmationData);
+const confirmationData = {
+  patientData: {
+      firstName: (patientData.firstName || "").trim(),
+  middleName: (patientData.middleName || "").trim(),
+  lastName: (patientData.lastName || "").trim(),
+    age: Number(patientData.age),
+    gender: (patientData.gender || "").trim(),
+    blood: (patientData.blood || "").trim(),
+    contact: (patientData.contact || "").trim(),
+  },
+  doctorData: {
+    name: (doctorData.name || "").trim(),
+    specialty: (doctorData.specialty || "").trim(),
+  },
+  dateData: {
+    date: (appointmentData.date || "").trim(),
+    time: (appointmentData.time || "").trim(),
+  },
+  referralData: {
+    referredBy: (referralData.referredBy || "").trim(),
+  }
+};
 
+console.log("Sending confirmationData:", confirmationData);
                 
                 if (referralData.referredBy && referralData.referredBy.trim() !== "") {
                     if (referralData.referredBy.trim().length < 2) {
@@ -2120,6 +2177,7 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                 }
 
                 for (const key in confirmationData.patientData) {
+                if (key === "middleName") continue;
                     if (
                         confirmationData.patientData[key] === "" ||
                         confirmationData.patientData[key] === null ||
@@ -2177,7 +2235,7 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                             date: confirmationData.dateData.date,
                             time: confirmationData.dateData.time,
                             referralData: confirmationData.referralData,
-                            symptoms:confirmationData.patientData.symptoms,
+                           
                         }),
                     });
                 } else {
@@ -2220,45 +2278,50 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
             }
         }
 
-        function initializeConfirmation() {
-            const patientData = JSON.parse(localStorage.getItem("patientData"));
-            const doctorData = JSON.parse(localStorage.getItem("selectedDoctor"));
-            const appointmentData = JSON.parse(localStorage.getItem("appointmentData"));
-            const referralData = JSON.parse(localStorage.getItem("referralData") || "{}");
+   function initializeConfirmation() {
+  const patientData = JSON.parse(localStorage.getItem("patientData"));
+  const doctorData = JSON.parse(localStorage.getItem("selectedDoctor"));
+  const appointmentData = JSON.parse(localStorage.getItem("appointmentData"));
+  const referralData = JSON.parse(localStorage.getItem("referralData") || "{}");
 
-            document.getElementById("confirmDoctor").textContent = doctorData.name;
-            document.getElementById("confirmSpecialty").textContent = doctorData.specialty;
-            document.getElementById("confirmExperience").textContent = doctorData.experience.split(" ")[0];
+  document.getElementById("confirmDoctor").textContent = doctorData.name;
+  document.getElementById("confirmSpecialty").textContent = doctorData.specialty;
+  document.getElementById("confirmExperience").textContent = doctorData.experience.split(" ")[0];
 
-            const dateObj = new Date(appointmentData.date);
-            const formattedDate = dateObj.toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-            });
-            document.getElementById("confirmDate").textContent = formattedDate;
+  const dateObj = new Date(appointmentData.date);
+  const formattedDate = dateObj.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+  document.getElementById("confirmDate").textContent = formattedDate;
 
-            document.getElementById("confirmTime").textContent = appointmentData.time;
-            document.getElementById("confirmPatientName").textContent = patientData.name;
-            document.getElementById("confirmPatientAge").textContent = patientData.age;
-            document.getElementById("confirmPatientGender").textContent = patientData.gender;
-            document.getElementById("confirmPatientBlood").textContent = patientData.blood;
-            document.getElementById("confirmPatientContact").textContent = patientData.contact;
-            document.getElementById("confirmPatientSymptoms").textContent = patientData.symptoms;
+  document.getElementById("confirmTime").textContent = appointmentData.time;
 
-    
-            const referralInfo = document.getElementById("referralInfo");
-            const confirmReferral = document.getElementById("confirmReferral");
-            
-            if (referralData.referredBy && referralData.referredBy.trim() !== "") {
-                confirmReferral.textContent = referralData.referredBy;
-                referralInfo.classList.remove("hidden");
-            } else {
-                referralInfo.classList.add("hidden");
-            }
-        }
+  
+  const fullName = 
+    (patientData.firstName || '') + 
+    (patientData.middleName ? ' ' + patientData.middleName : '') + 
+    (patientData.lastName ? ' ' + patientData.lastName : '');
+  document.getElementById("confirmPatientName").textContent = fullName.trim();
 
+  document.getElementById("confirmPatientAge").textContent = patientData.age;
+  document.getElementById("confirmPatientGender").textContent = patientData.gender;
+  document.getElementById("confirmPatientBlood").textContent = patientData.blood;
+  document.getElementById("confirmPatientContact").textContent = patientData.contact;
+  document.getElementById("confirmPatientSymptoms").textContent = patientData.symptoms;
+
+  const referralInfo = document.getElementById("referralInfo");
+  const confirmReferral = document.getElementById("confirmReferral");
+
+  if (referralData.referredBy && referralData.referredBy.trim() !== "") {
+    confirmReferral.textContent = referralData.referredBy;
+    referralInfo.classList.remove("hidden");
+  } else {
+    referralInfo.classList.add("hidden");
+  }
+}
         const allTimeSlots = [
             "9:00 AM",
             "9:30 AM",
@@ -2300,7 +2363,9 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                     showSection("patientSection");
                     updateStepper(1);
                     document.getElementById("patientForm").reset();
-                    document.getElementById("patient-name").value = "";
+                    document.getElementById("firstName").value = "";
+                    document.getElementById("middleName").value = "";
+                    document.getElementById("lastName").value = "";
                     document.getElementById("age").value = "";
                     document.getElementById("patient-gender").value = "";
                     document.getElementById("blood-group").value = "";
@@ -2398,10 +2463,17 @@ doctorAvailableSlots = doctorAvailableSlots.filter(
                             contactField: !!contactField,
                         });
 
-                        if (nameField) nameField.value = patientData.name || "";
-                        if (ageField) {
-                            let ageValue = patientData.age;
+                        if (nameField) {
+ 
+  const fullName = 
+    (patientData.firstName || '') + 
+    (patientData.middleName ? ' ' + patientData.middleName : '') + 
+    (patientData.lastName || '');
+  nameField.value = fullName.trim();
+}
 
+if (ageField) {
+  let ageValue = patientData.age;
                             if (typeof ageValue === "number") ageValue = String(ageValue);
                             if (typeof ageValue === "string") {
                                 const match = ageValue.match(/^([0-9.]+)/);
@@ -2846,16 +2918,76 @@ function clearReferralField() {
   });
 </script>
 <script>
- document.getElementById('printBtn').addEventListener('click', () => {
+ function printHandler() {
   const printContents = document.getElementById('confirmationSection').innerHTML;
   const originalContents = document.body.innerHTML;
 
   document.body.innerHTML = printContents;
   window.print();
   document.body.innerHTML = originalContents;
-  window.location.reload(); 
+  attachPrintHandler(); 
+}
+
+function attachPrintHandler() {
+  const printBtn = document.getElementById('printBtn');
+  if (printBtn) {
+    printBtn.addEventListener('click', printHandler);
+  }
+}
+attachPrintHandler();
+
+</script>
+<script>
+   
+const symptomList = [
+  "Fever",
+  "Cough",
+  "Cold",
+  "Headache",
+  "Stomach pain",
+  "Sore throat",
+  "Fatigue",
+  "Nausea",
+  "Vomiting",
+  "Diarrhea"
+];
+
+const symptomInput = document.getElementById("symptoms");
+const suggestionsBox = document.getElementById("symptom-suggestions");
+
+symptomInput.addEventListener("input", function() {
+  const value = this.value.toLowerCase();
+  suggestionsBox.innerHTML = "";
+  if (!value) {
+    suggestionsBox.style.display = "none";
+    return;
+  }
+  const suggestions = symptomList.filter(symptom => 
+    symptom.toLowerCase().includes(value)
+  );
+  if (suggestions.length === 0) {
+    suggestionsBox.style.display = "none";
+    return;
+  }
+  suggestionsBox.style.display = "block";
+  suggestions.forEach(symptom => {
+    const div = document.createElement("div");
+    div.classList.add("suggestion-item");
+    div.textContent = symptom;
+    div.onclick = function() {
+      symptomInput.value = symptom;
+      suggestionsBox.style.display = "none";
+    };
+    suggestionsBox.appendChild(div);
+  });
 });
 
+
+document.addEventListener("click", function(e) {
+  if (!symptomInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+    suggestionsBox.style.display = "none";
+  }
+});
 
 </script>
 </body>

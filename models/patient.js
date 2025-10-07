@@ -12,7 +12,7 @@ const patientSchema = new mongoose.Schema({
   // },
   gender: { type: String },
   blood: { type: String },
- contactNumber: { type: String },
+ contact: { type: String },
   symptoms: { type: String, default: "" },
   department: { type: String }, 
   doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }, 

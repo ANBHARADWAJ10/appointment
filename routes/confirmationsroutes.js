@@ -65,34 +65,36 @@ router.get("/", async (req, res) => {
         }
 
         const confirmations = await Confirmation.find(filter)
-            .populate({ path: "doctor", select: "name specialty experience education image" })
-            .populate({ path: "patient", select: "name age gender blood contact" })
-            .populate({ path: "date", select: "date time" })
-            .lean();
+  .populate({ path: "doctor", select: "name specialty experience education image" })
+  .populate({ path: "patient", select: "firstName middleName lastName age gender blood contact" })
+  .populate({ path: "date", select: "date time" })
+  .lean();
 
-        const formatted = confirmations.map((c) => ({
-            _id: c._id,
-            doctorData: {
-                name: c.doctor?.name || c.doctorName,
-                specialty: c.doctor?.specialty || "",
-                qualification: c.doctor?.qualification || "",
-                experience: c.doctor?.experience || "",
-                availability: c.doctor?.availability || "",
-            },
-            patientData: c.patient
-                ? {
-                      name: c.patient.name || "",
-                      age: c.patient.age || "",
-                      gender: c.patient.gender || "",
-                      blood: c.patient.blood || "",
-                      contact: c.patient.contact || "",
-                  }
-                : null,
-            dateData: c.date ? { date: c.date.date || "", time: c.date.time || "" } : null,
-            status: c.status || "pending",
-            referralData: c.referralData || { referredBy: "" },
-        }));
 
+       const formatted = confirmations.map((c) => ({
+  _id: c._id,
+  doctorData: {
+    name: c.doctor?.name || c.doctorName,
+    specialty: c.doctor?.specialty || "",
+    qualification: c.doctor?.qualification || "",
+    experience: c.doctor?.experience || "",
+    availability: c.doctor?.availability || "",
+  },
+  patientData: c.patient
+    ? {
+        firstName: c.patient.firstName || "",
+        middleName: c.patient.middleName || "",
+        lastName: c.patient.lastName || "",
+        age: c.patient.age || "",
+        gender: c.patient.gender || "",
+        blood: c.patient.blood || "",
+        contact: c.patient.contact || "",
+      }
+    : null,
+  dateData: c.date ? { date: c.date.date || "", time: c.date.time || "" } : null,
+  status: c.status || "pending",
+  referralData: c.referralData || { referredBy: "" },
+}));
         res.json(formatted);
     } catch (error) {
         console.error("Error fetching confirmations:", error);
@@ -226,6 +228,49 @@ router.put("/:id", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+router.post("/", async (req, res) => {
+  try {
+    const { patientData, doctorData, dateData, referralData } = req.body;
+    if (!patientData || !doctorData || !dateData) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
 
+    const patient = new Patient(patientData);
+    await patient.save();
+
+    const doctor = await Doctor.findById(doctorData._id || doctorData.id);
+    if (!doctor) {
+      return res.status(400).json({ error: "Doctor not found" });
+    }
+
+    let date = await DateModel.findOne({ date: dateData.date, time: dateData.time });
+    if (!date) {
+      date = new DateModel(dateData);
+      await date.save();
+    }
+
+    const confirmation = new Confirmation({
+      patient: patient._id,
+      doctor: doctor._id,
+      doctorName: doctor.name,
+      date: date._id,
+      status: "confirmed",
+      referralData: referralData || {},
+    });
+
+    await confirmation.save();
+
+    const populatedConfirmation = await Confirmation.findById(confirmation._id)
+      .populate("patient")
+      .populate("doctor")
+      .populate("date")
+      .lean();
+
+    res.status(201).json(populatedConfirmation);
+  } catch (error) {
+    console.error("Error creating confirmation:", error);
+    res.status(400).json({ error: error.message || "Failed to create confirmation" });
+  }
+});
 module.exports = router;
 

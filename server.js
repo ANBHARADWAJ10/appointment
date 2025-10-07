@@ -22,6 +22,7 @@ const patientRoutes = require("./routes/patientroute");
 const doctorsRoutes = require("./routes/doctorsroutes");
 const { router: adminRoutes } = require('./routes/adminroutes');
 const { router: superadminRoutes } = require('./routes/superadminroutes');
+const patientRoutes = require("./routes/patientroutes"); 
 
 
 const multer = require('multer');
@@ -41,6 +42,7 @@ app.use("/api/patients", patientRoutes);
 app.use("/api/doctors", doctorsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/superadmin", superadminRoutes);
+app.use("/api/patients", patientRoutes); 
 
 app.post('/test-upload', upload.single('photo'), (req, res) => {
   console.log('Test upload file:', req.file);

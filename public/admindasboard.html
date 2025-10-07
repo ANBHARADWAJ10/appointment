@@ -1437,7 +1437,7 @@ body.accent-brown .dropdown-option:hover {
     transform: rotate(180deg);
 }
 
-/* Dark mode styles for custom dropdown */
+
 body.dark .dropdown-option {
     background-color: #1e293b !important;
     color: #f1f5f9 !important;
@@ -1708,7 +1708,7 @@ body.dark .time-slot.selected {
 
 
 
-/* Revisit modal calendar day styles */
+
 body.dark #revisitModal .calendar-day {
   color: #000000 !important;
   font-weight: 600 !important;
@@ -1726,7 +1726,7 @@ body.dark #revisitModal .calendar-day:disabled {
   font-weight: 500 !important;
 }
 
-/* Revisit modal time slot styles */
+
 body.dark #revisitModal .time-slot.selected {
   background-color: #22c55e !important;
   color: #ffffff !important;
@@ -2891,7 +2891,7 @@ body.dark #revisitModal .time-slot.selected {
                 return selectedFieldValue;
             }
 
-            // Custom dropdown functionality
+            
             if (filterDropdown && filterDropdownMenu) {
                 filterDropdown.addEventListener('click', function() {
                     const dropdown = this.closest('.custom-dropdown');
@@ -2911,7 +2911,7 @@ body.dark #revisitModal .time-slot.selected {
                         dropdown.classList.remove('open');
                         filterDropdownMenu.classList.add('hidden');
                         
-                        // Trigger search update
+                    
                         const date = datePicker.value;
                         const searchTerm = searchInput.value.trim();
                         const status = getSelectedStatus();
@@ -2926,7 +2926,7 @@ body.dark #revisitModal .time-slot.selected {
                     }
                 });
 
-                // Close dropdown when clicking outside
+               
                 document.addEventListener('click', function(e) {
                     if (!e.target.closest('.custom-dropdown')) {
                         const dropdown = filterDropdown.closest('.custom-dropdown');
@@ -2936,10 +2936,10 @@ body.dark #revisitModal .time-slot.selected {
                 });
             }
 
-            // Initialize dropdown options
+           
             updateFilterDropdownOptions();
 
-            // Appointment status filter dropdown functionality
+          
             const appointmentStatusFilter = document.getElementById("appointmentStatusFilterTrigger");
             const appointmentStatusFilterMenu = document.getElementById("appointmentStatusFilterMenu");
             const appointmentStatusFilterText = document.getElementById("appointmentStatusFilterText");
@@ -3234,7 +3234,7 @@ if (isRescheduled) {
                 return `
   <div class="grid grid-cols-12 gap-4 items-center bg-white p-3 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
     <div class="col-span-3">
-      <div class="font-semibold text-gray-900">${app.patientData?.name || "N/A"}</div>
+      <div class="font-semibold text-gray-900">${app.patientData ? [app.patientData.firstName, app.patientData.middleName, app.patientData.lastName].filter(Boolean).join(" ") || "N/A" : "N/A"}</div>
       <div class="text-xs text-gray-500">${app.patientData?.contact || ""}</div>
     </div>
     <div class="col-span-3">
@@ -3436,8 +3436,8 @@ if (isRescheduled) {
 
         const patientsMap = new Map();
         allAppointments.forEach((app) => {
-            if (!app.patientData || !app.patientData.name) return;
-            const patientKey = `${app.patientData.name}-${app.patientData.contact}`;
+            if (!app.patientData || !app.patientData.firstName) return;
+            const patientKey = `${app.patientData.firstName}-${app.patientData.lastName}-${app.patientData.contact}`;
             if (!patientsMap.has(patientKey)) {
                 patientsMap.set(patientKey, {
                     details: app.patientData,
@@ -4091,7 +4091,7 @@ function renderCalendar(month, year) {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    // Add blank slots before first day of month
+ 
     for (let i = 0; i < firstDay; i++) {
         daysGrid.appendChild(document.createElement("div"));
     }
@@ -4417,13 +4417,13 @@ function renderCalendar(month, year) {
                 const doctorsList = document.getElementById("doctorsList");
                 const paginationContainer = document.getElementById("doctorsPagination");
                 if (!doctorsList) return;
-                // Build filtered list based on selected field and search term
+                
                 const term = (searchInput.value || '').trim().toLowerCase();
                 const selectedField = getSelectedField();
 
-                // Compute today's appointment counts first if needed for filtering
+            
                 const filteredBase = allDoctors.filter((doc) => {
-                    if (!term) return true; // no search => keep
+                    if (!term) return true; 
                     const includes = (v) => String(v == null ? '' : v).toLowerCase().includes(term);
                     if (selectedField === 'all') {
                         const todayCount = todaysAppointmentsCountMap[doc.name] || 0;
@@ -4589,7 +4589,7 @@ function renderCalendar(month, year) {
 
     tableHTML += patients.map(patient => `
       <tr class="border-b hover:bg-gray-50 transition-colors">
-        <td class="px-4 py-3 font-semibold text-gray-900">${patient.details.name || "-"}</td>
+        <td class="px-4 py-3 font-semibold text-gray-900">${[patient.details.firstName, patient.details.middleName, patient.details.lastName].filter(Boolean).join(" ") || "-"}</td>
         <td class="px-4 py-3">${patient.details.age || "-"} / ${patient.details.gender || "-"}</td>
         <td class="px-4 py-3">${patient.details.blood || "-"}</td>
         <td class="px-4 py-3">${patient.details.contact || "-"}</td>
@@ -6175,8 +6175,6 @@ function closeRescheduleModal() {
   rescheduleSelectedTime = null;
 }
 document.getElementById("cancelRescheduleBtn").onclick = closeRescheduleModal;
-
-//  Calendar
 function renderRescheduleCalendar(app) {
   const container = document.getElementById("rescheduleCalendarContainer");
   if (!container) return;
@@ -6246,7 +6244,7 @@ function renderRescheduleCalendar(app) {
     }
     container.appendChild(daysGrid);
 
-    // Prev/Next navigation
+    
     const prevMonthStart = new Date(year, month-1, 1);
     const nextMonthStart = new Date(year, month+1,1);
     const btnPrev = document.getElementById("reschedulePrev");
@@ -6270,7 +6268,7 @@ function renderRescheduleCalendar(app) {
   renderCalendar(currentMonth, currentYear);
 }
 
-//  Time Slots
+
 async function renderRescheduleTimeSlots(doctorName, dateStr) {
   const container = document.getElementById("rescheduleTimeSlotsContainer");
   container.innerHTML = '<div class="text-gray-500">Loading time slots...</div>';
@@ -6310,7 +6308,7 @@ async function renderRescheduleTimeSlots(doctorName, dateStr) {
   }
 }
 
-//  Submit
+
 document.getElementById("rescheduleForm").onsubmit = async function (e) {
   e.preventDefault();
   if (!rescheduleAppointmentData || !rescheduleAppointmentData._id) {
@@ -6402,19 +6400,23 @@ document.addEventListener('DOMContentLoaded', () => {
         lastName,
         gender,
         age: ageYears,
-        contactNumber,
-        reason,
+        contact: contactNumber,
       };
+      const selectedDoctorOption = doctorSelect.options[doctorSelect.selectedIndex];
+      const doctorName = selectedDoctorOption.textContent;
 
       const confirmationData = {
         patientData,
-        appointment: {
+        doctorData: {
+          name: doctorName,
+        },
+        dateData: {
           date: appointmentDate,
           time: appointmentTime,
-          visitType,
         },
-        department,
-        doctor,
+        referralData: {
+          referredBy: reason,
+        },
       };
 
       try {
@@ -6428,7 +6430,7 @@ document.addEventListener('DOMContentLoaded', () => {
           alert('Patient added successfully!');
           newPatientForm.reset();
           closeNewPatientModal();
-          await fetchAndDisplayPatients();
+          await fetchAndDisplayPatients(null, '');
           await fetchAndDisplayAppointments();
           await fetchAndPopulateDoctors(department);
         } else {
@@ -6496,58 +6498,6 @@ document.addEventListener('DOMContentLoaded', () => {
       fetchAndPopulateDoctors(selected);
     });
   }
-
- async function fetchAndDisplayPatients() {
-  try {
-    const response = await fetch('api/confirmations');
-    if (!response.ok) throw new Error('Failed to fetch patients');
-
-    const confirmations = await response.json();
-    const patientsListDiv = document.getElementById('patientsList');
-    const patientsHeader = document.getElementById('patientsHeader');
-
-    if (!patientsListDiv) return;
-    patientsListDiv.innerHTML = '';
-
-    if (confirmations.length === 0) {
-      patientsListDiv.innerHTML = '<p class="text-gray-500 text-center mt-4">No patients found.</p>';
-      if (patientsHeader) patientsHeader.style.display = 'none';
-      return;
-    }
-
-    if (patientsHeader) patientsHeader.style.display = 'grid';
-
-    confirmations.forEach(conf => {
-      const p = conf.patient || {};
-      const appointment = conf.date || {};
-
-      const div = document.createElement('div');
-      div.className = "grid grid-cols-12 gap-4 items-center bg-white p-3 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200";
-      
-      div.innerHTML = `
-        <div class="col-span-3 text-sm font-semibold text-gray-800">
-          ${p.firstName || ''} ${p.lastName || ''}
-        </div>
-        <div class="col-span-2 text-sm text-gray-600">${p.age || 'N/A'} / ${p.gender || 'N/A'}</div>
-        <div class="col-span-1 text-sm text-gray-600">${p.blood || 'N/A'}</div>
-        <div class="col-span-2 text-sm text-gray-600">${p.contact || 'N/A'}</div>
-        <div class="col-span-2 text-sm text-gray-600">${appointment.date || 'N/A'}</div>
-        <div class="col-span-1 text-sm text-gray-600">${conf.lastVisit || 'N/A'}</div>
-        <div class="col-span-1 flex gap-2 justify-center">
-          <button class="bg-blue-600 text-white px-2 py-1 rounded-full font-semibold hover:bg-blue-700 transition"
-            onclick="createAppointment('${conf._id}')">Create Appointment</button>
-        </div>
-      `;
-      patientsListDiv.appendChild(div);
-    });
-  } catch (error) {
-    console.error(error);
-    const patientsListDiv = document.getElementById('patientsList');
-    if (patientsListDiv) {
-      patientsListDiv.innerHTML = '<p class="text-red-500 text-center mt-4">Failed to load patients.</p>';
-    }
-  }
-}
 
   fetchAndPopulateDepartments();
   fetchAndPopulateDoctors();
