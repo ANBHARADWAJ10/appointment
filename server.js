@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 const nodemailer = require('nodemailer');
 dotenv.config();
 const mongoURI = process.env.DATABASE_URL;
-// console.log(mongoURI);
+ console.log(mongoURI);
 // console.log(typeof (mongoURI));
 const port = process.env.PORT;
 const cron = require('node-cron');
@@ -16,7 +16,8 @@ const removeDeletedAdminsFromDb=require("./cron/deletedadmins");
 const confirmationRoutes = require("./routes/confirmationsroutes");
 const removeDeletedDoctors = require("./cron/deleteddoctor");
 const labreportroutes = require("./routes/labreportroute");
-const patientroutes = require("./routes/patientroute");
+const labpatientroutes = require("./routes/labpatientroute");
+const patientRoutes = require("./routes/patientroute"); 
 
 const doctorsRoutes = require("./routes/doctorsroutes");
 const { router: adminRoutes } = require('./routes/adminroutes');
@@ -35,8 +36,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use("/api/confirmations", confirmationRoutes);
 app.use("/api", labreportroutes);
-app.use("/api", patientroutes);
-
+app.use("/api", labpatientroutes);
+app.use("/api/patients", patientRoutes);
 app.use("/api/doctors", doctorsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/superadmin", superadminRoutes);
