@@ -1,8 +1,22 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const Employee = require('../models/Employee');
+const multer = require('multer');
+const path = require('path');
 
 const router = express.Router();
+
+// Multer storage setup
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/signatures/'); // ensure this folder exists
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
 
 // GET all employees
 router.get('/', async (req, res) => {
@@ -16,9 +30,10 @@ router.get('/', async (req, res) => {
 });
 
 // POST create employee
-router.post('/', async (req, res) => {
+router.post('/', upload.single('signature'), async (req, res) => {
   try {
-    console.log("Received payload:", req.body); // << debug log
+    console.log("Received payload:", req.body); 
+    console.log("Received file:", req.file); 
 
     const payload = req.body || {};
     if (!payload.firstName || !payload.lastName || !payload.department) {
@@ -41,7 +56,8 @@ router.post('/', async (req, res) => {
       address: payload.address || '',
       panNo: payload.panNo || '',
       bloodGroup: payload.bloodGroup || '',
-      isActive: typeof payload.isActive === 'boolean' ? payload.isActive : true
+      isActive: payload.isActive === 'on' || payload.isActive === true,
+      signature: req.file ? req.file.path : null  // ✅ signature file
     };
 
     // Handle Admin department
@@ -60,11 +76,14 @@ router.post('/', async (req, res) => {
         specialization: payload.specialization || '',
         experience: payload.experience || '',
         qualification: payload.qualification || '',
-        availability: payload.availability || {}
+        availability: {
+          start: payload.startTime || '',
+          end: payload.endTime || ''
+        }
       };
     }
 
-    console.log("Employee document to create:", doc); // << debug log
+    console.log("Employee document to create:", doc);
 
     const created = await Employee.create(doc);
     console.log("Created employee:", created);
@@ -75,6 +94,5 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
-
 
 module.exports = router;

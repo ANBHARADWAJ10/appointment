@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const { Schema } = mongoose;
 
 const employeeSchema = new Schema({
@@ -20,6 +19,9 @@ const employeeSchema = new Schema({
   bloodGroup: String,
   isActive: { type: Boolean, default: true },
 
+  // ✅ NEW FIELD
+  signature: String, // file path or Base64 string of uploaded signature
+
   admin: {
     passwordHash: String
   },
@@ -28,7 +30,11 @@ const employeeSchema = new Schema({
     specialization: String,
     experience: String,
     qualification: String,
-    availability: { start: String, end: String }
+    // ✅ keep times in AM/PM format
+    availability: { 
+      start: String, // e.g. "09:30 AM"
+      end: String    // e.g. "05:30 PM"
+    }
   },
 
   createdAt: { type: Date, default: Date.now }
