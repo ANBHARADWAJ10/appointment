@@ -495,7 +495,6 @@ body.dark .flatpickr-current-month .flatpickr-monthDropdown-months {
   background-color: #1e293b !important;
   color: #f1f5f9 !important;
 }
-
 body.dark .flatpickr-current-month .numInputWrapper input {
   background-color: #1e293b !important;
   color: #f1f5f9 !important;
@@ -646,7 +645,6 @@ body.dark button.bg-red-600:hover {
 body.dark table tbody tr:hover td {
     background-color: #334155 !important;
 }
-
 /* Ensure Appointments tab headings and hover match Doctors/Patients in dark mode */
 body.dark #appointmentsTab thead tr {
     background-color: #0f172a !important;
@@ -1295,11 +1293,9 @@ body.accent-purple:not(.dark) {
 body.accent-green:not(.dark) {
   background-color: #f0fdf4 !important;
 }
-
 body.accent-orange:not(.dark) {
   background-color: #fff7ed !important;
 }
-
 body.accent-pink:not(.dark) {
   background-color: #fdf2f8 !important;
 }
@@ -1441,7 +1437,7 @@ body.accent-brown .dropdown-option:hover {
     transform: rotate(180deg);
 }
 
-/* Dark mode styles for custom dropdown */
+
 body.dark .dropdown-option {
     background-color: #1e293b !important;
     color: #f1f5f9 !important;
@@ -1497,7 +1493,6 @@ body.dark.accent-brown option:checked {
     border-color: #b55656 !important;
    
 }
-
 body.dark.accent-purple select,
 body.dark.accent-purple option:checked {
     border-color: #8b5cf6 !important;
@@ -1713,7 +1708,7 @@ body.dark .time-slot.selected {
 
 
 
-/* Revisit modal calendar day styles */
+
 body.dark #revisitModal .calendar-day {
   color: #000000 !important;
   font-weight: 600 !important;
@@ -1731,7 +1726,7 @@ body.dark #revisitModal .calendar-day:disabled {
   font-weight: 500 !important;
 }
 
-/* Revisit modal time slot styles */
+
 body.dark #revisitModal .time-slot.selected {
   background-color: #22c55e !important;
   color: #ffffff !important;
@@ -1749,9 +1744,7 @@ body.dark #revisitModal .time-slot.selected {
 
  
     </style>
-  
 </head>
-
 <body class="bg-gray-100 font-sans">
     <script>
         if (!localStorage.getItem("admin_jwt")) {
@@ -2079,24 +2072,117 @@ body.dark #revisitModal .time-slot.selected {
                             class="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-blue-500 hover:text-white hover:border-blue-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-100 disabled:hover:text-gray-600 disabled:hover:border-gray-300 transition-colors duration-200"">Next</button>
                     </div>
                 </div>
-                        <div id="patientsTab" class="tab-content hidden">
-                            <div class="flex justify-between items-center mb-4">
-                                <div>
-                                    <h3 class="text-xl font-semibold">Patients List</h3>
-                                    <p class="text-gray-500">View and manage patient records</p>
-                                </div>
-                            </div>
+                         <div id="patientsTab" class="tab-content hidden">
+                           <div class="flex justify-between items-center mb-4">
+    <div>
+        <h3 class="text-xl font-semibold">Patients List</h3>
+        <p class="text-gray-500">View and manage patient records</p>
+    </div>
+    <div>
+        <button id="newPatientBtn" class="bg-blue-600 text-white px-10 py-2 rounded font-semibold hover:bg-blue-700 transition-colors duration-200">New Patient</button>
+    </div>
+    <div id="newPatientModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40 backdrop-blur-md hidden">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl p-8 space-y-6 relative">
+    <h2 class="text-2xl font-bold mb-3 text-blue-700 tracking-wide">Add New Patient</h2>
+    <button class="absolute top-5 right-7 text-gray-400 hover:text-red-500 text-2xl" onclick="closeNewPatientModal()">&times;</button>
+  <form id="newPatientForm" class="grid grid-cols-2 gap-6" novalidate>
+  <div class="space-y-4">
+    <div>
+      <label for="firstName" class="block mb-1 font-semibold">First Name<span class="text-red-600">*</span></label>
+      <input id="firstName" type="text" placeholder="First Name*" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div>
+    <div>
+      <label for="middleName" class="block mb-1 font-semibold">Middle Name</label>
+      <input id="middleName" type="text" placeholder="Middle Name" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div>
+    <div>
+      <label for="lastName" class="block mb-1 font-semibold">Last Name<span class="text-red-600">*</span></label>
+      <input id="lastName" type="text" placeholder="Last Name*" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div>
+    <fieldset class="mb-4">
+      <legend class="block mb-1 font-semibold">Gender<span class="text-red-600">*</span></legend>
+      <div class="flex gap-5">
+        <label><input type="radio" name="gender" value="male" /> Male</label>
+        <label><input type="radio" name="gender" value="female" /> Female</label>
+        <label><input type="radio" name="gender" value="other" /> Other</label>
+      </div>
+    </fieldset>
+    <div>
+      <label class="block mb-1 font-semibold">Age<span class="text-red-600">*</span></label>
+      <div class="flex gap-4">
+        <input type="number" id="ageYears" placeholder="Years" class="w-20 px-2 py-1 rounded border" />
+        <!-- <input type="number" id="ageMonths" placeholder="Months" class="w-20 px-2 py-1 rounded border" />
+        <input type="number" id="ageDays" placeholder="Days" class="w-20 px-2 py-1 rounded border" /> -->
+      </div>
+    </div>
+     <div>
+      <label for="contactNumber" class="block mb-1 font-semibold">Contact Number<span class="text-red-600">*</span></label>
+      <input id="contactNumber" type="text" placeholder="Contact Number*" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div>
+     <div>
+      <label for="reason" class="block mb-1 font-semibold">Reason</label>
+      <input id="reason" type="text" placeholder="Reason" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div>
+  </div>
 
-        <div id="patientsHeader"
-  class="grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b"
-  style="display: none">
+  <div class="space-y-4">
+    <!-- <div>
+      <label for="reason" class="block mb-1 font-semibold">Reason</label>
+      <input id="reason" type="text" placeholder="Reason" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div> -->
+    <!-- <div>
+      <label for="contactNumber" class="block mb-1 font-semibold">Contact Number*</label>
+      <input id="contactNumber" type="text" placeholder="Contact Number*" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div> -->
+    <div>
+      <label for="appointmentDate" class="block mb-1 font-semibold">Appointment Date<span class="text-red-600">*</span></label>
+      <input id="appointmentDate" type="date" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div>
+    <div>
+      <label for="appointmentTime" class="block mb-1 font-semibold">Appointment Time<span class="text-red-600">*</span></label>
+      <input id="appointmentTime" type="time" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div>
+    <div>
+      <label for="department" class="block mb-1 font-semibold">Department<span class="text-red-600">*</span></label>
+      <select id="department" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
+        <option>Department</option>
+
+      </select>
+    </div>
+    <div>
+      <label for="doctor" class="block mb-1 font-semibold">Doctor<span class="text-red-600">*</span></label>
+      <select id="doctor" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
+        <option>Doctor</option>
+       
+      </select>
+    </div>
+    <div>
+      <label for="visitType" class="block mb-1 font-semibold">Visit Type<span class="text-red-600">*</span></label>
+      <select id="visitType" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
+        <option>Visit Type</option>
+        <option>New Patient</option>
+        <option>Revisit</option>
+      </select>
+    </div>
+  </div>
+  <div class="flex justify-end mt-4">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white font-semibold px-7 py-3 rounded-lg transition-all shadow-md">Add Patient</button>
+    </div>
+  </div>
+</form>
+    
+</div>
+</div>
+
+
+   <div id="patientsHeader" class="grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b" style="display: grid;">
   <div class="col-span-3">Patient</div>
   <div class="col-span-2">Age/Gender</div>
   <div class="col-span-1">Blood</div>
   <div class="col-span-2">Contact</div>
   <div class="col-span-2">Appointment Date</div>
   <div class="col-span-1">Last Visit</div>
-  <div class="col-span-1">Referred By</div>
+  <div class="col-span-1">Actions</div>
 </div>
 
                             <div id="patientsList" class="space-y-2 mt-2"></div>
@@ -2160,7 +2246,7 @@ body.dark #revisitModal .time-slot.selected {
                 </div>
                 <form id="assignDoctorForm">
                     <div class="mb-4">
-                        <label class="block text-gray-700 mb-2">Select Doctor</label>
+                        <label class="block text-gray-700 mb-1">Select Doctor</label>
                         <select id="doctorSelect" class="w-full border border-gray-300 rounded px-3 py-2" required>
                             <option value="">Choose a doctor...</option>
                         </select>
@@ -2805,7 +2891,7 @@ body.dark #revisitModal .time-slot.selected {
                 return selectedFieldValue;
             }
 
-            // Custom dropdown functionality
+            
             if (filterDropdown && filterDropdownMenu) {
                 filterDropdown.addEventListener('click', function() {
                     const dropdown = this.closest('.custom-dropdown');
@@ -2825,7 +2911,7 @@ body.dark #revisitModal .time-slot.selected {
                         dropdown.classList.remove('open');
                         filterDropdownMenu.classList.add('hidden');
                         
-                        // Trigger search update
+                    
                         const date = datePicker.value;
                         const searchTerm = searchInput.value.trim();
                         const status = getSelectedStatus();
@@ -2840,7 +2926,7 @@ body.dark #revisitModal .time-slot.selected {
                     }
                 });
 
-                // Close dropdown when clicking outside
+               
                 document.addEventListener('click', function(e) {
                     if (!e.target.closest('.custom-dropdown')) {
                         const dropdown = filterDropdown.closest('.custom-dropdown');
@@ -2850,10 +2936,10 @@ body.dark #revisitModal .time-slot.selected {
                 });
             }
 
-            // Initialize dropdown options
+           
             updateFilterDropdownOptions();
 
-            // Appointment status filter dropdown functionality
+          
             const appointmentStatusFilter = document.getElementById("appointmentStatusFilterTrigger");
             const appointmentStatusFilterMenu = document.getElementById("appointmentStatusFilterMenu");
             const appointmentStatusFilterText = document.getElementById("appointmentStatusFilterText");
@@ -3148,7 +3234,7 @@ if (isRescheduled) {
                 return `
   <div class="grid grid-cols-12 gap-4 items-center bg-white p-3 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
     <div class="col-span-3">
-      <div class="font-semibold text-gray-900">${app.patientData?.name || "N/A"}</div>
+      <div class="font-semibold text-gray-900">${app.patientData ? [app.patientData.firstName, app.patientData.middleName, app.patientData.lastName].filter(Boolean).join(" ") || "N/A" : "N/A"}</div>
       <div class="text-xs text-gray-500">${app.patientData?.contact || ""}</div>
     </div>
     <div class="col-span-3">
@@ -3222,7 +3308,6 @@ if (isRescheduled) {
       `;
     }
 }
-
             function changeAppointmentsPage(newPage) {
                 const totalPages = Math.ceil(allAppointmentsData.length / appointmentsPerPage);
                 if (newPage < 1 || newPage > totalPages) return;
@@ -3332,117 +3417,143 @@ if (isRescheduled) {
             });
 
             async function fetchAndDisplayPatients(date = null, searchTerm = "") {
-                try {
-                    const response = await fetch("/api/confirmations");
-                    if (!response.ok) throw new Error("Failed to fetch patient data");
+    try {
+        const response = await fetch("/api/confirmations");
+        if (!response.ok) throw new Error("Failed to fetch patient data");
 
-                    const allAppointments = await response.json();
-                    const patientsListContainer = document.getElementById("patientsList");
-                    const patientsHeader = document.getElementById("patientsHeader");
-                    patientsListContainer.innerHTML = '<div class="text-center p-4">Loading patients...</div>';
+        const allAppointments = await response.json();
+        const patientsListContainer = document.getElementById("patientsList");
+        const patientsHeader = document.getElementById("patientsHeader");
+        patientsListContainer.innerHTML = '<div class="text-center p-4">Loading patients...</div>';
 
-                    const formattedSelectedDate = date
-                        ? new Date(date).toLocaleDateString("en-US", {
-                            month: "numeric",
-                            day: "numeric",
-                            year: "numeric",
-                        })
-                        : null;
+        const formattedSelectedDate = date
+            ? new Date(date).toLocaleDateString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                  year: "numeric",
+              })
+            : null;
 
-                    const patientsMap = new Map();
-                    allAppointments.forEach((app) => {
-                        if (!app.patientData || !app.patientData.name) {
-                            return;
-                        }
-                        const patientKey = `${app.patientData.name}-${app.patientData.contact}`;
-                        if (!patientsMap.has(patientKey)) {
-                            patientsMap.set(patientKey, {
-                                details: app.patientData,
-                                appointments: [],
-                                 referredBy: app.referralData?.referredBy || "" 
-                            });
-                        }
-                        if (app.dateData && app.dateData.date) {
-                            patientsMap.get(patientKey).appointments.push({
-                                date: app.dateData.date,
-                                status: app.status || "confirmed",
-                            });
-                        }
-                    });
+        const patientsMap = new Map();
+        allAppointments.forEach((app) => {
+            if (!app.patientData || !app.patientData.firstName) return;
+            const patientKey = `${app.patientData.firstName}-${app.patientData.lastName}-${app.patientData.contact}`;
+            if (!patientsMap.has(patientKey)) {
+                patientsMap.set(patientKey, {
+                    details: app.patientData,
+                    appointments: [],
+                    referredBy: app.referralData?.referredBy || "",
+                });
+            }
+            if (app.dateData && app.dateData.date) {
+                patientsMap.get(patientKey).appointments.push({
+                    date: app.dateData.date,
+                    status: app.status || "confirmed",
+                });
+            }
+        });
 
-                    const finalPatientList = [];
-                    for (const [patientKey, patientData] of patientsMap.entries()) {
-                        const patientName = patientData.details.name || "";
-                        const age = patientData.details.age || "";
-                        const gender = patientData.details.gender || "";
-                        const blood = patientData.details.blood || "";
-                        const contact = patientData.details.contact || "";
+        const finalPatientList = [];
+        for (const [patientKey, patientData] of patientsMap.entries()) {
+            const patientName = patientData.details.name || "";
+            const age = patientData.details.age || "";
+            const gender = patientData.details.gender || "";
+            const blood = patientData.details.blood || "";
+            const contact = patientData.details.contact || "";
 
-                        const todayCalc = new Date();
-                        todayCalc.setHours(0,0,0,0);
-                        const sortedDates = patientData.appointments.map(a => new Date(a.date)).sort((a,b)=>a-b);
-                        const future = sortedDates.filter(d => d >= todayCalc);
-                        const past = sortedDates.filter(d => d < todayCalc);
-                        const upcomingDateText = future.length > 0 ? future[0].toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
-                        const lastVisitText = past.length > 0 ? past[past.length-1].toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
+            const todayCalc = new Date();
+            todayCalc.setHours(0, 0, 0, 0);
+            const sortedDates = patientData.appointments
+                .map((a) => new Date(a.date))
+                .sort((a, b) => a - b);
+            const future = sortedDates.filter((d) => d >= todayCalc);
+            const past = sortedDates.filter((d) => d < todayCalc);
+            const upcomingDateText =
+                future.length > 0
+                    ? future[0].toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                      })
+                    : "";
+            const lastVisitText =
+                past.length > 0
+                    ? past[past.length - 1].toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                      })
+                    : "";
 
-                        const selectedField = getSelectedField();
-                        const term = (searchTerm || "").toLowerCase();
-                        const includes = (v) => {
-                            if (!term) return true;
-                            if (!v) return false;
-                            return String(v).toLowerCase().includes(term);
-                        };
+            const selectedField = getSelectedField();
+            const term = (searchTerm || "").toLowerCase();
+            const includes = (v) => {
+                if (!term) return true;
+                if (!v) return false;
+                return String(v).toLowerCase().includes(term);
+            };
 
-                        let matchesSearch = true;
-                        if (term) {
-                            if (selectedField === 'all') {
-                                matchesSearch = (
-                                    includes(patientName) || includes(age) || includes(gender) || includes(blood) || includes(contact) || includes(upcomingDateText) || includes(lastVisitText) || includes(patientData.referredBy)
-                                );
-                            } else if (selectedField === 'patient') {
-                                matchesSearch = includes(patientName);
-                            } else if (selectedField === 'age') {
-                                matchesSearch = includes(age);
-                            } else if (selectedField === 'gender') {
-                                matchesSearch = includes(gender);
-                            } else if (selectedField === 'blood') {
-                                matchesSearch = includes(blood);
-                            } else if (selectedField === 'contact') {
-                                matchesSearch = includes(contact);
-                            } else if (selectedField === 'upcoming') {
-                                matchesSearch = includes(upcomingDateText);
-                            } else if (selectedField === 'lastvisit') {
-                                matchesSearch = includes(lastVisitText);
-                            }
-                             else if (selectedField === 'referredby') {
-                                matchesSearch = includes(patientData.referredBy);
-                            }
-                        }
+            let matchesSearch = true;
+            if (term) {
+                if (selectedField === "all") {
+                    matchesSearch =
+                        includes(patientName) ||
+                        includes(age) ||
+                        includes(gender) ||
+                        includes(blood) ||
+                        includes(contact) ||
+                        includes(upcomingDateText) ||
+                        includes(lastVisitText) ||
+                        includes(patientData.referredBy);
+                } else if (selectedField === "patient") {
+                    matchesSearch = includes(patientName);
+                } else if (selectedField === "age") {
+                    matchesSearch = includes(age);
+                } else if (selectedField === "gender") {
+                    matchesSearch = includes(gender);
+                } else if (selectedField === "blood") {
+                    matchesSearch = includes(blood);
+                } else if (selectedField === "contact") {
+                    matchesSearch = includes(contact);
+                } else if (selectedField === "upcoming") {
+                    matchesSearch = includes(upcomingDateText);
+                } else if (selectedField === "lastvisit") {
+                    matchesSearch = includes(lastVisitText);
+                } else if (selectedField === "referredby") {
+                    matchesSearch = includes(patientData.referredBy);
+                }
+            }
 
-                        const hasAppointmentOnDate = formattedSelectedDate ? patientData.appointments.some((a) => a.date === formattedSelectedDate) : true;
+            const hasAppointmentOnDate = formattedSelectedDate
+                ? patientData.appointments.some((a) => a.date === formattedSelectedDate)
+                : true;
 
-                        if (matchesSearch && hasAppointmentOnDate) {
-;
+            if (matchesSearch && hasAppointmentOnDate) {
+                finalPatientList.push({
+                    ...patientData,
+                    upcomingDateText,
+                    lastVisitText,
+                    referredBy: patientData.referredBy,
+                });
+            }
+        }
 
-                            finalPatientList.push({ ...patientData, upcomingDateText, lastVisitText,referredBy: patientData.referredBy });
+        allPatientsData = finalPatientList;
+        currentPatientsPage = 1;
 
-                        }
-                    }
+        if (finalPatientList.length === 0) {
+            if (patientsHeader) {
+                patientsHeader.style.display = "none";
+            }
 
-                    allPatientsData = finalPatientList;
-
-                    currentPatientsPage = 1;
-
-                    if (finalPatientList.length === 0) {
-                        if (patientsHeader) {
-                            patientsHeader.style.display = "none";
-                        }
-
-                        let message = "No patients found";
-                        if (searchTerm) message += ` for "${searchTerm}"`;
-                        if (formattedSelectedDate) message += ` with appointments on ${new Date(date).toLocaleDateString("en-US", { month: "long", day: "numeric" })}`;
-                        patientsListContainer.innerHTML = `
+            let message = "No patients found";
+            if (searchTerm) message += ` for "${searchTerm}"`;
+            if (formattedSelectedDate)
+                message += ` with appointments on ${new Date(date).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                })}`;
+            patientsListContainer.innerHTML = `
           <div class="p-4 text-center text-gray-500">
             <div class="mb-4">
               <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -3453,31 +3564,31 @@ if (isRescheduled) {
             <p class="text-sm">${message}</p>
           </div>
         `;
-                        return;
-                    }
-                    if (patientsHeader) {
-                        patientsHeader.style.display = "grid";
-                    }
+            return;
+        }
+        if (patientsHeader) {
+            patientsHeader.style.display = "grid";
+        }
 
-                    renderPatientsListWithPagination();
-                } catch (error) {
-                    console.error("Error fetching patient data:", error);
+        renderPatientsListWithPagination(); 
+    } catch (error) {
+        console.error("Error fetching patient data:", error);
 
-                    const patientsHeader = document.getElementById("patientsHeader");
-                    if (patientsHeader) {
-                        patientsHeader.style.display = "none";
-                    }
-                    document.getElementById("patientsList").innerHTML = `
-        <div class="p-4 text-center text-red-500">
-          <p class="font-semibold">Error loading patient data</p>
-          <p class="text-sm mt-2">${error.message || "Please try again later"}</p>
-          <button onclick="fetchAndDisplayPatients('${date}', '${searchTerm}')" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Retry
-          </button>
-        </div>
-      `;
-                }
-            }
+        const patientsHeader = document.getElementById("patientsHeader");
+        if (patientsHeader) {
+            patientsHeader.style.display = "none";
+        }
+        document.getElementById("patientsList").innerHTML = `
+           <div class="p-4 text-center text-red-500">
+             <p class="font-semibold">Error loading patient data</p>
+             <p class="text-sm mt-2">${error.message || "Please try again later"}</p>
+             <button onclick="fetchAndDisplayPatients('${date}', '${searchTerm}')" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+               Retry
+             </button>
+           </div>
+         `;
+    }
+}
 
             function renderPatientsListWithPagination() {
                 const patientsListContainer = document.getElementById("patientsList");
@@ -3541,7 +3652,11 @@ if (isRescheduled) {
     <div class="w-8 h-8 bg-gray-200 rounded-full mr-4 flex-shrink-0"></div>
     <div>
       <div class="font-semibold ${allCancelled ? "text-red-600" : "text-gray-800"}">
-        ${patient.details.name || "N/A"}
+        ${[
+  patient.details.firstName,
+  patient.details.middleName,
+  patient.details.lastName,
+].filter(Boolean).join(' ') || 'N/A'}
       </div>
       <div class="text-xs text-gray-500">
         PAT-${patient.details.contact ? String(patient.details.contact).slice(-4) : "0000"}
@@ -3976,7 +4091,7 @@ function renderCalendar(month, year) {
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    // Add blank slots before first day of month
+ 
     for (let i = 0; i < firstDay; i++) {
         daysGrid.appendChild(document.createElement("div"));
     }
@@ -4034,7 +4149,6 @@ function renderCalendar(month, year) {
         }
     };
 }
-
                 renderCalendar(currentMonth, currentYear);
             }
 
@@ -4176,91 +4290,6 @@ function renderCalendar(month, year) {
                 }
             };
 
-            // const addDoctorBtn = document.getElementById("addDoctorBtn");
-            // const addDoctorModalOverlay = document.getElementById("addDoctorModalOverlay");
-
-            // if (addDoctorModalOverlay) {
-            //     const closeAddDoctorModal = document.getElementById("closeAddDoctorModal");
-
-            //     const openModal = () => {
-            //         addDoctorModalOverlay.classList.remove("hidden");
-            //         document.body.classList.add("blurred-bg");
-            //     };
-
-            //     const closeModal = () => {
-            //         addDoctorModalOverlay.classList.add("hidden");
-            //         document.body.classList.remove("blurred-bg");
-            //         const form = document.getElementById("addDoctorForm");
-            //         if (form) form.reset();
-            //     };
-
-            //     if (addDoctorBtn) {
-            //         addDoctorBtn.addEventListener("click", openModal);
-            //     }
-
-            //     if (closeAddDoctorModal) {
-            //         closeAddDoctorModal.addEventListener("click", closeModal);
-            //     }
-
-            //     const addDoctorForm = document.getElementById("addDoctorForm");
-            //     if (addDoctorForm) {
-            //         addDoctorForm.addEventListener("submit", async (e) => {
-            //             e.preventDefault();
-            //             const formData = new FormData(addDoctorForm);
-            //             const firstName = formData.get("firstName")?.trim() || "";
-            //             const lastName = formData.get("lastName")?.trim() || "";
-            //             const fullName = `Dr. ${firstName} ${lastName}`.replace(/\s+/g, " ").trim().toLowerCase();
-
-            //             try {
-            //                 const res = await fetch("/api/doctors");
-            //                 const existingDoctors = await res.json();
-
-            //                 const isDuplicate = existingDoctors.some((doc) => {
-            //                     const existingName = (doc.name || "").replace(/\s+/g, " ").trim().toLowerCase();
-            //                     return existingName === fullName;
-            //                 });
-
-            //                 if (isDuplicate) {
-            //                     showDoctorError("Doctor already exists: duplicate name.");
-            //                     return;
-            //                 }
-            //             } catch (err) {
-            //                 showToast("Error checking existing doctors.", 'error');
-            //                 return;
-            //             }
-
-            //             const doctorData = {
-            //                 firstName,
-            //                 lastName,
-            //                 name: `Dr. ${firstName} ${lastName}`,
-            //                 specialty: formData.get("specialty"),
-            //                 experience: formData.get("experience"),
-            //                 qualification: formData.get("qualification"),
-            //                 availability: formData.get("availability"),
-            //             };
-
-            //             try {
-            //                 const response = await fetch("/api/doctors", {
-            //                     method: "POST",
-            //                     headers: { "Content-Type": "application/json" },
-            //                     body: JSON.stringify(doctorData),
-            //                 });
-
-            //                 if (!response.ok) {
-            //                     const errorData = await response.json();
-            //                     showToast(errorData.error || "Failed to add doctor.", 'error');
-            //                     return;
-            //                 }
-
-            //                 showSuccessModal("Doctor added successfully!", "Doctor added successfully!", "success");
-            //                 closeModal();
-            //                 await fetchAndDisplayDoctors();
-            //             } catch (error) {
-            //                 showToast("Error adding doctor: " + (error.message || "Unknown error"), 'error');
-            //             }
-            //         });
-            //     }
-            // }
             async function fetchAndDisplayDoctors() {
                 const res = await fetch("/api/doctors");
                 const doctors = await res.json();
@@ -4303,13 +4332,6 @@ function renderCalendar(month, year) {
                 if (e.target === this) hideSuccessModal();
             };
 
-            // document.getElementById("signOutBtn").onclick = function () {
-            //     if (confirm("Are you sure you want to sign out?")) {
-            //         localStorage.clear();
-            //         window.location.href = "login.html";
-            //     }
-            // };
-
             function openPatientDetailsModal(patient) {
                 let name = patient.name || (patient.details && patient.details.name) || "N/A";
                 let age = patient.age || (patient.details && patient.details.age) || "N/A";
@@ -4332,7 +4354,6 @@ function renderCalendar(month, year) {
                 document.body.classList.remove("blurred-bg");
             }
 
-           
             document.getElementById("closePatientDetailsBtn").onclick = closePatientDetailsModal;
 
             document.getElementById("patientsList").addEventListener("click", function (e) {
@@ -4342,8 +4363,6 @@ function renderCalendar(month, year) {
                     openPatientDetailsModal(patientData);
                 }
             });
-
-
 
             let allDoctors = [];
             let currentDoctorsPage = 1;
@@ -4398,13 +4417,13 @@ function renderCalendar(month, year) {
                 const doctorsList = document.getElementById("doctorsList");
                 const paginationContainer = document.getElementById("doctorsPagination");
                 if (!doctorsList) return;
-                // Build filtered list based on selected field and search term
+                
                 const term = (searchInput.value || '').trim().toLowerCase();
                 const selectedField = getSelectedField();
 
-                // Compute today's appointment counts first if needed for filtering
+            
                 const filteredBase = allDoctors.filter((doc) => {
-                    if (!term) return true; // no search => keep
+                    if (!term) return true; 
                     const includes = (v) => String(v == null ? '' : v).toLowerCase().includes(term);
                     if (selectedField === 'all') {
                         const todayCount = todaysAppointmentsCountMap[doc.name] || 0;
@@ -4462,7 +4481,6 @@ function renderCalendar(month, year) {
                         count = todaysAppointmentsCountMap[doctorName];
                     }
 
-                
                     const doctorRow = document.createElement('div');
                     doctorRow.className = 'grid grid-cols-12 gap-4 items-center bg-white p-3 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 cursor-pointer';
                     doctorRow.style.cursor = 'pointer';
@@ -4492,8 +4510,6 @@ function renderCalendar(month, year) {
                     doctorsList.appendChild(doctorRow);
                 });
 
-                // Setup action menus after rendering - commented out
-                // setupActionMenus();
                 updateDoctorsPagination(totalPages);
             }
 
@@ -4573,7 +4589,7 @@ function renderCalendar(month, year) {
 
     tableHTML += patients.map(patient => `
       <tr class="border-b hover:bg-gray-50 transition-colors">
-        <td class="px-4 py-3 font-semibold text-gray-900">${patient.details.name || "-"}</td>
+        <td class="px-4 py-3 font-semibold text-gray-900">${[patient.details.firstName, patient.details.middleName, patient.details.lastName].filter(Boolean).join(" ") || "-"}</td>
         <td class="px-4 py-3">${patient.details.age || "-"} / ${patient.details.gender || "-"}</td>
         <td class="px-4 py-3">${patient.details.blood || "-"}</td>
         <td class="px-4 py-3">${patient.details.contact || "-"}</td>
@@ -4591,8 +4607,6 @@ function renderCalendar(month, year) {
 
     patientsList.innerHTML = tableHTML;
 }
-
-
             testPatientsPagination();
             
 
@@ -5242,11 +5256,6 @@ function renderCalendar(month, year) {
                         formData.append("phone", document.getElementById("editDoctorPhone").value);
                         formData.append("address", document.getElementById("editDoctorAddress").value);
 
-                        // const photoInput = document.getElementById("editDoctorPhoto");
-                        // if (photoInput.files.length > 0) {
-                        //     formData.append("photo", photoInput.files[0]);
-                        // }
-
                         try {
                             const response = await fetch(`/api/doctors/${currentDoctorForEditProfile._id}`, {
                                 method: "PUT",
@@ -5267,19 +5276,6 @@ function renderCalendar(month, year) {
                         }
                     };
                 }
-
-                // if (document.getElementById("editDoctorPhoto")) {
-                //     document.getElementById("editDoctorPhoto").addEventListener("change", function (event) {
-                //         const file = event.target.files[0];
-                //         if (file) {
-                //             const reader = new FileReader();
-                //             reader.onload = function (e) {
-                //                 document.getElementById("editDoctorPhotoPreview").src = e.target.result;
-                //             };
-                //             reader.readAsDataURL(file);
-                //         }
-                //     });
-                // }
             });
         </script>
         <script>
@@ -6178,10 +6174,7 @@ function closeRescheduleModal() {
   rescheduleSelectedDate = null;
   rescheduleSelectedTime = null;
 }
-
 document.getElementById("cancelRescheduleBtn").onclick = closeRescheduleModal;
-
-// ✅ Calendar
 function renderRescheduleCalendar(app) {
   const container = document.getElementById("rescheduleCalendarContainer");
   if (!container) return;
@@ -6251,7 +6244,7 @@ function renderRescheduleCalendar(app) {
     }
     container.appendChild(daysGrid);
 
-    // Prev/Next navigation
+    
     const prevMonthStart = new Date(year, month-1, 1);
     const nextMonthStart = new Date(year, month+1,1);
     const btnPrev = document.getElementById("reschedulePrev");
@@ -6275,7 +6268,7 @@ function renderRescheduleCalendar(app) {
   renderCalendar(currentMonth, currentYear);
 }
 
-// ✅ Time Slots
+
 async function renderRescheduleTimeSlots(doctorName, dateStr) {
   const container = document.getElementById("rescheduleTimeSlotsContainer");
   container.innerHTML = '<div class="text-gray-500">Loading time slots...</div>';
@@ -6315,7 +6308,7 @@ async function renderRescheduleTimeSlots(doctorName, dateStr) {
   }
 }
 
-// ✅ Submit
+
 document.getElementById("rescheduleForm").onsubmit = async function (e) {
   e.preventDefault();
   if (!rescheduleAppointmentData || !rescheduleAppointmentData._id) {
@@ -6357,7 +6350,159 @@ document.getElementById("rescheduleForm").onsubmit = async function (e) {
   }
 };
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('newPatientModal');
+  const newPatientForm = document.getElementById('newPatientForm');
+  const departmentSelect = document.getElementById('department');
+  const doctorSelect = document.getElementById('doctor');
+  const patientsListDiv = document.getElementById('patientsList');
+  const patientsHeader = document.getElementById('patientsHeader');
 
+  const openBtn = document.getElementById('newPatientBtn');
+  if (openBtn) {
+    openBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+  }
 
+  window.closeNewPatientModal = function() {
+    modal.classList.add('hidden');
+  };
+
+  if (newPatientForm) {
+    newPatientForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const firstName = document.getElementById('firstName')?.value.trim() || '';
+      const middleName = document.getElementById('middleName')?.value.trim() || '';
+      const lastName = document.getElementById('lastName')?.value.trim() || '';
+      const genderInput = document.querySelector('input[name="gender"]:checked');
+      const gender = genderInput ? genderInput.value : '';
+      const ageYears = parseInt(document.getElementById('ageYears')?.value) || 0;
+      const contactNumber = document.getElementById('contactNumber')?.value.trim() || '';
+      const reason = document.getElementById('reason')?.value.trim() || '';
+      const appointmentDate = document.getElementById('appointmentDate')?.value || '';
+      const appointmentTime = document.getElementById('appointmentTime')?.value || '';
+      const department = departmentSelect ? departmentSelect.value : '';
+      const doctor = doctorSelect ? doctorSelect.value : '';
+      const visitType = document.getElementById('visitType')?.value || '';
+
+      if (!firstName || !lastName || !gender || !ageYears || !contactNumber || !appointmentDate || !appointmentTime || !department || !doctor || !visitType) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      
+      const patientData = {
+        firstName,
+        middleName,
+        lastName,
+        gender,
+        age: ageYears,
+        contact: contactNumber,
+      };
+      const selectedDoctorOption = doctorSelect.options[doctorSelect.selectedIndex];
+      const doctorName = selectedDoctorOption.textContent;
+
+      const confirmationData = {
+        patientData,
+        doctorData: {
+          name: doctorName,
+        },
+        dateData: {
+          date: appointmentDate,
+          time: appointmentTime,
+        },
+        referralData: {
+          referredBy: reason,
+        },
+      };
+
+      try {
+        const response = await fetch('api/confirmations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(confirmationData),
+        });
+
+        if (response.ok) {
+          alert('Patient added successfully!');
+          newPatientForm.reset();
+          closeNewPatientModal();
+          await fetchAndDisplayPatients(null, '');
+          await fetchAndDisplayAppointments();
+          await fetchAndPopulateDoctors(department);
+        } else {
+          const errorData = await response.json();
+          alert('Error adding patient: ' + (errorData.message || 'Unknown error'));
+        }
+      } catch (error) {
+        alert('Network error. Please try again.');
+        console.error(error);
+      }
+    });
+  }
+
+  async function fetchAndPopulateDepartments() {
+    try {
+      const response = await fetch('/api/doctors');
+      if (!response.ok) throw new Error('Failed to fetch departments');
+
+      const doctors = await response.json();
+      const uniqueDepartments = [...new Set(doctors.map(d => d.specialty))];
+
+      if (departmentSelect) {
+        departmentSelect.innerHTML = '<option value="">Select Department</option>';
+        uniqueDepartments.forEach(dep => {
+          const opt = document.createElement('option');
+          opt.value = dep;
+          opt.textContent = dep;
+          departmentSelect.appendChild(opt);
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to load departments.');
+    }
+  }
+
+  async function fetchAndPopulateDoctors(selectedDepartment = '') {
+    try {
+      const response = await fetch('/api/doctors');
+      if (!response.ok) throw new Error('Failed to fetch doctors');
+
+      let doctors = await response.json();
+      if (selectedDepartment) {
+        doctors = doctors.filter(d => d.specialty === selectedDepartment);
+      }
+
+      if (doctorSelect) {
+        doctorSelect.innerHTML = '<option value="">Select Doctor</option>';
+        doctors.forEach(doc => {
+          const opt = document.createElement('option');
+          opt.value = doc._id;
+          opt.textContent = doc.name;
+          doctorSelect.appendChild(opt);
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to load doctors.');
+    }
+  }
+
+  if (departmentSelect) {
+    departmentSelect.addEventListener('change', () => {
+      const selected = departmentSelect.value;
+      fetchAndPopulateDoctors(selected);
+    });
+  }
+
+  fetchAndPopulateDepartments();
+  fetchAndPopulateDoctors();
+  fetchAndDisplayPatients(null, '');
+});
+</script>
 </body>
 </html>
