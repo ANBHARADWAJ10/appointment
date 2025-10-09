@@ -21,16 +21,15 @@ const removeDeletedDoctors = require("./cron/deleteddoctor");
 // ===== Routes =====
 const confirmationRoutes = require("./routes/confirmationsroutes");
 const doctorsRoutes = require("./routes/doctorsroutes");
-const { router: adminRoutes } = require("./routes/adminroutes");
-const { router: superadminRoutes } = require("./routes/superadminroutes");
-const labAppointmentsRoutes = require("./routes/labappointmentsroutes");
-const patientTestRoutes = require("./routes/patienttestroutes");
-const reportRoutes = require("./routes/reportroutes");
-const labTestRoutes = require("./routes/labtestroutes");
-const employeeRoutes = require("./routes/employeeRoutes");
+const { router: adminRoutes } = require('./routes/adminroutes');
+const { router: superadminRoutes } = require('./routes/superadminroutes');
+const patientRoutes = require("./routes/patientroutes"); 
 
-// ===== Middleware =====
-app.use(cors());
+
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
+app.use(CORS());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -51,59 +50,54 @@ app.use("/api/confirmations", confirmationRoutes);
 app.use("/api/doctors", doctorsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/superadmin", superadminRoutes);
-app.use("/api/employees", employeeRoutes);
-app.use("/api/labAppointments", labAppointmentsRoutes);
-app.use("/api/patientTests", patientTestRoutes);
-app.use("/api/reports", reportRoutes);
-app.use("/api/labtests", labTestRoutes);
+app.use("/api/patients", patientRoutes); 
 
-// ===== Frontend Pages =====
-app.get("/", (_req, res) =>
-  res.sendFile(path.join(__dirname, "public", "login.html"))
-);
-app.get("/superadmin", (_req, res) =>
-  res.sendFile(path.join(__dirname, "public", "superadmin.html"))
-);
-
-// ===== Organizations Sample API =====
-const organizations = require("./organizations.json");
-app.get("/api/organization/:id", (req, res) => {
-  const org = organizations.find((o) => o.id === req.params.id);
-  if (!org) return res.status(404).json({ message: "Organization not found" });
-  res.json(org);
+app.post('/test-upload', upload.single('photo'), (req, res) => {
+  console.log('Test upload file:', req.file);
+  if (req.file) {
+    res.send('File uploaded: ' + req.file.path);
+  } else {
+    res.status(400).send('No file uploaded');
+  }
 });
 
-// ===== MongoDB Connection =====
-mongoose
-  .connect(mongoURI)
-  .then(() => {
-    console.log("MongoDB Connected");
-    app.listen(port, () =>
-      console.log(` Server running at http://localhost:${port}`)
-    );
-  })
-  .catch((err) => {
-    console.error(" MongoDB connection error:", err.message);
-    process.exit(1);
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "main.html"));
+});
+
+
+app.get("/superadmin", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "superadmin.html"));
+});
+
+
+mongoose.connect(mongoURI).then(() => {
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
   });
-
-// ===== MongoDB Connection Events =====
-mongoose.connection.on("disconnected", () => {
-  console.warn(" MongoDB disconnected");
+}).catch((err) => {
+  console.error("MongoDB connection error:", err);
+  process.exit(1);
 });
 
-mongoose.connection.on("reconnected", () => {
-  console.log("MongoDB reconnected");
-});
 
-// ===== Cron Jobs =====
-// Runs every hour on the hour
-cron.schedule("0 * * * *", async () => {
-  console.log(" Running hourly admin cleanup");
-  await removeDeletedAdminsFromDb();
-});
+cron.schedule('0 * * * *', () => {
+  console.log('cron')
+  removeDeletedAdminsFromDb();  
+})
 
-cron.schedule("0 * * * *", async () => {
-  console.log(" Running hourly doctor cleanup");
-  await removeDeletedDoctors();
+cron.schedule('* * * * *', () => {
+  console.log('cron')
+  removeDeletedDoctors();
+})
+const organizations = require("./organizations.json");
+
+app.get("/api/organization/:id", (req, res) => {
+  const org = organizations.find(o => o.id === req.params.id);
+  if (org) {
+    res.json(org);
+  } else {
+    res.status(404).json({ message: "Organization not found" });
+  }
 });
