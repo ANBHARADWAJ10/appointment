@@ -22,7 +22,7 @@ const patientRoutes = require("./routes/patientroute");
 const doctorsRoutes = require("./routes/doctorsroutes");
 const { router: adminRoutes } = require('./routes/adminroutes');
 const { router: superadminRoutes } = require('./routes/superadminroutes');
-const patientRoutes = require("./routes/patientroutes"); 
+// const patientRoutes = require("./routes/patientroutes"); 
 
 
 const multer = require('multer');
