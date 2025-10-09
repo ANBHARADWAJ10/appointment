@@ -19,6 +19,7 @@ const removeDeletedDoctors = require("./cron/deleteddoctor");
 const doctorsRoutes = require("./routes/doctorsroutes");
 const { router: adminRoutes } = require('./routes/adminroutes');
 const { router: superadminRoutes } = require('./routes/superadminroutes');
+const employeeRoutes = require("./routes/employeeRoutes");
 
 
 const multer = require('multer');
@@ -36,6 +37,7 @@ app.use("/api/confirmations", confirmationRoutes);
 app.use("/api/doctors", doctorsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/superadmin", superadminRoutes);
+app.use("/api/employees", employeeRoutes);
 
 app.post('/test-upload', upload.single('photo'), (req, res) => {
   console.log('Test upload file:', req.file);
