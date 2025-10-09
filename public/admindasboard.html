@@ -645,7 +645,7 @@ body.dark button.bg-red-600:hover {
 body.dark table tbody tr:hover td {
     background-color: #334155 !important;
 }
-/* Ensure Appointments tab headings and hover match Doctors/Patients in dark mode */
+
 body.dark #appointmentsTab thead tr {
     background-color: #0f172a !important;
 }
@@ -2184,7 +2184,7 @@ body.dark #revisitModal .time-slot.selected {
   <div class="col-span-2">Contact</div>
   <div class="col-span-2">Appointment Date</div>
   <div class="col-span-1">Last Visit</div>
-  <div class="col-span-1">Actions</div>
+  <div class="col-span-1">Reffered BY</div>
 </div>
 
                             <div id="patientsList" class="space-y-2 mt-2"></div>
@@ -2782,33 +2782,6 @@ body.dark #revisitModal .time-slot.selected {
                     class="absolute top-4 right-4 text-red-500 hover:text-red-700 text-2xl">&times;</button>
             </div>
         </div>
-        <!-- <footer class="w-full bg-white shadow py-4 mt-8 fixed bottom-0 left-0 z-30 flex items-center justify-center">
-            <div class="text-gray-500 font-semibold">medicare@2000</div>
-            <div class="flex items-center gap-3">
-            <button id="lightThemeBtn" title="Light Theme"
-                style="background:none;border:none;outline:none;cursor:pointer;padding:0;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="1" x2="12" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3" y2="12" />
-                    <line x1="21" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                </svg>
-            </button>
-            <button id="darkThemeBtn" title="Dark Theme"
-                style="background:none;border:none;outline:none;cursor:pointer;padding:0;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
-                </svg>
-            </button>
-        </div>
-        </footer>
         <script>
             function applyTheme(theme) {
                 if (theme === 'dark') {
@@ -2831,7 +2804,7 @@ body.dark #revisitModal .time-slot.selected {
             document.getElementById('lightThemeBtn').onclick = function () { setTheme('light'); };
             document.getElementById('darkThemeBtn').onclick = function () { setTheme('dark'); };
 
-            applyTheme(getSavedTheme()); -->
+            applyTheme(getSavedTheme());
         </script>
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script>
@@ -3526,8 +3499,21 @@ if (isRescheduled) {
                 }
             }
 
+            
             const hasAppointmentOnDate = formattedSelectedDate
-                ? patientData.appointments.some((a) => a.date === formattedSelectedDate)
+                ? patientData.appointments.some((a) => {
+                    const normalizeDate = (dateStr) => {
+                        if (!dateStr) return '';
+                        if (dateStr.includes('-')) {
+                            const [year, month, day] = dateStr.split('-');
+                            return `${parseInt(month)}/${parseInt(day)}/${year}`;
+                        }
+                        return dateStr;
+                    };
+                    const normalizedAppointmentDate = normalizeDate(a.date);
+                    const normalizedSelectedDate = normalizeDate(formattedSelectedDate);
+                    return normalizedAppointmentDate === normalizedSelectedDate;
+                })
                 : true;
 
             if (matchesSearch && hasAppointmentOnDate) {
@@ -3821,7 +3807,9 @@ if (isRescheduled) {
             function openAppointmentDetailsModal(app) {
                 const doctorName = app.doctorData?.name || app.doctor?.name || app.doctorName || app.assignedDoctor?.name || app.assigned_doctor?.name || "Not Assigned";
 
-                document.getElementById("viewDetailsPatient").textContent = app.patientData?.name || "N/A";
+                document.getElementById("viewDetailsPatient").textContent =
+  [app.patientData?.firstName, app.patientData?.middleName, app.patientData?.lastName].filter(Boolean).join(' ') || "N/A";
+
                 document.getElementById("viewDetailsDoctor").textContent = doctorName;
                 document.getElementById("viewDetailsDateTime").textContent = `${app.dateData?.date || "N/A"} at ${app.dateData?.time || "N/A"}`;
 
@@ -3834,7 +3822,8 @@ if (isRescheduled) {
                 document.getElementById("viewDetailsTime").textContent = app.dateData?.time || "N/A";
                 document.getElementById("viewDetailsStatus").textContent = app.status || "confirmed";
 
-                document.getElementById("viewDetailsPatientName").textContent = app.patientData?.name || "N/A";
+              document.getElementById("viewDetailsPatientName").textContent =
+  [app.patientData?.firstName, app.patientData?.middleName, app.patientData?.lastName].filter(Boolean).join(' ') || "N/A";
                 document.getElementById("viewDetailsAge").textContent = app.patientData?.age || "N/A";
                 document.getElementById("viewDetailsGender").textContent = app.patientData?.gender || "N/A";
 

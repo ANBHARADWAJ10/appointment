@@ -654,7 +654,7 @@ body.dark .calendar-day.selected {
                 <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4" id="alertMessage">Appointment booked successfully!
                 </h3>
 
-              <a href="admindasboard.html" button onclick="hideAlert()"
+              <a href="main.html" button onclick="hideAlert()"
                     class="w-full inline-flex justify-center px-4 py-2 bg-blue-600 text-white text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
                     OK
                 </button></a>
@@ -670,13 +670,7 @@ body.dark .calendar-day.selected {
   </div>
 
 
-  <button onclick="window.location.href='admindasboard.html'"
-  class="accent-link flex items-center gap-2">
-  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
 
-  </svg>
-  <span>Back to Dashboard</span>
-</button>
 </div>
 
     <div class="max-w-4xl mx-auto mt-8">
@@ -750,7 +744,7 @@ body.dark .calendar-day.selected {
 <div class="form-group">
   <label for="middleName">Middle Name</label>
   <input type="text" id="middleName" name="middleName" placeholder="Enter Middle Name"
-    title="Enter middle name using only letters and spaces" maxlength="30" />
+   />
 </div>
 
 <div class="form-group">
@@ -820,7 +814,7 @@ body.dark .calendar-day.selected {
 
                     </div>
 <div class="form-group">
-  <label for="visitType">Visit Type<span class="text-red-500">*</span></label>
+  <label for="visitType">Visit Type</label>
   <select id="visitType" name="visitType" required>
     <option value="">Select Visit Type</option>
     <option value="newPatient">New Patient</option>
@@ -1459,8 +1453,8 @@ body.dark .calendar-day.selected {
                 gender: formData.get("gender"),
                 blood: formData.get("blood"),
                 contact: formData.get("contact"),
-                symptoms: formData.get("symptoms")
-
+                symptoms: formData.get("symptoms"),
+                  visitType: formData.get('visitType'),
             };
 
             localStorage.setItem("patientData", JSON.stringify(patientData));
@@ -1500,6 +1494,7 @@ if (patientData) {
     document.getElementById("patient-gender").value = patientData.gender || "";
     document.getElementById("blood-group").value = patientData.blood || "";
     document.getElementById("contact-number").value = patientData.contact || "";
+    
     checkPatientForm();
 }
             }
@@ -1642,7 +1637,7 @@ document.getElementById("age").required = true;
 document.getElementById("patient-gender").required = true;
 document.getElementById("blood-group").required = true;
 document.getElementById("contact-number").required = true;
-           const formInputs = ["firstName", "middleName", "lastName", "age", "patient-gender", "blood-group", "contact-number"];
+           const formInputs = ["firstName",  "lastName", "age", "patient-gender", "blood-group", "contact-number"];
 
             formInputs.forEach((inputId) => {
                 const element = document.getElementById(inputId);
@@ -2287,7 +2282,8 @@ console.log("Sending confirmationData:", confirmationData);
   document.getElementById("confirmDoctor").textContent = doctorData.name;
   document.getElementById("confirmSpecialty").textContent = doctorData.specialty;
   document.getElementById("confirmExperience").textContent = doctorData.experience.split(" ")[0];
-
+document.getElementById("confirmVisitType").textContent = patientData.visitType || "N/A";
+ document.getElementById("confirmPatientSymptoms").textContent = patientData.symptoms || "N/A";
   const dateObj = new Date(appointmentData.date);
   const formattedDate = dateObj.toLocaleDateString("en-US", {
     weekday: "long",
@@ -2295,8 +2291,7 @@ console.log("Sending confirmationData:", confirmationData);
     day: "numeric",
     year: "numeric",
   });
-  document.getElementById("confirmDate").textContent = formattedDate;
-
+  document.getElementById("confirmDate").textContent = formattedDate;                
   document.getElementById("confirmTime").textContent = appointmentData.time;
 
   
