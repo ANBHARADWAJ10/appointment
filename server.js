@@ -19,6 +19,7 @@ const removeDeletedDoctors = require("./cron/deleteddoctor");
 const doctorsRoutes = require("./routes/doctorsroutes");
 const { router: adminRoutes } = require('./routes/adminroutes');
 const { router: superadminRoutes } = require('./routes/superadminroutes');
+const patientRoutes = require("./routes/patientroutes"); 
 const employeeRoutes = require("./routes/employeeRoutes");
 
 
@@ -37,6 +38,7 @@ app.use("/api/confirmations", confirmationRoutes);
 app.use("/api/doctors", doctorsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/superadmin", superadminRoutes);
+app.use("/api/patients", patientRoutes); 
 app.use("/api/employees", employeeRoutes);
 
 app.post('/test-upload', upload.single('photo'), (req, res) => {
@@ -50,7 +52,7 @@ app.post('/test-upload', upload.single('photo'), (req, res) => {
 
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "login.html"));
+  res.sendFile(path.join(__dirname, "public", "main.html"));
 });
 
 
