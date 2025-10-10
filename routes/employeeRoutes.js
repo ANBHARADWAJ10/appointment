@@ -1,4 +1,4 @@
-// routes/employeeRoutes.js
+
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -6,11 +6,11 @@ const path = require('path');
 const fs = require('fs');
 const Employee = require('../models/Employee');
 
-// === Setup Upload Folder ===
+
 const uploadDir = path.join(__dirname, '..', 'uploads', 'signatures');
 fs.mkdirSync(uploadDir, { recursive: true });
 
-// === Multer Configuration ===
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// === Get All Employees ===
+
 router.get('/', async (req, res) => {
   try {
     const employees = await Employee.find().sort({ createdAt: -1 });
@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// === Add Employee ===
+
 router.post('/', upload.single('signature'), async (req, res) => {
   try {
     const {
@@ -43,7 +43,6 @@ router.post('/', upload.single('signature'), async (req, res) => {
       startTime, endTime
     } = req.body;
 
-    // Check duplicates (email or contact)
     const existing = await Employee.findOne({
       $or: [{ email }, { contact }]
     });
@@ -84,7 +83,7 @@ router.post('/', upload.single('signature'), async (req, res) => {
   }
 });
 
-// === Delete Employee ===
+
 router.delete('/:id', async (req, res) => {
   try {
     const emp = await Employee.findByIdAndDelete(req.params.id);

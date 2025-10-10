@@ -1,4 +1,3 @@
-// models/Employee.js
 const mongoose = require('mongoose');
 
 const employeeSchema = new mongoose.Schema({
@@ -21,7 +20,7 @@ const employeeSchema = new mongoose.Schema({
   qualification: { type: String },
   startTime: { type: String },
   endTime: { type: String },
-  signature: { type: String }, // file path or URL
+  signature: { type: String },
   isActive: { type: Boolean, default: true }
 }, { timestamps: true });
 
