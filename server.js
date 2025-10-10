@@ -1,4 +1,3 @@
-// ===== Imports =====
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -15,11 +14,11 @@ const port = process.env.PORT || 3022;
 const mongoURI = process.env.DATABASE_URL;
 
 if (!mongoURI) {
-  console.error("❌ DATABASE_URL not found in .env file");
+  console.error("DATABASE_URL not found in .env file");
   process.exit(1);
 }
 
-console.log("✅ Mongo URI Loaded");
+console.log("Mongo URI Loaded");
 
 // ===== Cron Jobs =====
 const removeDeletedAdminsFromDb = require("./cron/deletedadmins");
@@ -46,7 +45,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const upload = multer({ dest: "uploads/test/" });
 app.post("/test-upload", upload.single("photo"), (req, res) => {
   if (!req.file) return res.status(400).send("No file uploaded");
-  console.log("📸 Test upload file:", req.file);
+  console.log("Test upload file:", req.file);
   res.send("File uploaded successfully: " + req.file.path);
 });
 
@@ -56,7 +55,7 @@ app.use("/api/doctors", doctorsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/superadmin", superadminRoutes);
 app.use("/api/patients", patientRoutes);
-app.use("/api/employees", employeeRoutes); // ✅ Employee API linked
+app.use("/api/employees", employeeRoutes); // 
 
 // ===== Web Pages =====
 app.get("/", (req, res) => {
@@ -71,26 +70,26 @@ app.get("/superadmin", (req, res) => {
 mongoose.connect(mongoURI)
 
   .then(() => {
-    console.log("✅ MongoDB connected successfully");
+    console.log("MongoDB connected successfully");
     app.listen(port, () => {
-      console.log(`🚀 Server running at: http://localhost:${port}`);
+      console.log(`Server running at: http://localhost:${port}`);
     });
   })
   .catch((err) => {
-    console.error("❌ MongoDB connection error:", err);
+    console.error("MongoDB connection error:", err);
     process.exit(1);
   });
 
 // ===== Cron Schedules =====
 // Runs every hour
 cron.schedule("0 * * * *", () => {
-  console.log("⏰ Running hourly cleanup: removeDeletedAdminsFromDb");
+  console.log("Running hourly cleanup: removeDeletedAdminsFromDb");
   removeDeletedAdminsFromDb();
 });
 
 // Runs every minute
 cron.schedule("* * * * *", () => {
-  console.log("⏰ Running minutely cleanup: removeDeletedDoctors");
+  console.log("Running minutely cleanup: removeDeletedDoctors");
   removeDeletedDoctors();
 });
 
