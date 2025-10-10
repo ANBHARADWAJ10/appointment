@@ -1,43 +1,28 @@
+// models/Employee.js
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
-const employeeSchema = new Schema({
-  salutation: String,
+const employeeSchema = new mongoose.Schema({
+  salutation: { type: String },
   firstName: { type: String, required: true },
-  middleName: String,
+  middleName: { type: String },
   lastName: { type: String, required: true },
-  dob: Date,
-  gender: String,
-  contact: String,
-  email: String,
-  department: { type: String, enum: ['Admin','Doctor',''], required: true },
-  role: String,
-  type: String,
-  dateOfJoining: Date,
-  address: String,
-  panNo: String,
-  bloodGroup: String,
-  isActive: { type: Boolean, default: true },
-
-  // ✅ NEW FIELD
-  signature: String, // file path or Base64 string of uploaded signature
-
-  admin: {
-    passwordHash: String
-  },
-
-  doctor: {
-    specialization: String,
-    experience: String,
-    qualification: String,
-    // ✅ keep times in AM/PM format
-    availability: { 
-      start: String, // e.g. "09:30 AM"
-      end: String    // e.g. "05:30 PM"
-    }
-  },
-
-  createdAt: { type: Date, default: Date.now }
-});
+  dob: { type: Date },
+  gender: { type: String },
+  contact: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  department: { type: String },
+  role: { type: String },
+  employeeType: { type: String },
+  dateOfJoining: { type: Date },
+  address: { type: String },
+  panNo: { type: String },
+  bloodGroup: { type: String },
+  experience: { type: String },
+  qualification: { type: String },
+  startTime: { type: String },
+  endTime: { type: String },
+  signature: { type: String }, // file path or URL
+  isActive: { type: Boolean, default: true }
+}, { timestamps: true });
 
 module.exports = mongoose.model('Employee', employeeSchema);
