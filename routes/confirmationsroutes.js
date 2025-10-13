@@ -7,8 +7,9 @@ const DateModel = require("../models/date");
 
 router.post("/", async (req, res) => {
     try {
+        console.log("Received confirmation data (req.body):"); // Debug log
         const { patientData, doctorData, dateData, referralData } = req.body;
-        console.log("Received data:", { patientData, doctorData, dateData, referralData });
+        console.log({ patientData, doctorData, dateData, referralData }); // Debug log
 
         let doctor = await Doctor.findOne({ name: doctorData.name });
         if (!doctor) {
@@ -272,4 +273,18 @@ router.post("/", async (req, res) => {
     res.status(400).json({ error: error.message || "Failed to create confirmation" });
   }
 });
+
+router.post("/patients", async (req, res) => {
+  try {
+    const patientData = req.body;
+    console.log("Received patient data for standalone patient:", patientData); // Debug log
+    const newPatient = new Patient(patientData);
+    await newPatient.save();
+    res.status(201).json(newPatient);
+  } catch (error) {
+    console.error("Error creating standalone patient:", error);
+    res.status(400).json({ error: error.message || "Failed to create standalone patient" });
+  }
+});
+
 module.exports = router;
