@@ -5,6 +5,8 @@
   <title>MediCare</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css" rel="stylesheet">
+  
+  <link rel="icon" type="image/png" href="favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-blue-50 min-h-screen font-sans">
@@ -89,5 +91,17 @@
   </div>
 </marquee>
  </div>
+
+ <button id="chatbot-button" 
+        class="fixed bottom-6 left-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition z-50"
+        title="Open Chatbot">
+  💬
+</button>
+
+<script>
+  document.getElementById('chatbot-button').addEventListener('click', () => {
+    window.open('index.html','chatbotWindow', 'width=400,height=800,resizable,scrollbars=yes');
+  });
+</script>
 </body>
-</html>
+</html>    

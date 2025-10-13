@@ -3,13 +3,16 @@ const router = express.Router();
 const Doctor = require("../models/doctor");
 const Confirmation = require("../models/confirmation");
 const DateModel = require("../models/date");
-const { deleteDoctor, getDoctors } = require("../controllers/doctorcontroller");
+const { deleteDoctor, getDoctors , getDoctorById} = require("../controllers/doctorcontroller");
 const multer = require("multer");
 const path = require("path");
 
 router.delete("/:id", deleteDoctor);
 
 router.get("/", getDoctors);
+
+
+router.get("/:id", getDoctorById);
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

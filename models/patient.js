@@ -15,7 +15,8 @@ const patientSchema = new mongoose.Schema({
  contact: { type: String },
   symptoms: { type: String, default: "" },
   department: { type: String }, 
-  doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }, 
-});
+  doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }, },
+  { timestamps: true });
+
 
 module.exports = mongoose.model("Patient", patientSchema);

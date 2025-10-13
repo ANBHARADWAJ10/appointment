@@ -16,6 +16,22 @@ const deleteDoctor = async (req, res) => {
   }
 };
 
+const getDoctorById = async (req, res) => {
+  try {
+    const doctorId = req.params.id;
+
+    const doctor = await Doctor.findById(doctorId);
+
+    if (!doctor) {
+      return res.status(404).json({ error: "Doctor not found" });
+    }
+
+    res.status(200).json(doctor);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 const getDoctors = async (req, res) => {
   try {
     const oneWeekAgo = new Date(Date.now() - 7*24*60* 60 * 1000);
@@ -37,4 +53,4 @@ const getDoctors = async (req, res) => {
 };
 
 
-module.exports = { deleteDoctor, getDoctors };
+module.exports = { deleteDoctor, getDoctors, getDoctorById };
