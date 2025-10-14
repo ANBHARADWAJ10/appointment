@@ -2105,14 +2105,15 @@
                             <option>Other</option>
                         </select>
                     </div>
+<div>
+  <label class="block text-xl font-medium mb-1">Contact Number <span class="text-red-600">*</span></label>
+  <input id="contact" name="contact" type="text" maxlength="10" inputmode="numeric"
+      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200"
+      placeholder="Employee Contact Number"
+      required>
+</div>
 
-                    <div>
-                        <label class="block text-xl font-medium mb-1">Contact Number <span
-                                class="text-red-600">*</span></label>
-                        <input id="contact" name="contact" type="text"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200"
-                            placeholder="Employee Contact Number" required>
-                    </div>
+             
 
                     <div>
                         <label class="block text-xl font-medium mb-1">Email Id <span
@@ -4528,6 +4529,31 @@ document.getElementById("confirmDeleteBtn").addEventListener("click", async () =
 });
 
     </script>
+
+
+
+<script>
+// ✅ Allow only valid Indian mobile number (start 6–9, 10 digits, no spaces/letters)
+const contactInput = document.getElementById("contact");
+
+contactInput.addEventListener("input", (e) => {
+  let value = e.target.value.replace(/\D/g, ""); // remove non-digits
+
+  // if first digit not 6–9, remove it
+  if (value.length > 0 && !/[6-9]/.test(value[0])) {
+    value = value.substring(1);
+  }
+
+  // limit to 10 digits
+  if (value.length > 10) {
+    value = value.slice(0, 10);
+  }
+
+  e.target.value = value;
+});
+</script>
+
+
 </body>
 
 </html>
