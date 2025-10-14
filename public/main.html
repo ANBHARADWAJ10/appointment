@@ -168,7 +168,8 @@
 
     
     <style>
-      .floating-chat-btn {
+     /* Floating Chat Button */
+.floating-chat-btn {
     position: fixed;
     bottom: 24px;
     right: 24px;
@@ -724,17 +725,22 @@
    ============================================ */
 
 /* Light Theme Styles */
-body.light-theme {
+/* body.light-theme {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
+} */
+
+/* .chat-window.light-theme {
+    background: rgba(207, 191, 191, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+} */
 
 .chat-window.light-theme {
-    background: rgba(255, 255, 255, 0.95);
+    background: #F2F0EF;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .light-theme .chat-header {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(247, 243, 243);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -789,7 +795,7 @@ body.light-theme {
     background: rgba(0, 0, 0, 0.2);
 }
 
-/* Light theme button adjustments */
+
 .light-theme .chat-option-btn {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
@@ -798,14 +804,17 @@ body.light-theme {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
+
+
+
 .light-theme .date-btn {
     color: #212529;
 }
 
 /* Dark Theme Styles (Default) */
-body.dark-theme {
+/* body.dark-theme {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-}
+} */
 
 .chat-window.dark-theme {
     background: rgba(30, 30, 50, 0.98);
@@ -1158,12 +1167,8 @@ async function sendMessage() {
     const sendButton = document.getElementById('sendButton');
     const message = input.value.trim();
     
-    if (message === '') return;
-
-    // Check for "end" command
-    if (message.toLowerCase() === 'end') {
-        showEndConfirmation();
-        input.value = '';
+   if (isContactPromptActive && message.length !== 10) {
+    addMessage('Please enter a valid 10-digit contact number.', 'assistant', true);
         return;
     }
 
@@ -1374,7 +1379,14 @@ function addBotMessage(data) {
     
     const messageDiv = document.createElement('div');
     messageDiv.className = 'message assistant';
-    
+      const lowerMsg = data.message.toLowerCase();
+  if (lowerMsg.includes('please enter your contact number')) {
+    isContactPromptActive = true;
+    enableContactOnlyValidation();
+  } else {
+    isContactPromptActive = false;
+    disableContactOnlyValidation();
+  }
     // Format message text (preserve line breaks)
     const formattedText = data.message.replace(/\n/g, '<br>');
     
@@ -1585,7 +1597,23 @@ document.addEventListener('keydown', function(event) {
         closeChatWidget();
     }
 });
+function enableContactOnlyValidation() {
+  const input = document.getElementById('messageInput');
+  input.value = input.value.replace(/\D/g, '').slice(0, 10);
+  input.setAttribute('maxlength', '10');
+  input.addEventListener('input', contactValidationHandler);
+}
 
+function contactValidationHandler(e) {
+  let numbersOnly = this.value.replace(/\D/g, '').slice(0, 10);
+  this.value = numbersOnly;
+}
+
+function disableContactOnlyValidation() {
+  const input = document.getElementById('messageInput');
+  input.removeAttribute('maxlength');
+  input.removeEventListener('input', contactValidationHandler);
+}
 // Initialize chat widget on page load
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Medical ChatBot initialized successfully!');
