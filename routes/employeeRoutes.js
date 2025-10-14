@@ -94,4 +94,25 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body;
+
+    const employee = await Employee.findByIdAndUpdate(id, updatedData, {
+      new: true, 
+      runValidators: true,
+    });
+
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+
+    res.status(200).json({ message: "Employee updated successfully", employee });
+  } catch (error) {
+    console.error("Error updating employee:", error);
+    res.status(500).json({ message: "Error updating employee" });
+  }
+});
+
 module.exports = router;

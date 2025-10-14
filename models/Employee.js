@@ -21,7 +21,8 @@ const employeeSchema = new mongoose.Schema({
   startTime: { type: String },
   endTime: { type: String },
   signature: { type: String },
-  isActive: { type: Boolean, default: true }
+  isActive: { type: Boolean, default: true },
+  isDelete:{type:Boolean, default:false}
 }, { timestamps: true });
 
 module.exports = mongoose.model('employee', employeeSchema);

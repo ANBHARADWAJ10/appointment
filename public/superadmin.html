@@ -57,7 +57,7 @@
             border-radius: 50% !important;
             border: none !important;
             transition:
-                background 0.2s,
+                background 0.2s, 
                 color 0.2s;
             margin: 2px 0 !important;
         }
@@ -146,6 +146,11 @@
         }
 
         body.dark #deleteDoctorModal svg {
+            color: #ef4444 !important;
+            stroke: #ef4444 !important;
+        }
+
+        body.dark #deleteEmployeeModal svg {
             color: #ef4444 !important;
             stroke: #ef4444 !important;
         }
@@ -1536,6 +1541,129 @@
                 </div>
             </div>
         </div>
+
+        <!-- View Employee Modal -->
+<div id="viewEmployeeModal"
+    class="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-lg flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl px-10 py-8 relative">
+        <div class="mb-6 border-b pb-4">
+            <h2 class="text-3xl font-semibold text-gray-800">Employee Profile</h2>
+            <p class="text-sm text-gray-500 mt-1">Detailed employee information</p>
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label class="text-sm text-gray-500 mb-1 block">Employee Name</label>
+                <div id="viewEmployeeName"
+                    class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900">-</div>
+            </div>
+            <div>
+                <label class="text-sm text-gray-500 mb-1 block">Department</label>
+                <div id="viewEmployeeDepartment"
+                    class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900">-</div>
+            </div>
+            <div>
+                <label class="text-sm text-gray-500 mb-1 block">Role</label>
+                <div id="viewEmployeeRole"
+                    class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900">-</div>
+            </div>
+            <div>
+                <label class="text-sm text-gray-500 mb-1 block">Email</label>
+                <div id="viewEmployeeEmail"
+                    class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900 break-all">-</div>
+            </div>
+            <div>
+                <label class="text-sm text-gray-500 mb-1 block">Contact</label>
+                <div id="viewEmployeeContact"
+                    class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900">-</div>
+            </div>
+        </div>
+        <div class="mt-8 flex justify-end">
+            <button onclick="closeModals()"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Employee Modal -->
+<div id="editEmployeeModal"
+    class="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-lg flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl px-10 py-8 relative">
+    <div class="mb-6 border-b pb-4">
+      <h2 class="text-3xl font-semibold text-gray-800">Edit Employee</h2>
+      <p class="text-sm text-gray-500 mt-1">Update employee information</p>
+    </div>
+
+    <form id="editEmployeeForm" class="grid grid-cols-2 gap-6">
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">First Name</label>
+        <input id="editEmployeeFirstName" name="firstName" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Last Name</label>
+        <input id="editEmployeeLastName" name="lastName" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Department</label>
+        <input id="editEmployeeDepartment" name="department" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Role</label>
+        <input id="editEmployeeRole" name="role" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Email</label>
+        <input id="editEmployeeEmail" name="email" type="email"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Contact</label>
+        <input id="editEmployeeContact" name="contact" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      <div class="col-span-2 flex justify-end gap-4 mt-4">
+        <button type="button" onclick="closeModals()"
+          class="px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-md font-semibold">Cancel</button>
+        <button type="submit"
+          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-semibold">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteEmployeeModal"
+  class="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-lg flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-sm p-8 relative text-center">
+    <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 9v4M12 17h.01" />
+                        <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    </svg>
+                </span>
+    <h2 class="text-lg font-semibold text-gray-800 mb-2">Are you sure you want to delete?</h2>
+    
+
+    <div class="flex justify-center gap-4 py-2">
+      <button type="button" onclick="closeModals()"
+        class="px-5 py-2 bg-gray-200 hover:bg-gray-300 rounded-md font-semibold text-gray-800">
+        Cancel
+      </button>
+      <button id="confirmDeleteBtn"
+        class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-semibold">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+
 
         <div id="blurredBg" class="fixed inset-0 bg-white/30 bg-opacity-30 backdrop-blur-md hidden z-40"></div>
         <div id="logoutModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
@@ -4192,14 +4320,14 @@
         <div
           class="employee-action-menu absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-50"
         >
-          <button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 view-employee" data-id="${emp._id}">
+          <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-[var(--accent-color)] hover:text-white" data-id="${emp._id}">
             View
           </button>
-          <button class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 edit-employee" data-id="${emp._id}">
+          <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-[var(--accent-color)] hover:text-white" data-id="${emp._id}">
             Edit
           </button>
           <button
-            class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 delete-employee"
+            class="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-gray-200 hover:bg-[var(--accent-color)] hover:text-white  delete-employee"
             data-id="${emp._id}"
           >
             Delete
@@ -4261,11 +4389,31 @@
             }
 
 
-            if (e.target.classList.contains("view-employee")) {
-                const id = e.target.dataset.id;
-                console.log("View employee:", id);
+            // if (e.target.classList.contains("view-employee")) {
+            //     const id = e.target.dataset.id;
+            //     console.log("View employee:", id);
 
-            }
+            // }
+            if (e.target.classList.contains("view-employee")) {
+    const id = e.target.dataset.id;
+    console.log("View employee:", id);
+
+    // Find the employee from the loaded array
+    const employee = employees.find(emp => emp._id === id);
+
+    if (employee) {
+        openEmployeeViewModal({
+            name: `${employee.firstName || ""} ${employee.lastName || ""}`,
+            department: employee.department || "-",
+            role: employee.role || "-",
+            email: employee.email || "-",
+            contact: employee.contact || "-"
+        });
+    } else {
+        console.error("Employee not found:", id);
+    }
+}
+
 
             if (e.target.classList.contains("edit-employee")) {
                 const id = e.target.dataset.id;
@@ -4279,6 +4427,102 @@
 
             }
         });
+
+    </script>
+
+    <script>
+        function openEmployeeViewModal(employee) {
+    document.getElementById("viewEmployeeName").innerText = employee.name || "-";
+    document.getElementById("viewEmployeeDepartment").innerText = employee.department || "-";
+    document.getElementById("viewEmployeeRole").innerText = employee.role || "-";
+    document.getElementById("viewEmployeeEmail").innerText = employee.email || "-";
+    document.getElementById("viewEmployeeContact").innerText = employee.contact || "-";
+    document.getElementById("viewEmployeeModal").classList.remove("hidden");
+}
+
+function closeModals() {
+    document.querySelectorAll(".fixed.inset-0").forEach(modal => modal.classList.add("hidden"));
+}
+
+    </script>
+    <script>
+        let editEmployeeId = null;
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("edit-employee")) {
+    const id = e.target.dataset.id;
+    const employee = employees.find(emp => emp._id === id);
+    if (employee) {
+      editEmployeeId = id;
+      document.getElementById("editEmployeeFirstName").value = employee.firstName || "";
+      document.getElementById("editEmployeeLastName").value = employee.lastName || "";
+      document.getElementById("editEmployeeDepartment").value = employee.department || "";
+      document.getElementById("editEmployeeRole").value = employee.role || "";
+      document.getElementById("editEmployeeEmail").value = employee.email || "";
+      document.getElementById("editEmployeeContact").value = employee.contact || "";
+      document.getElementById("editEmployeeModal").classList.remove("hidden");
+    }
+  }
+});
+
+document.getElementById("editEmployeeForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const updatedData = {
+    firstName: document.getElementById("editEmployeeFirstName").value,
+    lastName: document.getElementById("editEmployeeLastName").value,
+    department: document.getElementById("editEmployeeDepartment").value,
+    role: document.getElementById("editEmployeeRole").value,
+    email: document.getElementById("editEmployeeEmail").value,
+    contact: document.getElementById("editEmployeeContact").value,
+  };
+
+  try {
+    const res = await fetch(`/api/employees/${editEmployeeId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!res.ok) throw new Error("Failed to update employee");
+    showToast("Employee updated successfully!");
+    closeModals();
+    loadEmployees(); 
+  } catch (err) {
+    console.error(err);
+    showToast("Error updating employee", "error");
+  }
+});
+
+    </script>
+
+    <script>
+        let deleteEmployeeId = null;
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-employee")) {
+    deleteEmployeeId = e.target.dataset.id;
+    document.getElementById("deleteEmployeeModal").classList.remove("hidden");
+  }
+});
+
+document.getElementById("confirmDeleteBtn").addEventListener("click", async () => {
+  if (!deleteEmployeeId) return;
+
+  try {
+    const res = await fetch(`/api/employees/${deleteEmployeeId}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) throw new Error("Failed to delete employee");
+
+    showToast("Employee deleted successfully!");
+    closeModals();
+    loadEmployees(); 
+  } catch (err) {
+    console.error(err);
+    showToast("Error deleting employee", "error");
+  }
+});
 
     </script>
 </body>
