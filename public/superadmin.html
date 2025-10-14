@@ -1537,6 +1537,149 @@
             </div>
         </div>
 
+
+
+
+
+<!-- ================= EMPLOYEE MODALS ================= -->
+
+<!-- View Employee Modal -->
+<div id="viewEmployeeModal"
+  class="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-lg flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl px-10 py-8 relative">
+    <div class="mb-6 border-b pb-4">
+      <h2 class="text-3xl font-semibold text-gray-800">Employee Profile</h2>
+      <p class="text-sm text-gray-500 mt-1">Detailed employee information</p>
+    </div>
+    <div class="grid grid-cols-2 gap-6">
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Employee Name</label>
+        <div id="viewEmployeeName"
+          class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900">-</div>
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Department</label>
+        <div id="viewEmployeeDepartment"
+          class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900">-</div>
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Role</label>
+        <div id="viewEmployeeRole"
+          class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900">-</div>
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Email</label>
+        <div id="viewEmployeeEmail"
+          class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900 break-all">-</div>
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Contact</label>
+        <div id="viewEmployeeContact"
+          class="bg-gray-50 border rounded-md px-4 py-3 text-lg font-medium text-gray-900">-</div>
+      </div>
+    </div>
+    <div class="mt-8 flex justify-end">
+      <button onclick="closeModals()"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md shadow">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Employee Modal -->
+<div id="editEmployeeModal"
+  class="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-lg flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl px-10 py-8 relative">
+    <div class="mb-6 border-b pb-4">
+      <h2 class="text-3xl font-semibold text-gray-800">Edit Employee</h2>
+      <p class="text-sm text-gray-500 mt-1">Update employee information</p>
+    </div>
+
+    <form id="editEmployeeForm" class="grid grid-cols-2 gap-6">
+      <input type="hidden" id="editEmployeeId">
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">First Name</label>
+        <input id="editEmployeeFirstName" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Last Name</label>
+        <input id="editEmployeeLastName" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Department</label>
+        <input id="editEmployeeDepartment" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Role</label>
+        <input id="editEmployeeRole" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Email</label>
+        <input id="editEmployeeEmail" type="email"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+      <div>
+        <label class="text-sm text-gray-500 mb-1 block">Contact</label>
+        <input id="editEmployeeContact" type="text"
+          class="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      <div class="col-span-2 flex justify-end gap-4 mt-4">
+        <button type="button" onclick="closeModals()"
+          class="px-6 py-2 bg-gray-300 hover:bg-gray-400 rounded-md font-semibold">Cancel</button>
+        <button type="submit"
+          class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-semibold">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteEmployeeModal"
+  class="fixed inset-0 z-50 bg-black bg-opacity-40 backdrop-blur-lg flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-sm p-8 relative text-center">
+    <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 9v4M12 17h.01" />
+        <path
+          d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+      </svg>
+    </span>
+    <h2 class="text-lg font-semibold text-gray-800 mb-2">Are you sure you want to delete?</h2>
+
+    <div class="flex justify-center gap-4 py-2">
+      <button onclick="closeModals()"
+        class="px-5 py-2 bg-gray-200 hover:bg-gray-300 rounded-md font-semibold text-gray-800">Cancel</button>
+      <button id="confirmDeleteBtn"
+        class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-semibold">Delete</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div id="blurredBg" class="fixed inset-0 bg-white/30 bg-opacity-30 backdrop-blur-md hidden z-40"></div>
         <div id="logoutModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
             <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg w-full max-w-sm text-center">
@@ -3976,250 +4119,257 @@
         }
     </script>
 
+<script>
+(function () {
+  const API_BASE = 'http://localhost:3022/api/employees';
 
-    <script>
-        (function () {
-            const API_BASE = 'http://localhost:3022/api/employees';
+  const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+  const addEmployeeModal = document.getElementById('addEmployeeModal');
+  const closeAddEmployee = document.getElementById('closeAddEmployee');
+  const addEmployeeForm = document.getElementById('addEmployeeForm');
+  const employeeListContainer = document.getElementById('employeeList');
+  const employeeDepartment = document.getElementById('employeeDepartment');
+  const adminFields = document.getElementById('adminFields');
+  const doctorFields = document.getElementById('doctorFields');
+  const roleSelect = document.getElementById('employeeRole');
+  const toast = document.getElementById('toast');
 
+  let employees = [];
+  let editEmployeeId = null;
+  let deleteEmployeeId = null;
 
-            const addEmployeeBtn = document.getElementById('addEmployeeBtn');
-            const addEmployeeModal = document.getElementById('addEmployeeModal');
-            const closeAddEmployee = document.getElementById('closeAddEmployee');
-            const addEmployeeForm = document.getElementById('addEmployeeForm');
-            const employeeListContainer = document.getElementById('employeeList');
-            const employeeDepartment = document.getElementById('employeeDepartment');
-            const adminFields = document.getElementById('adminFields');
-            const doctorFields = document.getElementById('doctorFields');
-            const roleSelect = document.getElementById('employeeRole');
-            const toast = document.getElementById('toast');
+  // ------------------- Toast -------------------
+  function showToast(message, type = 'success') {
+    if (!toast) {
+      alert(message);
+      return;
+    }
+    toast.textContent = message;
+    toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded shadow-lg transition-opacity duration-300 ${
+      type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+    }`;
+    toast.classList.remove('opacity-0');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0');
+    }, 3000);
+  }
 
+  // ------------------- Role Options -------------------
+  const roleOptions = {
+    Admin: ["Generalist Administrator", "Specialist Administrator", "HR Manager", "Finance Head", "Operations Lead"],
+    Doctor: ["Cardiologist", "Dermatologist", "Neurologist", "Orthopedic", "Dentist"],
+    Nurse: ["Ward Nurse", "ICU Nurse", "OT Nurse"],
+    Lab: ["Lab Technician", "Pathologist", "Radiologist", "Immunology", "Histology"]
+  };
 
-            addEmployeeBtn?.addEventListener('click', () => addEmployeeModal.classList.remove('hidden'));
-            closeAddEmployee?.addEventListener('click', () => addEmployeeModal.classList.add('hidden'));
+  function populateRoles(dept) {
+    roleSelect.innerHTML = '<option value="">Select Role</option>';
+    if (roleOptions[dept]) {
+      roleOptions[dept].forEach(role => {
+        const option = document.createElement('option');
+        option.value = role;
+        option.textContent = role;
+        roleSelect.appendChild(option);
+      });
+    }
+  }
 
+  // ------------------- Time Slots -------------------
+  function generateTimeOptions(intervalMin = 30, startHour = 6, endHour = 21) {
+    const opts = [];
+    for (let h = startHour; h <= endHour; h++) {
+      for (let m = 0; m < 60; m += intervalMin) {
+        const hour12 = (h % 12) === 0 ? 12 : h % 12;
+        const ampm = h < 12 ? 'AM' : 'PM';
+        const mm = String(m).padStart(2, '0');
+        const label = `${hour12}:${mm} ${ampm}`;
+        const value = `${String(h).padStart(2, '0')}:${mm}`;
+        opts.push({ label, value });
+      }
+    }
+    return opts;
+  }
 
-            function showToast(message, type = 'success') {
-                if (!toast) {
-                    alert(message);
-                    return;
-                }
-                toast.textContent = message;
-                toast.className = `fixed bottom-4 right-4 px-4 py-2 rounded shadow-lg transition-opacity duration-300 ${type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
-                    }`;
-                toast.classList.remove('opacity-0');
-                toast.classList.add('opacity-100');
-                setTimeout(() => {
-                    toast.classList.remove('opacity-100');
-                    toast.classList.add('opacity-0');
-                }, 3000);
-            }
+  function populateTimeSelects() {
+    const startSelect = document.getElementById('startTime');
+    const endSelect = document.getElementById('endTime');
+    if (!startSelect || !endSelect) return;
+    startSelect.innerHTML = '<option value="">Select Time</option>';
+    endSelect.innerHTML = '<option value="">Select Time</option>';
+    const times = generateTimeOptions(30, 6, 21);
+    times.forEach(t => {
+      startSelect.add(new Option(t.label, t.value));
+      endSelect.add(new Option(t.label, t.value));
+    });
+  }
 
+  function handleDepartmentChange() {
+    const dept = employeeDepartment.value;
+    adminFields.classList.toggle('hidden', dept !== 'Admin');
+    doctorFields.classList.toggle('hidden', dept !== 'Doctor');
+    populateRoles(dept);
+    if (dept === 'Doctor') populateTimeSelects();
+  }
 
-            const roleOptions = {
-                Admin: ["Generalist Administrator", "Specialist Administrator", "HR Manager", "Finance Head", "Operations Lead"],
-                Doctor: ["Cardiologist", "Dermatologist", "Neurologist", "Orthopedic", "Dentist"],
-                Nurse: ["Ward Nurse", "ICU Nurse", "OT Nurse"],
-                Lab: ["Lab Technician", "Pathologist", "Radiologist", "Immunology", "Histology"]
-            };
+  employeeDepartment?.addEventListener('change', handleDepartmentChange);
 
-            function populateRoles(dept) {
-                roleSelect.innerHTML = '<option value="">Select Role</option>';
-                if (roleOptions[dept]) {
-                    roleOptions[dept].forEach(role => {
-                        const option = document.createElement('option');
-                        option.value = role;
-                        option.textContent = role;
-                        roleSelect.appendChild(option);
-                    });
-                }
-            }
+  // ------------------- Add Employee -------------------
+  addEmployeeBtn?.addEventListener('click', () => addEmployeeModal.classList.remove('hidden'));
+  closeAddEmployee?.addEventListener('click', () => addEmployeeModal.classList.add('hidden'));
 
+  addEmployeeForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(addEmployeeForm);
+    try {
+      const res = await fetch(API_BASE, { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('Failed to add employee');
+      const newEmployee = await res.json();
+      employees.unshift(newEmployee);
+      appendEmployeeToDOM(newEmployee);
+      showToast('Employee added successfully!');
+      addEmployeeModal.classList.add('hidden');
+      addEmployeeForm.reset();
+    } catch (err) {
+      console.error(err);
+      showToast('Error adding employee', 'error');
+    }
+  });
 
-            function generateTimeOptions(intervalMin = 30, startHour = 6, endHour = 21) {
-                const opts = [];
-                for (let h = startHour; h <= endHour; h++) {
-                    for (let m = 0; m < 60; m += intervalMin) {
-                        const hour12 = (h % 12) === 0 ? 12 : h % 12;
-                        const ampm = h < 12 ? 'AM' : 'PM';
-                        const mm = String(m).padStart(2, '0');
-                        const label = `${hour12}:${mm} ${ampm}`;
-                        const value = `${String(h).padStart(2, '0')}:${mm}`;
-                        opts.push({ label, value });
-                    }
-                }
-                return opts;
-            }
-
-            function populateTimeSelects() {
-                const startSelect = document.getElementById('startTime');
-                const endSelect = document.getElementById('endTime');
-                if (!startSelect || !endSelect) return;
-
-                startSelect.innerHTML = '<option value="">Select Time</option>';
-                endSelect.innerHTML = '<option value="">Select Time</option>';
-
-                const times = generateTimeOptions(30, 6, 21);
-                times.forEach(t => {
-                    startSelect.add(new Option(t.label, t.value));
-                    endSelect.add(new Option(t.label, t.value));
-                });
-            }
-
-
-            function handleDepartmentChange() {
-                const dept = employeeDepartment.value;
-                adminFields.classList.toggle('hidden', dept !== 'Admin');
-                doctorFields.classList.toggle('hidden', dept !== 'Doctor');
-                populateRoles(dept);
-                if (dept === 'Doctor') populateTimeSelects();
-            }
-
-            employeeDepartment?.addEventListener('change', handleDepartmentChange);
-
-           function appendEmployeeToDOM(emp) {
+  // ------------------- Display Employees -------------------
+  function appendEmployeeToDOM(emp) {
     const fullName = `${emp.salutation ? emp.salutation + ' ' : ''}${emp.firstName || ''} ${emp.lastName || ''}`.trim();
     const row = document.createElement('div');
     row.className = 'grid grid-cols-12 gap-4 items-center bg-white p-3 rounded-lg shadow-sm border border-gray-100';
-   row.innerHTML = `
-  <div class="col-span-2 font-medium">${fullName}</div>
-  <div class="col-span-2">${emp.department || ''}</div>
-  <div class="col-span-2">${emp.role || ''}</div>
-  <div class="col-span-3">${emp.email || ''}</div>
-  <div class="col-span-2">${emp.contact || ''}</div>
-  <div class="col-span-1 flex justify-end">
-    <div class="relative inline-block text-left">
-    <button 
-  class="employee-action-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 focus:outline-none"
-  onclick="toggleEmployeeMenu(this)">
-  ⋯
-</button>
+    row.innerHTML = `
+      <div class="col-span-2 font-medium">${fullName}</div>
+      <div class="col-span-2">${emp.department || ''}</div>
+      <div class="col-span-2">${emp.role || ''}</div>
+      <div class="col-span-3">${emp.email || ''}</div>
+      <div class="col-span-2">${emp.contact || ''}</div>
+      <div class="col-span-1 flex justify-end relative">
+        <button onclick="toggleEmployeeMenu(this)" class="employee-action-btn w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">⋯</button>
+        <div class="employee-action-menu hidden absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+          <button onclick="viewEmployee('${emp._id}')" class="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">View</button>
+          <button onclick="openEditEmployee('${emp._id}')" class="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Edit</button>
+          <button onclick="openDeleteEmployee('${emp._id}')" class="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left text-red-600">Delete</button>
+        </div>
+      </div>`;
+    employeeListContainer.appendChild(row);
+  }
 
-      <div class="employee-action-menu hidden absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-        <button onclick="viewEmployee('${emp._id}')" class="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">View</button>
-        <button onclick="editEmployee('${emp._id}')" class="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left">Edit</button>
-        <button onclick="deleteEmployee('${emp._id}')" class="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left text-red-600">Delete</button>
-      </div>
-    </div>
-  </div>
-`;
-
-
-    employeeListContainer.prepend(row);
-}
-
-
-        async function fetchAndDisplayEmployees() {
+  async function fetchAndDisplayEmployees() {
     try {
-        const res = await fetch(API_BASE);
-        const employees = await res.json();
-
-        const employeesPerPage = 6;
-        let currentPage = 1;
-
-        const pagination = document.getElementById('employeesPagination');
-        const prevBtn = document.getElementById('prevEmployeesPage');
-        const nextBtn = document.getElementById('nextEmployeesPage');
-        const pageInfo = document.getElementById('employeesPageInfo');
-
-        function renderPage() {
-            employeeListContainer.innerHTML = '';
-            const totalPages = Math.ceil(employees.length / employeesPerPage);
-            pagination.classList.toggle('hidden', totalPages <= 1);
-
-            const start = (currentPage - 1) * employeesPerPage;
-            const end = start + employeesPerPage;
-            const currentEmployees = employees.slice(start, end);
-
-            currentEmployees.forEach(emp => appendEmployeeToDOM(emp));
-
-            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-        }
-
-        prevBtn.onclick = () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderPage();
-            }
-        };
-
-        nextBtn.onclick = () => {
-            const totalPages = Math.ceil(employees.length / employeesPerPage);
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderPage();
-            }
-        };
-
-        renderPage();
+      const res = await fetch(API_BASE);
+      employees = await res.json();
+      employeeListContainer.innerHTML = '';
+      employees.forEach(emp => appendEmployeeToDOM(emp));
     } catch (err) {
-        console.error(err);
-        showToast('Failed to load employees', 'error');
+      console.error(err);
+      showToast('Failed to load employees', 'error');
     }
-}
+  }
 
-
-            addEmployeeForm?.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                const formData = new FormData(addEmployeeForm);
-
-                try {
-                    const res = await fetch(API_BASE, {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    if (!res.ok) {
-                        const err = await res.json().catch(() => ({}));
-                        throw new Error(err.error || 'Failed to add employee');
-                    }
-
-                    const newEmployee = await res.json();
-                    appendEmployeeToDOM(newEmployee);
-                    showToast('Employee added successfully!');
-                    addEmployeeModal.classList.add('hidden');
-                    addEmployeeForm.reset();
-                    adminFields.classList.add('hidden');
-                    doctorFields.classList.add('hidden');
-
-                } catch (err) {
-                    console.error(err);
-                    showToast(err.message || 'Error adding employee', 'error');
-                }
-            });
-
-
-            document.addEventListener('DOMContentLoaded', fetchAndDisplayEmployees);
-        })();
-    </script>
-
-<script>
-    function toggleEmployeeMenu(button) {
+  // ------------------- Menu Toggle -------------------
+  window.toggleEmployeeMenu = function (button) {
     const menu = button.nextElementSibling;
     document.querySelectorAll('.employee-action-menu').forEach(m => {
-        if (m !== menu) m.classList.add('hidden');
+      if (m !== menu) m.classList.add('hidden');
     });
     menu.classList.toggle('hidden');
-}
+  };
 
-// close menu if clicked outside
-document.addEventListener('click', (e) => {
+  document.addEventListener('click', (e) => {
     if (!e.target.closest('.employee-action-btn') && !e.target.closest('.employee-action-menu')) {
-        document.querySelectorAll('.employee-action-menu').forEach(m => m.classList.add('hidden'));
+      document.querySelectorAll('.employee-action-menu').forEach(m => m.classList.add('hidden'));
     }
-});
+  });
 
-// dummy edit function (replace with your modal logic)
-function editEmployee(id) {
-    alert("Edit employee " + id);
-}
+  // ------------------- View / Edit / Delete -------------------
+   // ------------------- View -------------------
+  window.viewEmployee = function (id) {
+    const emp = employees.find(e => e._id === id);
+    if (!emp) return;
+    document.getElementById("viewEmployeeName").innerText = `${emp.firstName} ${emp.lastName}`;
+    document.getElementById("viewEmployeeDepartment").innerText = emp.department || "-";
+    document.getElementById("viewEmployeeRole").innerText = emp.role || "-";
+    document.getElementById("viewEmployeeEmail").innerText = emp.email || "-";
+    document.getElementById("viewEmployeeContact").innerText = emp.contact || "-";
+    document.getElementById("viewEmployeeModal").classList.remove("hidden");
+  };
+
+  // ------------------- Edit -------------------
+  window.openEditEmployee = function (id) {
+    const emp = employees.find(e => e._id === id);
+    if (!emp) return;
+    editEmployeeId = id;
+    document.getElementById("editEmployeeFirstName").value = emp.firstName || "";
+    document.getElementById("editEmployeeLastName").value = emp.lastName || "";
+    document.getElementById("editEmployeeDepartment").value = emp.department || "";
+    document.getElementById("editEmployeeRole").value = emp.role || "";
+    document.getElementById("editEmployeeEmail").value = emp.email || "";
+    document.getElementById("editEmployeeContact").value = emp.contact || "";
+    document.getElementById("editEmployeeModal").classList.remove("hidden");
+  };
+
+  document.getElementById("editEmployeeForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const updatedData = {
+      firstName: editEmployeeFirstName.value,
+      lastName: editEmployeeLastName.value,
+      department: editEmployeeDepartment.value,
+      role: editEmployeeRole.value,
+      email: editEmployeeEmail.value,
+      contact: editEmployeeContact.value,
+    };
+
+    try {
+      console.log("Editing Employee ID:", editEmployeeId);
+      const res = await fetch(`${API_BASE}/${editEmployeeId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (!res.ok) throw new Error("Failed to update");
+      showToast("Employee updated successfully!");
+      closeModals();
+      fetchAndDisplayEmployees();
+    } catch (err) {
+      console.error(err);
+      showToast("Error updating employee", "error");
+    }
+  });
+
+  // ------------------- Delete -------------------
+  window.openDeleteEmployee = function (id) {
+    deleteEmployeeId = id;
+    document.getElementById("deleteEmployeeModal").classList.remove("hidden");
+  };
+
+  document.getElementById("confirmDeleteBtn").addEventListener("click", async () => {
+    try {
+      const res = await fetch(`${API_BASE}/${deleteEmployeeId}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete");
+      showToast("Employee deleted successfully!");
+      closeModals();
+      fetchAndDisplayEmployees();
+    } catch (err) {
+      console.error(err);
+      showToast("Error deleting employee", "error");
+    }
+  });
+
+  // ------------------- Utilities -------------------
+  window.closeModals = function () {
+    document.querySelectorAll(".fixed.inset-0").forEach(m => m.classList.add("hidden"));
+  };
+
+  document.addEventListener("DOMContentLoaded", fetchAndDisplayEmployees);
+})();
 
 </script>
-
-
-
 
 
 </body>

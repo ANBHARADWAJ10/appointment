@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -6,10 +5,9 @@ const path = require('path');
 const fs = require('fs');
 const Employee = require('../models/Employee');
 
-
+// ====================== File Upload Setup ======================
 const uploadDir = path.join(__dirname, '..', 'uploads', 'signatures');
 fs.mkdirSync(uploadDir, { recursive: true });
-
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
@@ -21,7 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-
+// ====================== GET All Employees ======================
 router.get('/', async (req, res) => {
   try {
     const employees = await Employee.find().sort({ createdAt: -1 });
@@ -32,17 +30,32 @@ router.get('/', async (req, res) => {
   }
 });
 
-
+// ====================== ADD New Employee ======================
 router.post('/', upload.single('signature'), async (req, res) => {
   try {
     const {
-      salutation, firstName, middleName, lastName,
-      dob, gender, contact, email, department, role,
-      employeeType, dateOfJoining, address, panNo,
-      bloodGroup, experience, qualification,
-      startTime, endTime
+      salutation,
+      firstName,
+      middleName,
+      lastName,
+      dob,
+      gender,
+      contact,
+      email,
+      department,
+      role,
+      employeeType,
+      dateOfJoining,
+      address,
+      panNo,
+      bloodGroup,
+      experience,
+      qualification,
+      startTime,
+      endTime
     } = req.body;
 
+    // Check for duplicate email/contact
     const existing = await Employee.findOne({
       $or: [{ email }, { contact }]
     });
@@ -76,14 +89,36 @@ router.post('/', upload.single('signature'), async (req, res) => {
 
     const savedEmployee = await newEmployee.save();
     res.status(201).json(savedEmployee);
-
   } catch (err) {
     console.error('Error saving employee:', err);
     res.status(500).json({ error: 'Server error while saving employee' });
   }
 });
 
+// ====================== UPDATE Employee (Edit) ======================
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body;
 
+    const employee = await Employee.findByIdAndUpdate(id, updatedData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!employee) {
+      return res.status(404).json({ error: 'Employee not found' });
+    }
+
+    res.status(200).json({ message: 'Employee updated successfully', employee });
+  } catch (error) {
+    console.error('Error updating employee:', error);
+    res.status(500).json({ error: 'Error updating employee' });
+  }
+});
+
+
+// ====================== DELETE Employee ======================
 router.delete('/:id', async (req, res) => {
   try {
     const emp = await Employee.findByIdAndDelete(req.params.id);
@@ -95,4 +130,5 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// ====================== EXPORT ROUTER ======================
 module.exports = router;
