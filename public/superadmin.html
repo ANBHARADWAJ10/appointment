@@ -4320,12 +4320,12 @@
         <div
           class="employee-action-menu absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-50"
         >
-          <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-[var(--accent-color)] hover:text-white" data-id="${emp._id}">
-            View
-          </button>
-          <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-[var(--accent-color)] hover:text-white" data-id="${emp._id}">
-            Edit
-          </button>
+       <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-[var(--accent-color)] hover:text-white view-employee" data-id="${emp._id}">
+  View
+</button>
+<button class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-[var(--accent-color)] hover:text-white edit-employee" data-id="${emp._id}">
+  Edit
+</button>
           <button
             class="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-gray-200 hover:bg-[var(--accent-color)] hover:text-white  delete-employee"
             data-id="${emp._id}"
@@ -4394,32 +4394,35 @@
             //     console.log("View employee:", id);
 
             // }
-            if (e.target.classList.contains("view-employee")) {
-    const id = e.target.dataset.id;
-    console.log("View employee:", id);
 
-    // Find the employee from the loaded array
-    const employee = employees.find(emp => emp._id === id);
-
-    if (employee) {
-        openEmployeeViewModal({
-            name: `${employee.firstName || ""} ${employee.lastName || ""}`,
-            department: employee.department || "-",
-            role: employee.role || "-",
-            email: employee.email || "-",
-            contact: employee.contact || "-"
-        });
-    } else {
-        console.error("Employee not found:", id);
-    }
+if (e.target.classList.contains('view-employee')) {
+  const id = e.target.dataset.id;
+const employee = employees.find(emp => emp.id == id || emp._id == id);
+  if (employee) {
+    openEmployeeViewModal({
+      name: (employee.firstName || "") + " " + (employee.lastName || ""),
+      department: employee.department,
+      role: employee.role,
+      email: employee.email,
+      contact: employee.contact,
+    });
+  }
 }
 
-
-            if (e.target.classList.contains("edit-employee")) {
-                const id = e.target.dataset.id;
-                console.log("Edit employee:", id);
-
-            }
+             if (e.target.classList.contains('edit-employee')) {
+    const id = e.target.dataset.id;
+    const employee = employees.find(emp => emp.id == id);
+    if (employee) {
+      editEmployeeId = id;
+      document.getElementById('editEmployeeFirstName').value = employee.firstName;
+      document.getElementById('editEmployeeLastName').value = employee.lastName;
+      document.getElementById('editEmployeeDepartment').value = employee.department;
+      document.getElementById('editEmployeeRole').value = employee.role;
+      document.getElementById('editEmployeeEmail').value = employee.email;
+      document.getElementById('editEmployeeContact').value = employee.contact;
+      document.getElementById('editEmployeeModal').classList.remove('hidden');
+    }
+  }
 
             if (e.target.classList.contains("delete-employee")) {
                 const id = e.target.dataset.id;

@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const Employee = require('../models/employee');
+const Employee = require('../models/Employee');
 
 
 const uploadDir = path.join(__dirname, '..', 'uploads', 'signatures');
