@@ -7,8 +7,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip3 install --no-cache-dir -r requirements.txt
-RUN npm install -g concurrently
+RUN pip install  requirements.txt
+RUN npm install  concurrently
 RUN npm install
 
 CMD ["concurrently", "--kill-others", "node server.js", "python3 app.py"]
