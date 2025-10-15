@@ -261,7 +261,7 @@ body.accent-orange .form-section h2 { color: #ea580c !important; }
 body.accent-purple .form-section h2 { color: #8b5cf6 !important; }
 body.accent-teal .form-section h2   { color: #06b6d4 !important; }
 body.accent-green .form-section h2  { color: #16a34a !important; }
-body.accent-brown .form-section h2  { color: #a16207 !important; }
+body.accent-brown .form-section h2  { color: #b55656 !important; }
 .form-section button:not(:disabled),
 button.accent-btn:not(:disabled),
 #confirmBookingBtn:not(:disabled),
@@ -301,9 +301,9 @@ body.accent-green .form-section button, body.accent-green #confirmBookingBtn, bo
 }
 body.accent-green .form-section button:hover { background: #15803d !important; }
 body.accent-brown .form-section button, body.accent-brown #confirmBookingBtn, body.accent-brown #patientNextBtn, body.accent-brown #dateTimeNextBtn, body.accent-brown #doctorNextBtn, body.accent-brown #skipReferralBtn, body.accent-brown #referralNextBtn {
-  background: #a16207 !important;
+  background: #b55656 !important;
 }
-body.accent-brown .form-section button:hover { background: #713f12 !important; }
+body.accent-brown .form-section button:hover { background:#b55656 !important; }
 #stepperContainer .border-blue-600,
 #stepperContainer .text-blue-600 {
   border-color: #2563eb !important;
@@ -331,7 +331,7 @@ body.accent-green #stepperContainer .text-blue-600 {
 }
 body.accent-brown #stepperContainer .border-blue-600,
 body.accent-brown #stepperContainer .text-blue-600 {
-  border-color: #4c2e04 !important; color: #4c2e04 !important;
+  border-color: #b55656 !important; color:#b55656 !important;
 }
 #stepperContainer .text-blue-600:empty,
 #stepperContainer .text-blue-600:not(:empty) {
@@ -395,7 +395,7 @@ body.accent-pink #stepperContainer .stepper-line.filled { background: #db2777 !i
 body.accent-purple #stepperContainer .stepper-line.filled { background: #8b5cf6 !important; }
 body.accent-teal   #stepperContainer .stepper-line.filled { background: #06b6d4 !important; }
 body.accent-green  #stepperContainer .stepper-line.filled { background: #16a34a !important; }
-body.accent-brown  #stepperContainer .stepper-line.filled { background: #a16207 !important; }
+body.accent-brown  #stepperContainer .stepper-line.filled { background:#b55656 !important; }
 
 
 #stepperContainer .stepper-circle.active,
@@ -430,7 +430,7 @@ body.accent-teal .select-btn.hover\:bg-blue-600 {
 }
 body.accent-brown .select-btn.bg-blue-500,
 body.accent-brown .select-btn.hover\:bg-blue-600 {
-  background: #a16207 !important;
+  background: #b55656 !important;
 }
 body.dark #alertMessage,
 body.dark .alert-box #alertMessage {
@@ -443,13 +443,13 @@ body.dark.accent-orange .form-section h2 { color: #ea580c !important; }
 body.dark.accent-purple .form-section h2 { color: #8b5cf6 !important; }
 body.dark.accent-teal .form-section h2   { color: #06b6d4 !important; }
 body.dark.accent-green .form-section h2  { color: #16a34a !important; }
-body.dark.accent-brown .form-section h2  { color: #a16207 !important; }
+body.dark.accent-brown .form-section h2  { color: #b55656 !important; }
 body.dark.accent-pink .section h2  { color: #db2777 !important; }
 body.dark.accent-orange .section h2 { color: #ea580c !important; }
 body.dark.accent-purple .section h2 { color: #8b5cf6 !important; }
 body.dark.accent-teal .section h2   { color: #06b6d4 !important; }
 body.dark.accent-green .section h2  { color: #16a34a !important; }
-body.dark.accent-brown .section h2  { color: #a16207 !important; }
+body.dark.accent-brown .section h2  { color: #b55656 !important; }
 
 
 .accent-link {
@@ -636,7 +636,56 @@ body.dark .calendar-day.selected {
   background: #e2e8f0;
 }
 
+.accent-blue #backToDashboardBtn {
+  background-color: #3b82f6 !important;
+}
+.accent-blue #backToDashboardBtn:hover {
+  background-color: #2563eb !important;
+}
 
+.accent-green #backToDashboardBtn {
+  background-color: #10b981 !important;
+}
+.accent-green #backToDashboardBtn:hover {
+  background-color: #059669 !important;
+}
+
+.accent-purple #backToDashboardBtn {
+  background-color: #8b5cf6 !important;
+}
+.accent-purple #backToDashboardBtn:hover {
+  background-color: #7c3aed !important;
+}
+
+.accent-orange #backToDashboardBtn {
+  background-color: #f59e0b !important;
+}
+.accent-orange #backToDashboardBtn:hover {
+  background-color: #d97706 !important;
+}
+
+.accent-pink #backToDashboardBtn {
+  background-color: #ec4899 !important;
+}
+.accent-pink #backToDashboardBtn:hover {
+  background-color: #db2777 !important;
+}
+
+.accent-teal #backToDashboardBtn {
+  background-color: #14b8a6 !important;
+}
+.accent-teal #backToDashboardBtn:hover {
+  background-color: #0d9488 !important;
+}
+
+
+.accent-brown #backToDashboardBtn {
+  background-color: #b55656 !important;
+  color: #fff !important;
+}
+.accent-brown #backToDashboardBtn:hover {
+  background-color: #9c4444 !important;
+}
 </style>
 </head>
 
@@ -672,11 +721,11 @@ body.dark .calendar-day.selected {
   </div>
 <button 
     id="backToDashboardBtn" 
-    style="position: absolute; top: 30px; right: 40px; z-index: 50;"
-    class=" text-gray-900 font-bold text-lg rounded-md px-4  "
+    style="position: absolute; top: 10px; right: 40px; z-index: 50;"
+    class=" text-white font-bold text-lg py-1 px-8 mr-24 rounded-md px-4  "
     onclick="goBackToOrigin()"
 >
-    Back to Dashboard
+    Back 
 </button>
 
 
