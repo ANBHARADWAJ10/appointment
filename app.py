@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import random
 import string
@@ -9,9 +10,6 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from dotenv import load_dotenv
 
-app = Flask(__name__)
-CORS(app)
-
 # Load environment variables
 load_dotenv()
 
@@ -21,7 +19,7 @@ from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
 
 # NLP imports - Fixed NLTK import and download issues
 import nltk
-
+print("starting chat bot.....")
 # Download required NLTK data with proper error handling
 def download_nltk_data():
     """Download NLTK data with fallback for different NLTK versions"""
@@ -77,7 +75,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Flask app setup
-app = Flask(__name__)
+app = Flask(__name__, template_folder='public')
 CORS(app)
 
 # Environment variables
@@ -566,11 +564,11 @@ class MedicalChatBot:
 # Initialize bot
 bot = MedicalChatBot()
 
-# Flask Routesfever
+# Flask Routes
 @app.route('/')
 def index():
     """Serve the main chat interface"""
-    return render_template('index.html')
+    return render_template('main.html')
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
@@ -774,18 +772,32 @@ def handle_code_input(message, session):
             'message': '❌ Code not found. Please check your code and try again.\n\nType "menu" to return to main menu.',
             'type': 'error'
         }
-
+        
 def handle_name_input(message, session):
-    """Handle name input for booking"""
+    """Handle name input with validation"""
     name = message.strip()
+
+    # Regex pattern: only alphabets and spaces allowed
+    pattern = r"^[A-Za-z\s]+$"
+
+    # Validate the name
+    if not re.match(pattern, name):
+        return {
+            'message': '❌ Invalid name.\n\nPlease enter a valid name using only alphabets and spaces (e.g., John Doe):',
+            'type': 'text_input',
+            'placeholder': 'Enter your full name'
+        }
+
+    # Save valid name and move to next step
     session['patient_data']['name'] = name
     session['state'] = 'waiting_blood_group'
-    
+
     return {
         'message': f'Hello {name}! 🩸 Please select your blood group:',
         'type': 'blood_group_selection',
         'options': bot.blood_groups
     }
+
 
 def handle_blood_group_input(message, session):
     """Handle blood group selection"""
@@ -846,14 +858,30 @@ def handle_gender_input(message, session):
         'type': 'text_input',
         'placeholder': 'Enter your contact number'
     }
-
 def handle_contact_input(message, session):
-    """Handle contact input"""
+    """Handle contact input with Indian mobile number validation"""
     contact = message.strip()
+
+    # Indian mobile number regex:
+    # Optional +91 / 91 / 0 prefix and 10 digits starting with 6–9
+    pattern = r'^(?:\+91|91|0)?[6-9]\d{9}$'
+
+    # Validate number
+    if not re.match(pattern, contact):
+        return {
+            'message': '❌ Invalid mobile number.\n\nPlease enter a valid Indian mobile number (e.g., 9876543210 or +919876543210):',
+            'type': 'text_input',
+            'placeholder': 'Enter your contact number'
+        }
+
+    # Normalize to last 10 digits
+    contact = contact[-10:]
+
+    # Save valid contact and continue
     session['patient_data']['contact'] = contact
     session['patient_data']['symptoms'] = []
     session['state'] = 'waiting_symptoms'
-    
+
     return {
         'message': f'📞 Contact: {contact}\n\n🩺 Please describe your symptoms (e.g., fever, headache, blocked nose, cough):\n\nYou can type multiple symptoms separated by commas.',
         'type': 'text_input',
@@ -1027,7 +1055,5 @@ if __name__ == '__main__':
     print("🏥 Medical Web Chatbot is starting...")
     print("📝 NLTK Status:", "✅ Available" if NLTK_AVAILABLE else "⚠️  Limited (using fallbacks)")
     print("💾 MongoDB Status:", "✅ Connected" if bot.mongo_client else "⚠️  Demo Mode")
-    print("🌐 Server running at: http://localhost:3022")
+    print("🌐 Server running at: http://localhost:5000")
     app.run(debug=True, host='0.0.0.0', port=5000)
-from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
