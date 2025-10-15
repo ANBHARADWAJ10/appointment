@@ -8,6 +8,8 @@ import logging
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from dotenv import load_dotenv
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 # Load environment variables
 load_dotenv()
