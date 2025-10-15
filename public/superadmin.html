@@ -2230,56 +2230,56 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200"
                             placeholder="e.g. MBBS, MD, PhD">
                     </div>
-<div class="grid grid-cols-2 gap-6">
-    <!-- Start Time -->
-    <div>
-        <label class="block text-xl font-medium mb-1">Start Time 
-            <span class="text-red-600">*</span>
-        </label>
-        <div class="flex gap-2">
-            <select id="employeeStartHour" name="employeeStartHour"
-                class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
-            </select>
-            <select id="employeeStartMinute" name="employeeStartMinute"
-                class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
-            </select>
-            <select id="employeeStartAmPm" name="employeeStartAmPm"
-                class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
-            </select>
-        </div>
-    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <!-- Start Time -->
+                        <div>
+                            <label class="block text-xl font-medium mb-1">Start Time
+                                <span class="text-red-600">*</span>
+                            </label>
+                            <div class="flex gap-2">
+                                <select id="employeeStartHour" name="employeeStartHour"
+                                    class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                                </select>
+                                <select id="employeeStartMinute" name="employeeStartMinute"
+                                    class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                                </select>
+                                <select id="employeeStartAmPm" name="employeeStartAmPm"
+                                    class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                                </select>
+                            </div>
+                        </div>
 
-    <!-- End Time -->
-    <div>
-        <label class="block text-xl font-medium mb-1">End Time 
-            <span class="text-red-600">*</span>
-        </label>
-        <div class="flex gap-2">
-            <select id="employeeEndHour" name="employeeEndHour"
-                class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
-            </select>
-            <select id="employeeEndMinute" name="employeeEndMinute"
-                class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
-            </select>
-            <select id="employeeEndAmPm" name="employeeEndAmPm"
-                class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
-            </select>
-        </div>
-    </div>
-</div>
-
-
-
-                <div class="flex items-center justify-between mt-4 col-span-2">
-                    <div class="flex items-center space-x-2">
-                        <input type="checkbox" class="form-checkbox w-5 h-5 scale-125" checked>
-                        <label class="font-medium">Is Active</label>
+                        <!-- End Time -->
+                        <div>
+                            <label class="block text-xl font-medium mb-1">End Time
+                                <span class="text-red-600">*</span>
+                            </label>
+                            <div class="flex gap-2">
+                                <select id="employeeEndHour" name="employeeEndHour"
+                                    class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                                </select>
+                                <select id="employeeEndMinute" name="employeeEndMinute"
+                                    class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                                </select>
+                                <select id="employeeEndAmPm" name="employeeEndAmPm"
+                                    class="w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit"
-                        class="bg-green-500 text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition duration-200">
-                        Add
-                    </button>
-                </div>
+
+
+
+                    <div class="flex items-center justify-between mt-4 col-span-2">
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" class="form-checkbox w-5 h-5 scale-125" checked>
+                            <label class="font-medium">Is Active</label>
+                        </div>
+                        <button type="submit"
+                            class="bg-green-500 text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition duration-200">
+                            Add
+                        </button>
+                    </div>
 
             </form>
         </div>
@@ -4164,124 +4164,119 @@
                     });
                 }
             }
-function generateTimeOptions(intervalMinutes = 30, startHour = 6, endHour = 21) {
-    const times = [];
-    for (let h = startHour; h <= endHour; h++) {
-        for (let m = 0; m < 60; m += intervalMinutes) {
-            const hour12 = h % 12 || 12;
-            const ampm = h < 12 ? "AM" : "PM";
-            const label = `${hour12}:${m.toString().padStart(2, "0")} ${ampm}`;
-            const value = `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
-            times.push({ label, value });
-        }
-    }
-    return times;
-}
+            function generateTimeOptions(intervalMinutes = 30, startHour = 6, endHour = 21) {
+                const times = [];
+                for (let h = startHour; h <= endHour; h++) {
+                    for (let m = 0; m < 60; m += intervalMinutes) {
+                        const hour12 = h % 12 || 12;
+                        const ampm = h < 12 ? "AM" : "PM";
+                        const label = `${hour12}:${m.toString().padStart(2, "0")} ${ampm}`;
+                        const value = `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
+                        times.push({ label, value });
+                    }
+                }
+                return times;
+            }
 
-function populateEmployeeManualTimeDropdowns() {
-    const hours = Array.from({ length: 12 }, (_, i) => i + 1); // 1–12
-    const minutes = ["00", "30"];
-    const ampm = ["AM", "PM"];
+            function populateEmployeeManualTimeDropdowns() {
+                const hours = Array.from({ length: 12 }, (_, i) => i + 1);
+                const minutes = ["00", "30"];
+                const ampm = ["AM", "PM"];
 
-    const selects = {
-        startHour: document.getElementById("employeeStartHour"),
-        startMinute: document.getElementById("employeeStartMinute"),
-        startAmPm: document.getElementById("employeeStartAmPm"),
-        endHour: document.getElementById("employeeEndHour"),
-        endMinute: document.getElementById("employeeEndMinute"),
-        endAmPm: document.getElementById("employeeEndAmPm"),
-    };
-
-    // helper to fill dropdown
-    function fillOptions(select, options) {
-        select.innerHTML = '<option value="">--</option>';
-        options.forEach(v => {
-            const opt = new Option(v, v);
-            select.add(opt);
-        });
-    }
-
-    // fill all selects
-    fillOptions(selects.startHour, hours);
-    fillOptions(selects.endHour, hours);
-    fillOptions(selects.startMinute, minutes);
-    fillOptions(selects.endMinute, minutes);
-    fillOptions(selects.startAmPm, ampm);
-    fillOptions(selects.endAmPm, ampm);
-}
-
-// When department changes to Doctor
-function handleDepartmentChange() {
-    const dept = employeeDepartment.value;
-    adminFields.classList.toggle('hidden', dept !== 'Admin');
-    doctorFields.classList.toggle('hidden', dept !== 'Doctor');
-    populateRoles(dept);
-    if (dept === 'Doctor') populateEmployeeManualTimeDropdowns(); // ✅ new function
-}
-
-employeeDepartment?.addEventListener('change', handleDepartmentChange);
+                const selects = {
+                    startHour: document.getElementById("employeeStartHour"),
+                    startMinute: document.getElementById("employeeStartMinute"),
+                    startAmPm: document.getElementById("employeeStartAmPm"),
+                    endHour: document.getElementById("employeeEndHour"),
+                    endMinute: document.getElementById("employeeEndMinute"),
+                    endAmPm: document.getElementById("employeeEndAmPm"),
+                };
 
 
-addEmployeeForm?.addEventListener("submit", async (e) => {
-  e.preventDefault();
+                function fillOptions(select, options) {
+                    select.innerHTML = '<option value="">--</option>';
+                    options.forEach(v => {
+                        const opt = new Option(v, v);
+                        select.add(opt);
+                    });
+                }
 
-  const formData = new FormData(addEmployeeForm);
+                fillOptions(selects.startHour, hours);
+                fillOptions(selects.endHour, hours);
+                fillOptions(selects.startMinute, minutes);
+                fillOptions(selects.endMinute, minutes);
+                fillOptions(selects.startAmPm, ampm);
+                fillOptions(selects.endAmPm, ampm);
+            }
 
-  const dept = formData.get("department"); // your dropdown must have name="department"
+            function handleDepartmentChange() {
+                const dept = employeeDepartment.value;
+                adminFields.classList.toggle('hidden', dept !== 'Admin');
+                doctorFields.classList.toggle('hidden', dept !== 'Doctor');
+                populateRoles(dept);
+                if (dept === 'Doctor') populateEmployeeManualTimeDropdowns();
+            }
 
-  // ✅ Only for Doctor Department
-  if (dept && dept.trim() === "Doctor") {
-    const startHour = formData.get("employeeStartHour");
-    const startMinute = formData.get("employeeStartMinute");
-    const startAmPm = formData.get("employeeStartAmPm");
-    const endHour = formData.get("employeeEndHour");
-    const endMinute = formData.get("employeeEndMinute");
-    const endAmPm = formData.get("employeeEndAmPm");
+            employeeDepartment?.addEventListener('change', handleDepartmentChange);
 
-    // check if all parts are selected
-    if (startHour && startMinute && startAmPm && endHour && endMinute && endAmPm) {
-      const fullStartTime = `${startHour}:${startMinute} ${startAmPm}`;
-      const fullEndTime = `${endHour}:${endMinute} ${endAmPm}`;
 
-      // 🧹 Remove the split fields
-      formData.delete("employeeStartHour");
-      formData.delete("employeeStartMinute");
-      formData.delete("employeeStartAmPm");
-      formData.delete("employeeEndHour");
-      formData.delete("employeeEndMinute");
-      formData.delete("employeeEndAmPm");
+            addEmployeeForm?.addEventListener("submit", async (e) => {
+                e.preventDefault();
 
-      // 🧩 Append the final time values
-      formData.append("startTime", fullStartTime);
-      formData.append("endTime", fullEndTime);
-    } else {
-      showToast("Please select complete Start and End Time", "error");
-      return; // stop submission
-    }
-  }
+                const formData = new FormData(addEmployeeForm);
 
-  try {
-    const res = await fetch(API_BASE, {
-      method: "POST",
-      body: formData,
-    });
+                const dept = formData.get("department");
 
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.error || "Failed to add employee");
-    }
+                if (dept && dept.trim() === "Doctor") {
+                    const startHour = formData.get("employeeStartHour");
+                    const startMinute = formData.get("employeeStartMinute");
+                    const startAmPm = formData.get("employeeStartAmPm");
+                    const endHour = formData.get("employeeEndHour");
+                    const endMinute = formData.get("employeeEndMinute");
+                    const endAmPm = formData.get("employeeEndAmPm");
 
-    showToast("Employee added successfully!");
-    addEmployeeModal.classList.add("hidden");
-    addEmployeeForm.reset();
-    adminFields.classList.add("hidden");
-    doctorFields.classList.add("hidden");
-    loadEmployees();
-  } catch (err) {
-    console.error("Error adding employee:", err);
-    showToast(err.message || "Error adding employee", "error");
-  }
-});
+                    if (startHour && startMinute && startAmPm && endHour && endMinute && endAmPm) {
+                        const fullStartTime = `${startHour}:${startMinute} ${startAmPm}`;
+                        const fullEndTime = `${endHour}:${endMinute} ${endAmPm}`;
+
+                        formData.delete("employeeStartHour");
+                        formData.delete("employeeStartMinute");
+                        formData.delete("employeeStartAmPm");
+                        formData.delete("employeeEndHour");
+                        formData.delete("employeeEndMinute");
+                        formData.delete("employeeEndAmPm");
+
+
+                        formData.append("startTime", fullStartTime);
+                        formData.append("endTime", fullEndTime);
+                    } else {
+                        showToast("Please select complete Start and End Time", "error");
+                        return;
+                    }
+                }
+
+                try {
+                    const res = await fetch(API_BASE, {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    if (!res.ok) {
+                        const err = await res.json().catch(() => ({}));
+                        throw new Error(err.error || "Failed to add employee");
+                    }
+
+                    showToast("Employee added successfully!");
+                    addEmployeeModal.classList.add("hidden");
+                    addEmployeeForm.reset();
+                    adminFields.classList.add("hidden");
+                    doctorFields.classList.add("hidden");
+                    loadEmployees();
+                } catch (err) {
+                    console.error("Error adding employee:", err);
+                    showToast(err.message || "Error adding employee", "error");
+                }
+            });
 
         })();
     </script>
