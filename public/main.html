@@ -30,8 +30,8 @@
       <h1 class="text-4xl font-bold mb-4">Healing hands, caring hearts.</h1>
       <p class="mb-8 text-gray-600">Book appointments with top specialists in just a few clicks. Fast, secure, and convenient healthcare management.</p>
       <div class="flex space-x-4">
-        <a href="appointment.html" class="bg-black text-white px-6 py-2 rounded-md font-semibold">
-  Book an Appointment
+     <a href="appointment.html?from=home" class="bg-blue-600 text-white px-4 py-2 rounded-md">
+  Book Appointment
 </a>
         <button class="bg-white border border-gray-300 text-gray-700 px-6 py-2 rounded-md font-semibold">Learn More</button>
       </div>
@@ -99,10 +99,34 @@
     <div class="chat-overlay" id="chatOverlay" onclick="closeChatWidget()"></div>
 
     <!-- Floating Chat Button -->
-    <button class="floating-chat-btn" id="floatingChatBtn" onclick="openChatWidget()">
-        <i class="fas fa-comments"></i>
-    </button>
-
+   
+<div style="position: fixed; bottom: 32px; right: 32px; z-index: 999;">
+  <!-- Chat Message Bubble -->
+  <div id="chatPromptBubble"
+       style="
+         position: absolute;
+         bottom: 70px;
+         right: 0;
+         background: #000000ce;
+         color: #fff;
+         font-weight: 500;
+         border-radius: 16px;
+         padding: 12px 18px;
+         box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+         font-size: 1rem;
+         white-space: nowrap;
+       ">
+   Book an Appointment with Bot..... 
+  </div>
+  <!-- Chat Icon Button -->
+  <button class="floating-chat-btn" id="floatingChatBtn" onclick="openChatWidget()" style="
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white; display: flex; align-items: center; justify-content: center;
+      border: none; box-shadow: 0 8px 24px rgba(102,126,234,0.3); font-size: 28px; cursor:pointer;">
+    <i class="fas fa-comments"></i>
+  </button>
+</div>
     <!-- Chat Container -->
     <div class="chat-container" id="chatContainer">
         <div class="chat-window">
@@ -1380,24 +1404,29 @@ function addBotMessage(data) {
     const messageDiv = document.createElement('div');
     messageDiv.className = 'message assistant';
       const lowerMsg = data.message.toLowerCase();
-  if (lowerMsg.includes('please enter your contact number')) {
-    isContactPromptActive = true;
-    enableContactOnlyValidation();
-  } else {
-    isContactPromptActive = false;
-    disableContactOnlyValidation();
-  }
-    // Format message text (preserve line breaks)
-    const formattedText = data.message.replace(/\n/g, '<br>');
-    
-    messageDiv.innerHTML = `
-        <div class="message-avatar">M</div>
-        <div class="message-content">
-            <div class="message-bubble">${formattedText}</div>
-            <div class="message-time">${currentTime}</div>
-        </div>
-    `;
-    
+if (lowerMsg.includes('please enter your contact number')) {
+  isContactPromptActive = true;
+  enableContactOnlyValidation();
+  disableNameOnlyValidation();
+} else if (lowerMsg.includes('please enter your full name')) {
+  enableNameOnlyValidation();
+  isContactPromptActive = false;
+  disableContactOnlyValidation();
+} else {
+  isContactPromptActive = false;
+  disableContactOnlyValidation();
+  disableNameOnlyValidation();
+}
+
+const formattedText = data.message.replace(/\n/g, '<br>');
+
+messageDiv.innerHTML = `
+    <div class="message-avatar">M</div>
+    <div class="message-content">
+        <div class="message-bubble">${formattedText}</div>
+        <div class="message-time">${currentTime}</div>
+    </div>
+`;
     messagesContainer.appendChild(messageDiv);
     
     // Add buttons if response has options
@@ -1651,6 +1680,23 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 });
+function enableNameOnlyValidation() {
+  const input = document.getElementById('messageInput');
+  input.value = input.value.replace(/[^a-zA-Z ]/g, '');
+  input.setAttribute('maxlength', '50'); 
+  input.addEventListener('input', nameValidationHandler);
+}
+
+function nameValidationHandler(e) {
+
+  this.value = this.value.replace(/[^a-zA-Z ]/g, '');
+}
+
+function disableNameOnlyValidation() {
+  const input = document.getElementById('messageInput');
+  input.removeAttribute('maxlength');
+  input.removeEventListener('input', nameValidationHandler);
+}
     </script>
 </body>
 </html>

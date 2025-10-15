@@ -4,7 +4,11 @@ const confirmationSchema = new mongoose.Schema({
   patient: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient', required: true },
   doctor: { type: mongoose.Schema.Types.ObjectId, ref: 'Doctor', required: true },
   doctorName: { type: String, required: true },
-  date: { type: mongoose.Schema.Types.ObjectId, ref: 'Date', required: true },
+  date: {
+  date: { type: String, required: true },
+  time: { type: String, required: true },
+},
+
   status: { 
     type: String, 
     enum: ['confirmed', 'pending', 'rescheduled', 'revisited', 'cancelled'], 
