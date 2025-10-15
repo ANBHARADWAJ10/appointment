@@ -8,6 +8,11 @@
   
   <link rel="icon" type="image/png" href="favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Updated Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body class="bg-blue-50 min-h-screen font-sans">
  
@@ -27,8 +32,8 @@
       <h1 class="text-4xl font-bold mb-4">Healing hands, caring hearts.</h1>
       <p class="mb-8 text-gray-600">Book appointments with top specialists in just a few clicks. Fast, secure, and convenient healthcare management.</p>
       <div class="flex space-x-4">
-        <a href="appointment.html" class="bg-black text-white px-6 py-2 rounded-md font-semibold">
-  Book an Appointment
+     <a href="appointment.html?from=home" class="bg-blue-600 text-white px-4 py-2 rounded-md">
+  Book Appointment
 </a>
         <button class="bg-white border border-gray-300 text-gray-700 px-6 py-2 rounded-md font-semibold">Learn More</button>
       </div>
@@ -90,18 +95,1610 @@
     </div>
   </div>
 </marquee>
+
  </div>
+     <!-- Chat Overlay -->
+    <div class="chat-overlay" id="chatOverlay" onclick="closeChatWidget()"></div>
 
- <button id="chatbot-button" 
-        class="fixed bottom-6 left-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition z-50"
-        title="Open Chatbot">
-  💬
-</button>
+    <!-- Floating Chat Button -->
+   
+<div style="position: fixed; bottom: 32px; right: 32px; z-index: 999;">
+  <!-- Chat Message Bubble -->
+  <div id="chatPromptBubble"
+       style="
+         position: absolute;
+         bottom: 70px;
+         right: 0;
+         background: #000000ce;
+         color: #fff;
+         font-weight: 500;
+         border-radius: 16px;
+         padding: 12px 18px;
+         box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+         font-size: 1rem;
+         white-space: nowrap;
+       ">
+   Book an Appointment with Bot..... 
+  </div>
+  <!-- Chat Icon Button -->
+  <button class="floating-chat-btn" id="floatingChatBtn" onclick="openChatWidget()" style="
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white; display: flex; align-items: center; justify-content: center;
+      border: none; box-shadow: 0 8px 24px rgba(102,126,234,0.3); font-size: 28px; cursor:pointer;">
+    <i class="fas fa-comments"></i>
+  </button>
+</div>
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-window">
+            <!-- Header -->
+            <div class="chat-header">
+                <div class="header-left">
+                    <!-- <div class="logo">M</div> -->
+                    <div class="header-text">
+                        <h1>Medical ChatBot</h1>
+                        <p>Appointment Booking</p>
+                        <p>type - end to end the conversation</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button class="close-btn" onclick="closeChatWidget()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
 
-<script>
-  document.getElementById('chatbot-button').addEventListener('click', () => {
-    window.open('index.html','chatbotWindow', 'width=400,height=800,resizable,scrollbars=yes');
-  });
-</script>
+            <!-- Messages Container -->
+            <div class="messages-container" id="messagesContainer">
+                <!-- Initial greeting -->
+                <div class="message assistant">
+                    <div class="message-avatar">M</div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            🏥 Welcome to Medical Chatbot! 🏥<br><br>
+                            select from the options below to get started:<br><br>
+                            <!-- I can help you with:<br>
+                            • Check your existing booking details with unique code<br>
+                            • Book a new doctor's appointment<br><br> -->
+                            <!-- Please type:<br>
+                            - "Check booking" to check existing appointment<br>
+                            - "Book appointment" to schedule new appointment -->
+                        </div>
+                        <div class="message-time" id="initialTime"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        class="input-field" 
+                        placeholder="Type your message..." 
+                        rows="1"
+                        id="messageInput"
+                        onkeydown="handleKeyPress(event)"
+                        oninput="autoResize(this)"
+                    ></textarea>
+                    <button class="send-button" onclick="sendMessage()" id="sendButton">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <style>
+     /* Floating Chat Button */
+.floating-chat-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-chat-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
+}
+
+.floating-chat-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.5);
+}
+
+/* Chat Overlay */
+.chat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.chat-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Chat Container */
+.chat-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 400px;
+    height: 600px;
+    transform: scale(0) translateY(100px);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 1002;
+    opacity: 0;
+}
+
+.chat-container.active {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.chat-window {
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 50, 0.98);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Header */
+.chat-header {
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.header-text h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.header-text p {
+    font-size: 14px;
+    color: #a0a0a0;
+    font-weight: 400;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.theme-toggle, .close-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #a0a0a0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover, .close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+/* Messages Area */
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.messages-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.message {
+    display: flex;
+    gap: 12px;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.user {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.message-content {
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-bubble {
+    padding: 16px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    line-height: 1.5;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.message.assistant .message-bubble {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-bottom-left-radius: 6px;
+}
+
+.message.user .message-bubble {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-bottom-right-radius: 6px;
+}
+
+.message.error .message-bubble {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    color: #ff6b7a;
+}
+
+.message-time {
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+    text-align: right;
+}
+
+.message.assistant .message-time {
+    text-align: left;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0;
+}
+
+.typing-dots {
+    display: flex;
+    gap: 4px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    border-bottom-left-radius: 6px;
+}
+
+.typing-dots span {
+    width: 8px;
+    height: 8px;
+    background: #999;
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+    30% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}
+
+/* Input Area */
+.input-container {
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.input-field {
+    flex: 1;
+    min-height: 44px;
+    max-height: 120px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.1);
+    font-family: inherit;
+    font-size: 15px;
+    color: #ffffff;
+    resize: none;
+    overflow-y: auto;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.input-field::placeholder {
+    color: #666;
+}
+
+.input-field:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.send-button {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: rgb(234, 225, 225);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.send-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.send-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ============================================
+   INTERACTIVE BUTTON STYLES
+   ============================================ */
+
+/* Option Buttons Styles */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0 20px 52px;
+    max-width: 70%;
+}
+
+.chat-option-btn {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    min-height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.chat-option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+    background: linear-gradient(135deg, #7c8ef0 0%, #8a5fb8 100%);
+}
+
+.chat-option-btn:active {
+    transform: translateY(0);
+}
+
+.menu-button {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    font-size: 15px;
+    padding: 14px 18px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-button:hover {
+    background: linear-gradient(135deg, #34ce57 0%, #2dd4aa 100%);
+}
+
+.button-main-text {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.button-subtitle {
+    font-weight: 400;
+    font-size: 12px;
+    opacity: 0.9;
+    margin-top: 2px;
+    line-height: 1.2;
+}
+
+/* Blood Group Buttons - Special Grid Layout */
+.button-container.blood-group-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    max-width: 280px;
+}
+
+.blood-group-btn {
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Gender Buttons - Horizontal Layout */
+.button-container.gender-horizontal {
+    flex-direction: row;
+    gap: 10px;
+    max-width: 100%;
+}
+
+.gender-btn {
+    flex: 1;
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Doctor Selection Buttons */
+.doctor-btn {
+    background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+    padding: 14px 18px;
+}
+
+.doctor-btn:hover {
+    background: linear-gradient(135deg, #7952cc 0%, #ea5aa7 100%);
+}
+
+/* Date Selection Buttons */
+.date-btn {
+    background: linear-gradient(135deg, #fd7e14 0%, #ffc107 100%);
+    color: #212529;
+    padding: 12px 16px;
+}
+
+.date-btn:hover {
+    background: linear-gradient(135deg, #fd8c2a 0%, #ffca2c 100%);
+}
+
+/* Time Selection Buttons */
+.time-btn {
+    background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+    padding: 10px 14px;
+    min-height: 40px;
+    font-size: 13px;
+}
+
+.time-btn:hover {
+    background: linear-gradient(135deg, #20c9e0 0%, #7952cc 100%);
+}
+
+/* Button hover effect overlay */
+.chat-option-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.chat-option-btn:hover::before {
+    opacity: 1;
+}
+
+/* Button focus states for accessibility */
+.chat-option-btn:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* Animation for button appearance */
+@keyframes buttonFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.button-container {
+    animation: buttonFadeIn 0.3s ease-out;
+}
+
+.chat-option-btn {
+    animation: buttonFadeIn 0.3s ease-out;
+}
+
+/* ============================================
+   THEME STYLES
+   ============================================ */
+
+/* Light Theme Styles */
+/* body.light-theme {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+} */
+
+/* .chat-window.light-theme {
+    background: rgba(207, 191, 191, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+} */
+
+.chat-window.light-theme {
+    background: #F2F0EF;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.light-theme .chat-header {
+    background: rgb(247, 243, 243);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-theme .header-text h1 {
+    color: #1a1a1a;
+}
+
+.light-theme .header-text p {
+    color: #666;
+}
+
+.light-theme .theme-toggle,
+.light-theme .close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: #666;
+}
+
+.light-theme .theme-toggle:hover,
+.light-theme .close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.light-theme .message.assistant .message-bubble {
+    background: #f8f9fa;
+    color: #1a1a1a;
+}
+
+.light-theme .message-time {
+    color: #999;
+}
+
+.light-theme .typing-dots {
+    background: #f8f9fa;
+}
+
+.light-theme .input-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.light-theme .input-field {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #1a1a1a;
+}
+
+.light-theme .input-field::placeholder {
+    color: #999;
+}
+
+.light-theme .messages-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+
+.light-theme .chat-option-btn {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.light-theme .chat-option-btn:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.light-theme .date-btn {
+    color: #212529;
+}
+
+/* Dark Theme Styles (Default) */
+/* body.dark-theme {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+} */
+
+.chat-window.dark-theme {
+    background: rgba(30, 30, 50, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .chat-header {
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark-theme .header-text h1 {
+    color: #ffffff;
+}
+
+.dark-theme .header-text p {
+    color: #a0a0a0;
+}
+
+.dark-theme .theme-toggle,
+.dark-theme .close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #a0a0a0;
+}
+
+.dark-theme .theme-toggle:hover,
+.dark-theme .close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-theme .message.assistant .message-bubble {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.dark-theme .message-time {
+    color: #666;
+}
+
+.dark-theme .typing-dots {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .input-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark-theme .input-field {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.dark-theme .input-field::placeholder {
+    color: #666;
+}
+
+.dark-theme .messages-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark theme button adjustments */
+.dark-theme .chat-option-btn {
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.dark-theme .chat-option-btn:hover {
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.dark-theme .date-btn {
+    color: white;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .chat-container {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        height: 80vh;
+        max-height: 600px;
+    }
+
+    .floating-chat-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-container {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .chat-window {
+        border-radius: 0;
+    }
+
+    .floating-chat-btn {
+        width: 56px;
+        height: 56px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    /* Mobile button responsive layouts */
+    .button-container {
+        margin-left: 44px;
+        max-width: 80%;
+    }
+    
+    .button-container.blood-group-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        max-width: 260px;
+    }
+    
+    .button-container.gender-horizontal {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .chat-option-btn {
+        padding: 10px 14px;
+        font-size: 13px;
+        min-height: 40px;
+    }
+    
+    .button-main-text {
+        font-size: 13px;
+    }
+    
+    .button-subtitle {
+        font-size: 11px;
+    }
+
+    .menu-button {
+        font-size: 14px;
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .button-container.blood-group-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        max-width: 200px;
+    }
+    
+    .chat-option-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        min-height: 36px;
+    }
+    
+    .blood-group-btn {
+        padding: 8px 6px;
+        font-size: 12px;
+        min-height: 36px;
+    }
+}
+
+/* ============================================
+   SPECIAL BUTTON STATES
+   ============================================ */
+
+/* Success button for confirmed bookings */
+.success-button {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+}
+
+.success-button:hover {
+    background: linear-gradient(135deg, #34ce57 0%, #2dd4aa 100%) !important;
+}
+
+/* Warning button for errors */
+.warning-button {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+    color: #212529 !important;
+}
+
+.warning-button:hover {
+    background: linear-gradient(135deg, #ffca2c 0%, #fd8c2a 100%) !important;
+}
+
+/* Disabled button state */
+.chat-option-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    background: #6c757d !important;
+}
+
+.chat-option-btn:disabled:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+.button-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.button-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: button-spin 1s linear infinite;
+}
+
+@keyframes button-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* End of styles.css */
+/* made changes */
+    </style>
+    <script>
+       // Chat widget state management
+let chatIsOpen = false;
+let isDarkTheme = true;
+let sessionId = generateSessionId();
+
+// Generate unique session ID
+function generateSessionId() {
+    return 'session_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+}
+
+// Theme toggle functionality
+function toggleTheme() {
+    const chatWindow = document.querySelector('.chat-window');
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-toggle i');
+    
+    isDarkTheme = !isDarkTheme;
+    
+    if (isDarkTheme) {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        chatWindow.classList.remove('light-theme');
+        chatWindow.classList.add('dark-theme');
+        themeIcon.className = 'fas fa-sun';
+    } else {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        chatWindow.classList.remove('dark-theme');
+        chatWindow.classList.add('light-theme');
+        themeIcon.className = 'fas fa-moon';
+    }
+    
+    localStorage.setItem('medical-chatbot-theme', isDarkTheme ? 'dark' : 'light');
+}
+
+// Load saved theme on page load
+function loadTheme() {
+    const savedTheme = localStorage.getItem('medical-chatbot-theme') || 'dark';
+    const chatWindow = document.querySelector('.chat-window');
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-toggle i');
+    
+    isDarkTheme = savedTheme === 'dark';
+    
+    if (isDarkTheme) {
+        body.classList.add('dark-theme');
+        chatWindow.classList.add('dark-theme');
+        themeIcon.className = 'fas fa-sun';
+    } else {
+        body.classList.add('light-theme');
+        chatWindow.classList.add('light-theme');
+        themeIcon.className = 'fas fa-moon';
+    }
+}
+
+// Open chat widget
+function openChatWidget() {
+    const chatContainer = document.getElementById('chatContainer');
+    const chatOverlay = document.getElementById('chatOverlay');
+    const floatingBtn = document.getElementById('floatingChatBtn');
+    
+    chatContainer.classList.add('active');
+    chatOverlay.classList.add('active');
+    floatingBtn.classList.add('hidden');
+    
+    chatIsOpen = true;
+    
+    setTimeout(() => {
+        document.getElementById('messageInput').focus();
+    }, 400);
+}
+
+// Close chat widget
+function closeChatWidget() {
+    const chatContainer = document.getElementById('chatContainer');
+    const chatOverlay = document.getElementById('chatOverlay');
+    const floatingBtn = document.getElementById('floatingChatBtn');
+    
+    chatContainer.classList.remove('active');
+    chatOverlay.classList.remove('active');
+    floatingBtn.classList.remove('hidden');
+    
+    chatIsOpen = false;
+}
+
+// Auto-resize textarea
+function autoResize(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+}
+
+// Handle Enter key press
+function handleKeyPress(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+    }
+    if (event.key === 'Escape') {
+        closeChatWidget();
+    }
+}
+
+// Send message functionality
+async function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+    const message = input.value.trim();
+    
+   if (isContactPromptActive && message.length !== 10) {
+    addMessage('Please enter a valid 10-digit contact number.', 'assistant', true);
+        return;
+    }
+
+    // Disable input and button
+    input.disabled = true;
+    sendButton.disabled = true;
+    
+    // Add user message to chat
+    addMessage(message, 'user');
+    
+    // Clear input
+    input.value = '';
+    input.style.height = 'auto';
+    
+    // Show typing indicator
+    showTypingIndicator();
+    
+    try {
+        // Send message to backend
+        const response = await fetch('http://localhost:5000/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: message,
+                session_id: sessionId
+            })
+        });
+        
+        const data = await response.json();
+        
+        // Remove typing indicator
+        removeTypingIndicator();
+        
+        if (response.ok) {
+            // Add bot response with buttons if needed
+            addBotMessage(data);
+            
+            // Handle special response types
+            if (data.type === 'booking_confirmed') {
+                showBookingConfirmation(data.unique_code);
+            }
+        } else {
+            addMessage(data.error || 'Sorry, something went wrong. Please try again.', 'assistant', true);
+        }
+        
+    } catch (error) {
+        console.error('Error sending message:', error);
+        removeTypingIndicator();
+        addMessage('Sorry, I\'m having trouble connecting. Please try again.', 'assistant', true);
+    } finally {
+        // Re-enable input and button
+        input.disabled = false;
+        sendButton.disabled = false;
+        input.focus();
+    }
+}
+
+// Show end confirmation dialog
+function showEndConfirmation() {
+    const messagesContainer = document.getElementById('messagesContainer');
+    
+    // Add confirmation message
+    const confirmationDiv = document.createElement('div');
+    confirmationDiv.className = 'message assistant';
+    confirmationDiv.innerHTML = `
+        <div class="message-avatar">M</div>
+        <div class="message-content">
+            <div class="message-bubble">
+                Are you sure you want to go back to the main menu? This will end your current session.
+            </div>
+            <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+        </div>
+    `;
+    
+    messagesContainer.appendChild(confirmationDiv);
+    
+    // Add confirmation buttons
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container';
+    buttonContainer.id = 'confirmationButtons';
+    
+    const okButton = document.createElement('button');
+    okButton.className = 'chat-option-btn menu-button';
+    okButton.textContent = '✅ Yes, Go to Main Menu';
+    okButton.onclick = () => confirmEndSession(true);
+    
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'chat-option-btn';
+    cancelButton.style.background = 'linear-gradient(135deg, #dc3545 0%, #c82333 100%)';
+    cancelButton.textContent = '❌ Cancel, Continue Here';
+    cancelButton.onclick = () => confirmEndSession(false);
+    
+    buttonContainer.appendChild(okButton);
+    buttonContainer.appendChild(cancelButton);
+    messagesContainer.appendChild(buttonContainer);
+    
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Handle end session confirmation
+async function confirmEndSession(confirmed) {
+    // Remove confirmation buttons
+    const confirmationButtons = document.getElementById('confirmationButtons');
+    if (confirmationButtons) {
+        confirmationButtons.remove();
+    }
+    
+    if (confirmed) {
+        // Add user choice as message
+        addMessage('Yes, Go to Main Menu', 'user');
+        
+        // Show typing indicator
+        showTypingIndicator();
+        
+        try {
+            // Send reset command to backend
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: 'reset_to_menu',
+                    session_id: sessionId
+                })
+            });
+            
+            const data = await response.json();
+            removeTypingIndicator();
+            
+            if (response.ok) {
+                addBotMessage(data);
+            }
+        } catch (error) {
+            console.error('Error resetting session:', error);
+            removeTypingIndicator();
+            addMessage('Session reset to main menu.', 'assistant');
+            // Force show main menu buttons
+            setTimeout(() => {
+                addOptionButtons({
+                    type: 'menu',
+                    message: 'Back to main menu'
+                });
+            }, 500);
+        }
+    } else {
+        // Add user choice as message  
+        addMessage('Cancel, Continue Here', 'user');
+        addMessage('Continuing with current session. How can I help you?', 'assistant');
+    }
+}
+
+// Handle button click from options
+function handleButtonClick(buttonText, buttonType) {
+    // Add user selection as a message
+    addMessage(buttonText, 'user');
+    
+    // Remove all option buttons after selection
+    removeOptionButtons();
+    
+    // Send the selection to backend
+    sendButtonSelection(buttonText);
+}
+
+// Send button selection to backend
+async function sendButtonSelection(selection) {
+    showTypingIndicator();
+    
+    try {
+        const response = await fetch('http://localhost:5000/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: selection,
+                session_id: sessionId
+            })
+        });
+        
+        const data = await response.json();
+        
+        removeTypingIndicator();
+        
+        if (response.ok) {
+            addBotMessage(data);
+            
+            if (data.type === 'booking_confirmed') {
+                showBookingConfirmation(data.unique_code);
+            }
+        } else {
+            addMessage(data.error || 'Sorry, something went wrong. Please try again.', 'assistant', true);
+        }
+        
+    } catch (error) {
+        console.error('Error sending selection:', error);
+        removeTypingIndicator();
+        addMessage('Sorry, I\'m having trouble connecting. Please try again.', 'assistant', true);
+    }
+}
+
+// Add bot message with potential buttons
+function addBotMessage(data) {
+    const messagesContainer = document.getElementById('messagesContainer');
+    const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message assistant';
+      const lowerMsg = data.message.toLowerCase();
+if (lowerMsg.includes('please enter your contact number')) {
+  isContactPromptActive = true;
+  enableContactOnlyValidation();
+  disableNameOnlyValidation();
+} else if (lowerMsg.includes('please enter your full name')) {
+  enableNameOnlyValidation();
+  isContactPromptActive = false;
+  disableContactOnlyValidation();
+} else {
+  isContactPromptActive = false;
+  disableContactOnlyValidation();
+  disableNameOnlyValidation();
+}
+
+const formattedText = data.message.replace(/\n/g, '<br>');
+
+messageDiv.innerHTML = `
+    <div class="message-avatar">M</div>
+    <div class="message-content">
+        <div class="message-bubble">${formattedText}</div>
+        <div class="message-time">${currentTime}</div>
+    </div>
+`;
+    messagesContainer.appendChild(messageDiv);
+    
+    // Add buttons if response has options
+    if (data.type && shouldShowButtons(data.type)) {
+        addOptionButtons(data);
+    }
+    
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Check if response type should show buttons
+function shouldShowButtons(responseType) {
+    const buttonTypes = [
+        'blood_group_selection',
+        'gender_selection', 
+        'doctor_selection',
+        'date_selection',
+        'time_selection',
+        'menu'
+    ];
+    return buttonTypes.includes(responseType);
+}
+
+// Add option buttons based on response type - FIXED VERSION
+function addOptionButtons(data) {
+    const messagesContainer = document.getElementById('messagesContainer');
+    
+    let buttons = [];
+    let buttonClass = 'option-button';
+    let containerClass = 'button-container';
+    
+    switch(data.type) {
+        case 'menu':
+            buttons = [
+                { text: '🔍 Check Booking', value: 'Check booking' },
+                { text: '📅 Book Appointment', value: 'Book appointment' }
+            ];
+            buttonClass = 'menu-button';
+            break;
+            
+        case 'blood_group_selection':
+            if (data.options) {
+                buttons = data.options.map(option => ({
+                    text: option,
+                    value: option
+                }));
+                containerClass += ' blood-group-grid';
+                buttonClass = 'blood-group-btn';
+            }
+            break;
+            
+        case 'gender_selection':
+            buttons = [
+                { text: '👨 Male', value: 'Male' },
+                { text: '👩 Female', value: 'Female' },
+                { text: '⚧ Other', value: 'Other' }
+            ];
+            containerClass += ' gender-horizontal';
+            buttonClass = 'gender-btn';
+            break;
+            
+        case 'doctor_selection':
+            if (data.doctors) {
+                buttons = data.doctors.map((doctor, index) => ({
+                    text: `${index + 1}. ${doctor.name}`,
+                    value: `${index + 1}`,
+                    subtitle: `${doctor.specialty} - ${doctor.availability || 'Available'}`
+                }));
+                buttonClass = 'doctor-btn';
+            }
+            break;
+            
+        case 'date_selection':
+            if (data.dates) {
+                buttons = data.dates.map((date, index) => ({
+                    text: `${index + 1}. ${date.display_name}`,
+                    value: `${index + 1}`,
+                    subtitle: `${date.total_available_slots} slots available`
+                }));
+                buttonClass = 'date-btn';
+            }
+            break;
+            
+        case 'time_selection':
+            if (data.time_slots) {
+                buttons = data.time_slots.map((slot, index) => ({
+                    text: `${index + 1}. ${slot.time}`,
+                    value: `${index + 1}`
+                }));
+                buttonClass = 'time-btn';
+            }
+            break;
+    }
+    
+    if (buttons.length > 0) {
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = containerClass;
+        buttonContainer.id = 'currentButtons';
+        
+        // FIX: Create buttons properly in a loop
+        buttons.forEach(buttonData => {
+            const button = document.createElement('button');
+            button.className = `${buttonClass} chat-option-btn`;
+            button.onclick = () => handleButtonClick(buttonData.value, data.type);
+            
+            if (buttonData.subtitle) {
+                button.innerHTML = `
+                    <span class="button-main-text">${buttonData.text}</span>
+                    <span class="button-subtitle">${buttonData.subtitle}</span>
+                `;
+            } else {
+                button.textContent = buttonData.text;
+            }
+            
+            // IMPORTANT: Actually add the button to the container!
+            buttonContainer.appendChild(button);
+        });
+        
+        messagesContainer.appendChild(buttonContainer);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+}
+
+// Remove existing option buttons
+function removeOptionButtons() {
+    const existingButtons = document.getElementById('currentButtons');
+    if (existingButtons) {
+        existingButtons.remove();
+    }
+}
+
+// Add regular message to chat
+function addMessage(text, sender, isError = false) {
+    const messagesContainer = document.getElementById('messagesContainer');
+    const currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}${isError ? ' error' : ''}`;
+    
+    // Format message text (preserve line breaks)
+    const formattedText = text.replace(/\n/g, '<br>');
+    
+    messageDiv.innerHTML = `
+        <div class="message-avatar">${sender === 'user' ? 'U' : 'M'}</div>
+        <div class="message-content">
+            <div class="message-bubble">${formattedText}</div>
+            <div class="message-time">${currentTime}</div>
+        </div>
+    `;
+    
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Show typing indicator
+function showTypingIndicator() {
+    const messagesContainer = document.getElementById('messagesContainer');
+    
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message assistant typing-indicator';
+    typingDiv.id = 'typingIndicator';
+    
+    typingDiv.innerHTML = `
+        <div class="message-avatar">M</div>
+        <div class="typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+    
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Remove typing indicator
+function removeTypingIndicator() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+        typingIndicator.remove();
+    }
+}
+
+// Show booking confirmation with special styling
+function showBookingConfirmation(uniqueCode) {
+    const lastMessage = document.querySelector('.message:last-child .message-bubble');
+    if (lastMessage) {
+        lastMessage.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+        lastMessage.style.color = 'white';
+        lastMessage.style.boxShadow = '0 4px 12px rgba(76, 175, 80, 0.3)';
+    }
+}
+
+// Handle escape key globally
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && chatIsOpen) {
+        closeChatWidget();
+    }
+});
+function enableContactOnlyValidation() {
+  const input = document.getElementById('messageInput');
+  input.value = input.value.replace(/\D/g, '').slice(0, 10);
+  input.setAttribute('maxlength', '10');
+  input.addEventListener('input', contactValidationHandler);
+}
+
+function contactValidationHandler(e) {
+  let numbersOnly = this.value.replace(/\D/g, '').slice(0, 10);
+  this.value = numbersOnly;
+}
+
+function disableContactOnlyValidation() {
+  const input = document.getElementById('messageInput');
+  input.removeAttribute('maxlength');
+  input.removeEventListener('input', contactValidationHandler);
+}
+// Initialize chat widget on page load
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Medical ChatBot initialized successfully!');
+    
+    // Load saved theme
+    loadTheme();
+    
+    // Set initial time
+    const initialTime = document.getElementById('initialTime');
+    if (initialTime) {
+        initialTime.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+    
+    // Add initial menu buttons after a short delay
+    setTimeout(() => {
+        addOptionButtons({
+            type: 'menu',
+            message: 'Welcome! Please select an option:'
+        });
+    }, 1000);
+    
+    // Mobile scroll management
+    if (window.innerWidth <= 480) {
+        const originalOpenChat = openChatWidget;
+        const originalCloseChat = closeChatWidget;
+
+        window.openChatWidget = function() {
+            originalOpenChat();
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeChatWidget = function() {
+            originalCloseChat();
+            document.body.style.overflow = '';
+        };
+    }
+});
+function enableNameOnlyValidation() {
+  const input = document.getElementById('messageInput');
+  input.value = input.value.replace(/[^a-zA-Z ]/g, '');
+  input.setAttribute('maxlength', '50'); 
+  input.addEventListener('input', nameValidationHandler);
+}
+
+function nameValidationHandler(e) {
+
+  this.value = this.value.replace(/[^a-zA-Z ]/g, '');
+}
+
+function disableNameOnlyValidation() {
+  const input = document.getElementById('messageInput');
+  input.removeAttribute('maxlength');
+  input.removeEventListener('input', nameValidationHandler);
+}
+    </script>
 </body>
 </html>    

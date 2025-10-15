@@ -1,5 +1,4 @@
 import os
-import re
 import json
 import random
 import string
@@ -772,32 +771,18 @@ def handle_code_input(message, session):
             'message': '❌ Code not found. Please check your code and try again.\n\nType "menu" to return to main menu.',
             'type': 'error'
         }
-        
+
 def handle_name_input(message, session):
-    """Handle name input with validation"""
+    """Handle name input for booking"""
     name = message.strip()
-
-    # Regex pattern: only alphabets and spaces allowed
-    pattern = r"^[A-Za-z\s]+$"
-
-    # Validate the name
-    if not re.match(pattern, name):
-        return {
-            'message': '❌ Invalid name.\n\nPlease enter a valid name using only alphabets and spaces (e.g., John Doe):',
-            'type': 'text_input',
-            'placeholder': 'Enter your full name'
-        }
-
-    # Save valid name and move to next step
     session['patient_data']['name'] = name
     session['state'] = 'waiting_blood_group'
-
+    
     return {
         'message': f'Hello {name}! 🩸 Please select your blood group:',
         'type': 'blood_group_selection',
         'options': bot.blood_groups
     }
-
 
 def handle_blood_group_input(message, session):
     """Handle blood group selection"""
@@ -858,30 +843,14 @@ def handle_gender_input(message, session):
         'type': 'text_input',
         'placeholder': 'Enter your contact number'
     }
+
 def handle_contact_input(message, session):
-    """Handle contact input with Indian mobile number validation"""
+    """Handle contact input"""
     contact = message.strip()
-
-    # Indian mobile number regex:
-    # Optional +91 / 91 / 0 prefix and 10 digits starting with 6–9
-    pattern = r'^(?:\+91|91|0)?[6-9]\d{9}$'
-
-    # Validate number
-    if not re.match(pattern, contact):
-        return {
-            'message': '❌ Invalid mobile number.\n\nPlease enter a valid Indian mobile number (e.g., 9876543210 or +919876543210):',
-            'type': 'text_input',
-            'placeholder': 'Enter your contact number'
-        }
-
-    # Normalize to last 10 digits
-    contact = contact[-10:]
-
-    # Save valid contact and continue
     session['patient_data']['contact'] = contact
     session['patient_data']['symptoms'] = []
     session['state'] = 'waiting_symptoms'
-
+    
     return {
         'message': f'📞 Contact: {contact}\n\n🩺 Please describe your symptoms (e.g., fever, headache, blocked nose, cough):\n\nYou can type multiple symptoms separated by commas.',
         'type': 'text_input',

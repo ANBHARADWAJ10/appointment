@@ -654,10 +654,12 @@ body.dark .calendar-day.selected {
                 <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4" id="alertMessage">Appointment booked successfully!
                 </h3>
 
-              <a href="main.html" button onclick="hideAlert()"
-                    class="w-full inline-flex justify-center px-4 py-2 bg-blue-600 text-white text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
-                    OK
-                </button></a>
+              <button
+    id="confirmOkBtn"
+    onclick="handleBookingConfirmation()"
+    class="w-full inline-flex justify-center px-4 py-2 bg-blue-600 text-white text-base font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm transition-colors duration-200">
+    OK
+</button>
             </div>
         </div>
     </div>
@@ -668,7 +670,14 @@ body.dark .calendar-day.selected {
     <img id="orgLogo" class="w-8 h-8 mr-2" alt="Logo">
     <h1 id="orgName" class="text-xl font-bold text-blue-600">MediCare</h1>
   </div>
-
+<button 
+    id="backToDashboardBtn" 
+    style="position: absolute; top: 30px; right: 40px; z-index: 50;"
+    class=" text-gray-900 font-bold text-lg rounded-md px-4  "
+    onclick="goBackToOrigin()"
+>
+    Back to Dashboard
+</button>
 
 
 </div>
@@ -2983,7 +2992,33 @@ document.addEventListener("click", function(e) {
     suggestionsBox.style.display = "none";
   }
 });
+function getQueryParam(name) {
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
 
+function handleBookingConfirmation() {
+ 
+  const source = getQueryParam('from');
+  if (source === 'admin') {
+    window.location.href = 'admindasboard.html';
+  } else {
+    window.location.href = 'main.html';
+  }
+}
+function getQueryParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+}
+
+function goBackToOrigin() {
+    const source = getQueryParam('from');
+    if (source === 'admin') {
+        window.location.href = 'admindasboard.html';
+    } else {
+        window.location.href = 'main.html';
+    }
+}
 </script>
 </body>
 
