@@ -26,3 +26,4 @@ const employeeSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model('employee', employeeSchema);
+﻿

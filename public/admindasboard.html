@@ -2140,9 +2140,9 @@
                             <h3 class="text-xl font-semibold" id="appointmentsTitle">Today's Appointments</h3>
                             <p class="text-gray-500" id="selectedDate">No date selected</p>
                         </div>
-                        <a href="appointment.html"><button id="addBtn"
-                                class="bg-black text-white px-4 py-1 rounded font-semibold">+ Add
-                                Appointment</button></a>
+                       <a href="appointment.html?from=admin"<button id="addBtn" class="bg-black text-white px-4 py-2 rounded-md">
+  Add Appointment</button></a>
+
                     </div>
                     <div id="appointmentsHeader"
                         class="hidden md:grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b">
@@ -2257,77 +2257,67 @@
                                                 </div>
                                             </div>
 
-                                            <div class="space-y-4">
-                                               
-                                                <div>
-                                                    <label for="appointmentDate"
-                                                        class="block mb-1 font-semibold">Appointment Date<span
-                                                            class="text-red-600">*</span></label>
-                                                    <input id="appointmentDate" type="date"
-                                                        class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
-                                                </div>
-                                                <div>
-                                                    <label for="department"
-                                                        class="block mb-1 font-semibold">Department<span
-                                                            class="text-red-600">*</span></label>
-                                                    <select id="department"
-                                                        class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
-                                                        <option>Department</option>
+  <div class="space-y-4">
+    <!-- <div>
+      <label for="reason" class="block mb-1 font-semibold">Reason</label>
+      <input id="reason" type="text" placeholder="Reason" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div> -->
+    <!-- <div>
+      <label for="contactNumber" class="block mb-1 font-semibold">Contact Number*</label>
+      <input id="contactNumber" type="text" placeholder="Contact Number*" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div> -->
+    <div>
+      <label for="appointmentDate" class="block mb-1 font-semibold">Appointment Date<span class="text-red-600">*</span></label>
+      <input id="appointmentDate" type="date" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base" />
+    </div>
+    <div>
+      <label for="department" class="block mb-1 font-semibold">Department<span class="text-red-600">*</span></label>
+      <select id="department" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
+        <option>Department</option>
 
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <label for="doctor" class="block mb-1 font-semibold">Doctor<span
-                                                            class="text-red-600">*</span></label>
-                                                    <select id="doctor"
-                                                        class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
-                                                        <option>Doctor</option>
-
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <label for="appointmentTime"
-                                                        class="block mb-1 font-semibold">Appointment Time<span
-                                                            class="text-red-600">*</span></label>
-                                                    <select id="appointmentTime"
-                                                        class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
-                                                        <option value="">Select Time</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <label for="visitType" class="block mb-1 font-semibold">Visit
-                                                        Type<span class="text-red-600">*</span></label>
-                                                    <select id="visitType"
-                                                        class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
-                                                        <option>Visit Type</option>
-                                                        <option>New Patient</option>
-                                                        <option>Revisit</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="flex justify-end mt-4">
-                                                <button type="submit"
-                                                    class="bg-blue-600 hover:bg-blue-800 text-white font-semibold px-7 py-3 rounded-lg transition-all shadow-md">Add
-                                                    Patient</button>
-                                            </div>
-                                    </div>
-                                    </form>
-
-                                </div>
-                            </div>
+      </select>
+    </div>
+    <div>
+      <label for="doctor" class="block mb-1 font-semibold">Doctor<span class="text-red-600">*</span></label>
+      <select id="doctor" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
+        <option>Doctor</option>
+       
+      </select>
+    </div>
+    <div>
+      <label for="appointmentTime" class="block mb-1 font-semibold">Appointment Time<span class="text-red-600">*</span></label>
+      <select id="appointmentTime" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
+        <option value="">Select Time</option>
+      </select>
+    </div>
+    <div>
+      <label for="visitType" class="block mb-1 font-semibold">Visit Type<span class="text-red-600">*</span></label>
+      <select id="visitType" class="w-full px-4 py-2 rounded-lg border focus:ring-2 ring-blue-300 text-base">
+        <option>Visit Type</option>
+        <option>New Patient</option>
+        <option>Revisit</option>
+      </select>
+    </div>
+  </div>
+  <div class="flex justify-end mt-4">
+      <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white font-semibold px-7 py-3 rounded-lg transition-all shadow-md">Add Patient</button>
+    </div>
+  </div>
+</form>
+    
+</div>
+</div>
 
 
-                            <div id="patientsHeader"
-                                class="grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b"
-                                style="display: grid;">
-                                <div class="col-span-3">Patient</div>
-                                <div class="col-span-2">Age/Gender</div>
-                                <div class="col-span-1">Blood</div>
-                                <div class="col-span-2">Contact</div>
-                                <div class="col-span-2">Appointment Date</div>
-                                <div class="col-span-1">Last Visit</div>
-                                <div class="col-span-1">Reffered BY</div>
-                            </div>
+   <div id="patientsHeader" class="grid grid-cols-12 gap-4 px-4 py-3 text-left text-sm font-bold bg-gray-50 text-gray-800 border-b" style="display: grid;">
+  <div class="col-span-3">Patient</div>
+  <div class="col-span-2">Age/Gender</div>
+  <div class="col-span-1">Blood</div>
+  <div class="col-span-2">Contact</div>
+  <div class="col-span-2">Appointment Date</div>
+  <div class="col-span-1">Last Visit</div>
+  <div class="col-span-1">Reffered BY</div>
+</div>
 
                             <div id="patientsList" class="space-y-2 mt-2"></div>
                     </div>
@@ -3471,32 +3461,32 @@
                     const patientsHeader = document.getElementById("patientsHeader");
                     patientsListContainer.innerHTML = '<div class="text-center p-4">Loading patients...</div>';
 
-                    const formattedSelectedDate = date
-                        ? new Date(date).toLocaleDateString("en-US", {
-                            month: "numeric",
-                            day: "numeric",
-                            year: "numeric",
-                        })
-                        : null;
+        const formattedSelectedDate = date
+            ? new Date(date).toLocaleDateString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                  year: "numeric",
+              })
+            : null;
 
-                    const patientsMap = new Map();
-                    allAppointments.forEach((app) => {
-                        if (!app.patientData || !app.patientData.firstName) return;
-                        const patientKey = `${app.patientData.firstName}-${app.patientData.lastName}-${app.patientData.contact}`;
-                        if (!patientsMap.has(patientKey)) {
-                            patientsMap.set(patientKey, {
-                                details: app.patientData,
-                                appointments: [],
-                                referredBy: app.referralData?.referredBy || "",
-                            });
-                        }
-                        if (app.dateData && app.dateData.date) {
-                            patientsMap.get(patientKey).appointments.push({
-                                date: app.dateData.date,
-                                status: app.status || "confirmed",
-                            });
-                        }
-                    });
+        const patientsMap = new Map();
+        allAppointments.forEach((app) => {
+            if (!app.patientData || !app.patientData.firstName) return;
+            const patientKey = `${app.patientData.firstName}-${app.patientData.lastName}-${app.patientData.contact}`;
+            if (!patientsMap.has(patientKey)) {
+                patientsMap.set(patientKey, {
+                    details: app.patientData,
+                    appointments: [],
+                    referredBy: app.referralData?.referredBy || "",
+                });
+            }
+            if (app.dateData && app.dateData.date) {
+                patientsMap.get(patientKey).appointments.push({
+                    date: app.dateData.date,
+                    status: app.status || "confirmed",
+                });
+            }
+        });
 
                     const finalPatientList = [];
                     for (const [patientKey, patientData] of patientsMap.entries()) {
@@ -3506,29 +3496,29 @@
                         const blood = patientData.details.blood || "";
                         const contact = patientData.details.contact || "";
 
-                        const todayCalc = new Date();
-                        todayCalc.setHours(0, 0, 0, 0);
-                        const sortedDates = patientData.appointments
-                            .map((a) => new Date(a.date))
-                            .sort((a, b) => a - b);
-                        const future = sortedDates.filter((d) => d >= todayCalc);
-                        const past = sortedDates.filter((d) => d < todayCalc);
-                        const upcomingDateText =
-                            future.length > 0
-                                ? future[0].toLocaleDateString("en-US", {
-                                    month: "short",
-                                    day: "numeric",
-                                    year: "numeric",
-                                })
-                                : "";
-                        const lastVisitText =
-                            past.length > 0
-                                ? past[past.length - 1].toLocaleDateString("en-US", {
-                                    month: "short",
-                                    day: "numeric",
-                                    year: "numeric",
-                                })
-                                : "";
+            const todayCalc = new Date();
+            todayCalc.setHours(0, 0, 0, 0);
+            const sortedDates = patientData.appointments
+                .map((a) => new Date(a.date))
+                .sort((a, b) => a - b);
+            const future = sortedDates.filter((d) => d >= todayCalc);
+            const past = sortedDates.filter((d) => d < todayCalc);
+            const upcomingDateText =
+                future.length > 0
+                    ? future[0].toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                      })
+                    : "";
+            const lastVisitText =
+                past.length > 0
+                    ? past[past.length - 1].toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                      })
+                    : "";
 
                         const selectedField = getSelectedField();
                         const term = (searchTerm || "").toLowerCase();
@@ -3569,35 +3559,35 @@
                             }
                         }
 
-
-                        const hasAppointmentOnDate = formattedSelectedDate
-                            ? patientData.appointments.some((a) => {
-                                const normalizeDate = (dateStr) => {
-                                    if (!dateStr) return '';
-                                    if (dateStr.includes('-')) {
-                                        const [year, month, day] = dateStr.split('-');
-                                        return `${parseInt(month)}/${parseInt(day)}/${year}`;
-                                    }
-                                    return dateStr;
-                                };
-                                const normalizedAppointmentDate = normalizeDate(a.date);
-                                const normalizedSelectedDate = normalizeDate(formattedSelectedDate);
-                                return normalizedAppointmentDate === normalizedSelectedDate;
-                            })
-                            : true;
-
-                        if (matchesSearch && hasAppointmentOnDate) {
-                            finalPatientList.push({
-                                ...patientData,
-                                upcomingDateText,
-                                lastVisitText,
-                                referredBy: patientData.referredBy,
-                            });
+            
+            const hasAppointmentOnDate = formattedSelectedDate
+                ? patientData.appointments.some((a) => {
+                    const normalizeDate = (dateStr) => {
+                        if (!dateStr) return '';
+                        if (dateStr.includes('-')) {
+                            const [year, month, day] = dateStr.split('-');
+                            return `${parseInt(month)}/${parseInt(day)}/${year}`;
                         }
-                    }
+                        return dateStr;
+                    };
+                    const normalizedAppointmentDate = normalizeDate(a.date);
+                    const normalizedSelectedDate = normalizeDate(formattedSelectedDate);
+                    return normalizedAppointmentDate === normalizedSelectedDate;
+                })
+                : true;
 
-                    allPatientsData = finalPatientList;
-                    currentPatientsPage = 1;
+            if (matchesSearch && hasAppointmentOnDate) {
+                finalPatientList.push({
+                    ...patientData,
+                    upcomingDateText,
+                    lastVisitText,
+                    referredBy: patientData.referredBy,
+                });
+            }
+        }
+
+        allPatientsData = finalPatientList;
+        currentPatientsPage = 1;
 
                     if (finalPatientList.length === 0) {
                         if (patientsHeader) {
@@ -3674,6 +3664,10 @@
                 today.setHours(0, 0, 0, 0);
 
                 currentPagePatients.forEach((patient) => {
+                     const selectedDate = datePicker.value;
+    const matchedAppt = patient.appointments.find(a => a.date === selectedDate);
+    const appointmentDateDisplay = matchedAppt ? matchedAppt.date : "N/A";
+
                     const sortedAppointments = patient.appointments.map((a) => new Date(a.date)).sort((a, b) => a - b);
 
                     const futureAppointments = sortedAppointments.filter((d) => d >= today);
@@ -3691,6 +3685,7 @@
 
                     const allCancelled =
                         patient.appointments.length > 0 && patient.appointments.every((a) => (a.status || "").toLowerCase() === "canceled" || (a.status || "").toLowerCase() === "cancelled");
+
 
                     patientsHTML += `
   <div 
@@ -3723,10 +3718,14 @@
   </div>
   <div class="col-span-2 text-gray-600">${patient.details.age || "N/A"} / ${patient.details.gender ? patient.details.gender.charAt(0) : "N/A"}</div>
   <div class="col-span-1 text-gray-600">${patient.details.blood || "N/A"}</div>
-  <div class="col-span-2 text-gray-600">${patient.details.contact || "N/A"}</div>
-  <div class="col-span-2 text-gray-600">${upcomingDate}</div>
+  <div class="col-span-1 text-gray-600">${patient.details.contact || "N/A"}</div>
+  <div class="col-span-2 text-gray-600">${appointmentDateDisplay}</div>
   <div class="col-span-1 text-gray-600">${lastVisit}</div>
   <div class="col-span-1 text-gray-600">${patient.referredBy || "N/A"}</div>
+  <div class="col-span-1 flex gap-2 justify-center">
+    <button class="bg-blue-600 text-white px-2 py-0 rounded-full font-semibold hover:bg-blue-700 transition"
+      onclick="createAppointmentFromPatient('${[patient.details.firstName, patient.details.middleName, patient.details.lastName].filter(Boolean).join(' ')}','${patient.details.contact || ''}')">Create Appointment</button>
+  </div>
 </div>
 `;
 
@@ -4393,22 +4392,30 @@
                 if (e.target === this) hideSuccessModal();
             };
 
-            function openPatientDetailsModal(patient) {
-                let name = patient.name || (patient.details && patient.details.name) || "N/A";
-                let age = patient.age || (patient.details && patient.details.age) || "N/A";
-                let gender = patient.gender || (patient.details && patient.details.gender) || "N/A";
-                let blood = patient.blood || (patient.details && patient.details.blood) || "N/A";
-                let contact = patient.contact || (patient.details && patient.details.contact) || "N/A";
-                document.getElementById("modalPatientName").textContent = name;
-                document.getElementById("modalPatientAgeGender").textContent = `${age} / ${gender}`;
-                document.getElementById("modalPatientBlood").textContent = blood;
-                document.getElementById("modalPatientContact").textContent = contact;
-                document.getElementById("modalPatientUpcoming").textContent = patient.upcomingDate || "N/A";
-                document.getElementById("modalPatientLastVisit").textContent = patient.lastVisit || "N/A";
-                document.getElementById("modalPatientReferredBy").textContent = patient.referredBy || "N/A";
-                document.getElementById("patientDetailsModalOverlay").classList.remove("hidden");
-                document.body.classList.add("blurred-bg");
-            }
+    function openPatientDetailsModal(patient) {
+    // Name construction; details block lekapoyina fallback add
+    let name = [
+        patient.firstName || (patient.details && patient.details.firstName),
+        patient.middleName || (patient.details && patient.details.middleName),
+        patient.lastName || (patient.details && patient.details.lastName)
+    ].filter(Boolean).join(" ");
+    if (!name) name = "N/A";
+    document.getElementById("modalPatientName").textContent = name;
+
+    let age = patient.age || (patient.details && patient.details.age) || "N/A";
+    let gender = patient.gender || (patient.details && patient.details.gender) || "N/A";
+    let blood = patient.blood || (patient.details && patient.details.blood) || "N/A";
+    let contact = patient.contact || (patient.details && patient.details.contact) || "N/A";
+
+    document.getElementById("modalPatientAgeGender").textContent = `${age} / ${gender}`;
+    document.getElementById("modalPatientBlood").textContent = blood;
+    document.getElementById("modalPatientContact").textContent = contact;
+    document.getElementById("modalPatientUpcoming").textContent = patient.upcomingDate || "N/A";
+    document.getElementById("modalPatientLastVisit").textContent = patient.lastVisit || "N/A";
+    document.getElementById("modalPatientReferredBy").textContent = patient.referredBy || "N/A";
+    document.getElementById("patientDetailsModalOverlay").classList.remove("hidden");
+    document.body.classList.add("blurred-bg");
+}
 
             function closePatientDetailsModal() {
                 document.getElementById("patientDetailsModalOverlay").classList.add("hidden");
@@ -4636,13 +4643,14 @@
         <table class="min-w-full bg-white rounded-lg shadow-sm">
           <thead>
             <tr class="bg-gray-50 text-gray-700 text-left">
-              <th class="px-4 py-3">Patient</th>
-              <th class="px-4 py-3">Age/Gender</th>
-              <th class="px-4 py-3">Blood</th>
-              <th class="px-4 py-3">Contact</th>
-              <th class="px-4 py-3">Upcoming Date</th>
-              <th class="px-4 py-3">Last Visit</th>
-              <th class="px-4 py-3">Referred By</th> 
+              <th class="px-4 py-2">Patient</th>
+              <th class="px-4 py-2">Age/Gender</th>
+              <th class="px-4 py-2">Blood</th>
+              <th class="px-4 py-2">Contact</th>
+              <th class="px-4 py-2">Upcoming Date</th>
+              <th class="px-4 py-2">Last Visit</th>
+              <th class="px-4 py-2">Referred By</th> 
+              <th class="px-4 py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -4657,6 +4665,10 @@
         <td class="px-4 py-3">${patient.upcomingDateText || "-"}</td>
         <td class="px-4 py-3">${patient.lastVisitText || "-"}</td>
         <td class="px-4 py-3">${patient.referredBy || "-"}</td> 
+        <td class="px-4 py-3 flex gap-2 justify-center">
+          <button class="bg-blue-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-blue-700 transition"
+            onclick="createAppointmentFromPatient('${[patient.details.firstName, patient.details.middleName, patient.details.lastName].filter(Boolean).join(' ')}','${patient.details.contact || ''}')">Create Appointment</button>
+        </td>
       </tr>
     `).join("");
 
@@ -6430,75 +6442,75 @@
                     newPatientForm.addEventListener('submit', async (e) => {
                         e.preventDefault();
 
-                        const firstName = document.getElementById('firstName')?.value.trim() || '';
-                        const middleName = document.getElementById('middleName')?.value.trim() || '';
-                        const lastName = document.getElementById('lastName')?.value.trim() || '';
-                        const genderInput = document.querySelector('input[name="gender"]:checked');
-                        const gender = genderInput ? genderInput.value : '';
-                        const ageYears = parseInt(document.getElementById('ageYears')?.value) || 0;
-                        const contactNumber = document.getElementById('contactNumber')?.value.trim() || '';
-                        const reason = document.getElementById('reason')?.value.trim() || '';
-                        const appointmentDate = document.getElementById('appointmentDate')?.value || '';
-                        const appointmentTime = document.getElementById('appointmentTime')?.value || '';
-                        const department = departmentSelect ? departmentSelect.value : '';
-                        const doctor = doctorSelect ? doctorSelect.value : '';
-                        const visitType = document.getElementById('visitType')?.value || '';
+      const firstName = document.getElementById('firstName')?.value.trim() || '';
+      const middleName = document.getElementById('middleName')?.value.trim() || '';
+      const lastName = document.getElementById('lastName')?.value.trim() || '';
+      const genderInput = document.querySelector('input[name="gender"]:checked');
+      const gender = genderInput ? genderInput.value : '';
+      const ageYears = parseInt(document.getElementById('ageYears')?.value) || 0;
+      const contactNumber = document.getElementById('contactNumber')?.value.trim() || '';
+      const reason = document.getElementById('reason')?.value.trim() || '';
+      const appointmentDate = document.getElementById('appointmentDate')?.value || '';
+      const appointmentTime = document.getElementById('appointmentTime')?.value || '';
+      const department = departmentSelect ? departmentSelect.value : '';
+      const doctor = doctorSelect ? doctorSelect.value : '';
+      const visitType = document.getElementById('visitType')?.value || '';
 
-                        if (!firstName || !lastName || !gender || !ageYears || !contactNumber || !appointmentDate || !appointmentTime || !department || !doctor || !visitType) {
-                            alert('Please fill in all required fields.');
-                            return;
-                        }
+      if (!firstName || !lastName || !gender || !ageYears || !contactNumber || !appointmentDate || !appointmentTime || !department || !doctor || !visitType) {
+        alert('Please fill in all required fields.');
+        return;
+      }
 
+      
+      const patientData = {
+        firstName,
+        middleName,
+        lastName,
+        gender,
+        age: ageYears,
+        contact: contactNumber,
+      };
+      const selectedDoctorOption = doctorSelect.options[doctorSelect.selectedIndex];
+      const doctorName = selectedDoctorOption.textContent;
 
-                        const patientData = {
-                            firstName,
-                            middleName,
-                            lastName,
-                            gender,
-                            age: ageYears,
-                            contact: contactNumber,
-                        };
-                        const selectedDoctorOption = doctorSelect.options[doctorSelect.selectedIndex];
-                        const doctorName = selectedDoctorOption.textContent;
+      const confirmationData = {
+        patientData,
+        doctorData: {
+          name: doctorName,
+        },
+        dateData: {
+          date: appointmentDate,
+          time: appointmentTime,
+        },
+        referralData: {
+          referredBy: reason,
+        },
+      };
 
-                        const confirmationData = {
-                            patientData,
-                            doctorData: {
-                                name: doctorName,
-                            },
-                            dateData: {
-                                date: appointmentDate,
-                                time: appointmentTime,
-                            },
-                            referralData: {
-                                referredBy: reason,
-                            },
-                        };
+      try {
+        const response = await fetch('api/confirmations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(confirmationData),
+        });
 
-                        try {
-                            const response = await fetch('api/confirmations', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(confirmationData),
-                            });
-
-                            if (response.ok) {
-                                alert('Patient added successfully!');
-                                newPatientForm.reset();
-                                closeNewPatientModal();
-                                await fetchAndDisplayPatients(null, '');
-                                await fetchAndDisplayAppointments();
-                                await fetchAndPopulateDoctors(department);
-                            } else {
-                                const errorData = await response.json();
-                                alert('Error adding patient: ' + (errorData.message || 'Unknown error'));
-                            }
-                        } catch (error) {
-                            alert('Network error. Please try again.');
-                            console.error(error);
-                        }
-                    });
-                }
+        if (response.ok) {
+          alert('Patient added successfully!');
+          newPatientForm.reset();
+          closeNewPatientModal();
+          await fetchAndDisplayPatients(null, '');
+          await fetchAndDisplayAppointments();
+          await fetchAndPopulateDoctors(department);
+        } else {
+          const errorData = await response.json();
+          alert('Error adding patient: ' + (errorData.message || 'Unknown error'));
+        }
+      } catch (error) {
+        alert('Network error. Please try again.');
+        console.error(error);
+      }
+    });
+  }
 
                 async function fetchAndPopulateDepartments() {
                     try {
