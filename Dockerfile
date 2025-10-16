@@ -1,48 +1,26 @@
-FROM node:20
-
-# Installing Python 3.11, pip, build dependencies, and Supervisor
-RUN apt-get update && \
-    apt-get install -y \
-        python3 \
-        python3-pip \
-        python3-venv \
-        python3-dev \
-        build-essential \
-        gcc \
-        g++ \
-        libfreetype6-dev \
-        libjpeg-dev \
-        libpng-dev \
-        zlib1g-dev \
-        libxml2-dev \
-        libxslt1-dev \
-        supervisor && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Set the working directory
+# Multi-stage build
+FROM node:18 AS node-stage
 WORKDIR /app
-
-# Copy dependency files
 COPY package*.json ./
-COPY requirements.txt ./
-
-# Upgrade pip first and break system packages restriction
-RUN pip3 install --upgrade pip --break-system-packages
-
-# Install Python dependencies
-RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
-
-# Install Node.js dependencies
 RUN npm install
-
-# Copy the rest of the application
 COPY . .
 
-# Copy Supervisor configuration
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+FROM python:3.13.9
+WORKDIR /app
 
-# Expose both ports
-EXPOSE 3022 5000
+# Install Node.js in Python container
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs
 
-# Run Supervisor to start both processes
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Copy Node.js app
+COPY --from=node-stage /app/node_modules ./node_modules
+COPY --from=node-stage /app/package*.json ./
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+# Start both services
+CMD ["sh", "-c", "npm run dev & python app.py"]
