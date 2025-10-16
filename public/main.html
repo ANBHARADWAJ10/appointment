@@ -127,71 +127,94 @@
     <i class="fas fa-comments"></i>
   </button>
 </div>
+    <!-- Chat Overlay -->
+<div class="chat-overlay" id="chatOverlay" onclick="closeChatWidget()"></div>
+
+<!-- Floating Chat Button -->
+<div style="position: fixed; bottom: 32px; right: 32px; z-index: 999;">
+    <!-- Chat Message Bubble -->
+    <div id="chatPromptBubble" style="
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        background: #000000ce;
+        color: #fff;
+        font-weight: 500;
+        border-radius: 16px;
+        padding: 12px 18px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        font-size: 1rem;
+        white-space: nowrap;">
+        Ask Bot.....
+    </div>
+
+    <!-- Chat Icon Button -->
+    <button 
+        class="floating-chat-btn" 
+        id="floatingChatBtn" 
+        onclick="openChatWidget()"
+        style="
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            box-shadow: 0 8px 24px rgba(102,126,234,0.3);
+            font-size: 28px;
+            cursor:pointer;">
+        <i class="fas fa-comments"></i>
+    </button>
+</div>
+    <!-- nik -->
     <!-- Chat Container -->
     <div class="chat-container" id="chatContainer">
         <div class="chat-window">
             <!-- Header -->
-            <div class="chat-header">
-                <div class="header-left">
-                    <!-- <div class="logo">M</div> -->
-                    <div class="header-text">
-                        <h1>Medical ChatBot</h1>
-                        <p>Appointment Booking</p>
-                        <p>type - end to end the conversation</p>
-                    </div>
-                </div>
+            <!-- <div class="chat-header">
                 <div class="header-actions">
-                    <button class="theme-toggle" onclick="toggleTheme()">
-                        <i class="fas fa-sun"></i>
-                    </button>
                     <button class="close-btn" onclick="closeChatWidget()">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- Messages Container -->
-            <div class="messages-container" id="messagesContainer">
-                <!-- Initial greeting -->
-                <div class="message assistant">
-                    <div class="message-avatar">M</div>
-                    <div class="message-content">
-                        <div class="message-bubble">
-                            🏥 Welcome to Medical Chatbot! 🏥<br><br>
-                            select from the options below to get started:<br><br>
-                            <!-- I can help you with:<br>
-                            • Check your existing booking details with unique code<br>
-                            • Book a new doctor's appointment<br><br> -->
-                            <!-- Please type:<br>
-                            - "Check booking" to check existing appointment<br>
-                            - "Book appointment" to schedule new appointment -->
-                        </div>
-                        <div class="message-time" id="initialTime"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Input Area -->
-            <div class="input-container">
-                <div class="input-wrapper">
-                    <textarea 
-                        class="input-field" 
-                        placeholder="Type your message..." 
-                        rows="1"
-                        id="messageInput"
-                        onkeydown="handleKeyPress(event)"
-                        oninput="autoResize(this)"
-                    ></textarea>
-                    <button class="send-button" onclick="sendMessage()" id="sendButton">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
+            <!-- iframe Container -->
+            <div class="iframe-container">
+                <iframe 
+                    id="chatIframe"
+                    src="https://medical-appointment-app-c699.onrender.com/"
+                    frameborder="0"
+                    allow="clipboard-read; clipboard-write"
+                    style="width: 100%; height: 100%; border: none;">
+                </iframe>
             </div>
         </div>
     </div>
-
+    <!-- nik -->
     
     <style>
+        
+    /* Nik */
+    .iframe-container {
+        flex: 1;
+        overflow: hidden;
+        background: #ffffff;
+        border-radius: 0 0 24px 24px;
+        position: relative;
+    }
+
+    .iframe-container iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+        
      /* Floating Chat Button */
 .floating-chat-btn {
     position: fixed;
