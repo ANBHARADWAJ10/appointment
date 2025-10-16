@@ -4,8 +4,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"node server.js\" \"python app.py\"",
-    "dev": "concurrently \"nodemon server.js\" \"python app.py\""
+    "start": "node server.js",
+    "dev": "nodemon server.js" 
   },
   "keywords": [],
   "author": "",
@@ -28,8 +28,8 @@
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.6",
     "nodemon": "^3.1.10",
-    "path": "^0.12.7",
-    "concurrently": "^8.2.2"
+    "path": "^0.12.7"
+
   },
   "devDependencies": {
     "prettier": "^3.6.2"

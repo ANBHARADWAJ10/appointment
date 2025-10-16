@@ -1,14 +1,17 @@
-FROM node:20
+FROM node:18-bullseye
 
-# Install python and pip
-RUN apt-get update && apt-get install -y python3 python3-pip
+RUN apt-get update && apt-get install -y python3 python3-pip supervisor
 
 WORKDIR /app
 
 COPY . .
 
-RUN pip install  requirements.txt
-RUN npm install  concurrently
+RUN pip3 install -r requirements.txt
 RUN npm install
 
-CMD ["concurrently", "--kill-others", "node server.js", "python3 app.py"]
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 3052 5000
+
+CMD ["/usr/bin/supervisord"]
