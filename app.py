@@ -1044,5 +1044,4 @@ if __name__ == '__main__':
     print("📝 NLTK Status:", "✅ Available" if NLTK_AVAILABLE else "⚠️  Limited (using fallbacks)")
     print("💾 MongoDB Status:", "✅ Connected" if bot.mongo_client else "⚠️  Demo Mode")
     print("🌐 Server running at: http://localhost:5000")
-    port = os.getenv('CHATBOT_PORT', 5000)
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host='0.0.0.0', port=5000)
