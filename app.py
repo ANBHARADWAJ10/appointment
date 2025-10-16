@@ -569,10 +569,65 @@ def index():
     """Serve the main chat interface"""
     return render_template('main.html')
 
+# @app.route('/api/chat', methods=['POST'])
+# def chat():
+#     """Handle chat messages"""
+#     try:
+#         data = request.json
+#         message = data.get('message', '').strip()
+#         session_id = data.get('session_id', 'default')
+        
+#         if not message:
+#             return jsonify({'error': 'Message cannot be empty'}), 400
+        
+#         # Initialize session if not exists
+#         if session_id not in bot.user_sessions:
+#             bot.user_sessions[session_id] = {
+#                 'state': 'greeting',
+#                 'patient_data': {},
+#                 'conversation_history': []
+#             }
+        
+#         session = bot.user_sessions[session_id]
+#         response = process_message(message, session)
+        
+#         # Add to conversation history
+#         session['conversation_history'].append({
+#             'user': message,
+#             'bot': response['message'],
+#             'timestamp': datetime.now().isoformat()
+#         })
+        
+#         return jsonify(response)
+        
+#     except Exception as e:
+#         logger.error(f"Error in chat endpoint: {e}")
+#         return jsonify({'error': 'Internal server error'}), 500
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """Handle chat messages"""
     try:
+        print(f"Content-Type: {request.headers.get('Content-Type')}")
+        print(f"Request method: {request.method}")
+        print(f"Raw data: {request.data}")
+        
+        data = request.json
+        print(f"Parsed JSON: {data}")
+        
+        if data is None:
+            print("JSON parsing failed - using force=True")
+            data = request.get_json(force=True)
+        
+        message = data.get('message', '').strip()
+        session_id = data.get('session_id', 'default')
+        
+        print(f"Message: {message}, Session ID: {session_id}")
+        
+        if not message:
+            return jsonify({'error': 'Message cannot be empty'}), 400
+        
+        # Your existing code continues...
         data = request.json
         message = data.get('message', '').strip()
         session_id = data.get('session_id', 'default')
@@ -599,8 +654,8 @@ def chat():
         })
         
         return jsonify(response)
-        
     except Exception as e:
+        print(f"Exception in chat route: {e}")
         logger.error(f"Error in chat endpoint: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
