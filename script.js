@@ -101,6 +101,7 @@ function handleKeyPress(event) {
 }
 
 // Send message functionality
+
 async function sendMessage() {
     const input = document.getElementById('messageInput');
     const sendButton = document.getElementById('sendButton');
@@ -130,8 +131,13 @@ async function sendMessage() {
     showTypingIndicator();
     
     try {
+        // Dynamically determine the API URL based on environment
+        const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000/api/chat'  // Local development
+            : '/api/chat';  // Production (same domain)
+        
         // Send message to backend
-        const response = await fetch('http://localhost:5000/api/chat', {
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -170,6 +176,77 @@ async function sendMessage() {
         input.focus();
     }
 }
+
+
+// async function sendMessage() {
+//     const input = document.getElementById('messageInput');
+//     const sendButton = document.getElementById('sendButton');
+//     const message = input.value.trim();
+    
+//     if (message === '') return;
+
+//     // Check for "end" command
+//     if (message.toLowerCase() === 'end') {
+//         showEndConfirmation();
+//         input.value = '';
+//         return;
+//     }
+
+//     // Disable input and button
+//     input.disabled = true;
+//     sendButton.disabled = true;
+    
+//     // Add user message to chat
+//     addMessage(message, 'user');
+    
+//     // Clear input
+//     input.value = '';
+//     input.style.height = 'auto';
+    
+//     // Show typing indicator
+//     showTypingIndicator();
+    
+//     try {
+//         // Send message to backend
+//         const response = await fetch('http://localhost:5000/api/chat', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 message: message,
+//                 session_id: sessionId
+//             })
+//         });
+        
+//         const data = await response.json();
+        
+//         // Remove typing indicator
+//         removeTypingIndicator();
+        
+//         if (response.ok) {
+//             // Add bot response with buttons if needed
+//             addBotMessage(data);
+            
+//             // Handle special response types
+//             if (data.type === 'booking_confirmed') {
+//                 showBookingConfirmation(data.unique_code);
+//             }
+//         } else {
+//             addMessage(data.error || 'Sorry, something went wrong. Please try again.', 'assistant', true);
+//         }
+        
+//     } catch (error) {
+//         console.error('Error sending message:', error);
+//         removeTypingIndicator();
+//         addMessage('Sorry, I\'m having trouble connecting. Please try again.', 'assistant', true);
+//     } finally {
+//         // Re-enable input and button
+//         input.disabled = false;
+//         sendButton.disabled = false;
+//         input.focus();
+//     }
+// }
 
 // Show end confirmation dialog
 function showEndConfirmation() {
