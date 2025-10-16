@@ -1,15 +1,12 @@
 FROM node:20
 
-# Installing Python 3.10, pip, build dependencies, and Supervisor
+# Installing Python 3.11, pip, build dependencies, and Supervisor
 RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
     apt-get install -y \
-        python3.10 \
-        python3.10-pip \
-        python3.10-venv \
-        python3.10-dev \
+        python3 \
+        python3-pip \
+        python3-venv \
+        python3-dev \
         build-essential \
         gcc \
         g++ \
@@ -20,8 +17,6 @@ RUN apt-get update && \
         libxml2-dev \
         libxslt1-dev \
         supervisor && \
-    ln -sf /usr/bin/python3.10 /usr/bin/python3 && \
-    ln -sf /usr/bin/pip3.10 /usr/bin/pip3 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
@@ -31,11 +26,11 @@ WORKDIR /app
 COPY package*.json ./
 COPY requirements.txt ./
 
-# Upgrade pip first
-RUN pip3 install --upgrade pip
+# Upgrade pip first and break system packages restriction
+RUN pip3 install --upgrade pip --break-system-packages
 
-# Install Python dependencies with verbose output for debugging
-RUN pip3 install --no-cache-dir --verbose -r requirements.txt
+# Install Python dependencies
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
 # Install Node.js dependencies
 RUN npm install
