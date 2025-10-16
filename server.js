@@ -49,6 +49,22 @@ app.post('/test-upload', upload.single('photo'), (req, res) => {
 });
 
 
+import fetch from 'node-fetch';
+
+import fetch from "node-fetch";
+
+// Nik
+app.post("/chat", async (req, res) => {
+  const userMsg = req.body.message;
+  const response = await fetch(`${process.env.FLASK_BOT_URL}/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userMsg }),
+  });
+  const data = await response.json();
+  res.json(data);
+});
+// Nik End
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "main.html"));
 });
