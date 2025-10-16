@@ -51,8 +51,6 @@ app.post('/test-upload', upload.single('photo'), (req, res) => {
 
 import fetch from 'node-fetch';
 
-import fetch from "node-fetch";
-
 // Nik
 app.post("/chat", async (req, res) => {
   const userMsg = req.body.message;
