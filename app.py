@@ -654,6 +654,12 @@ def get_dates():
     except Exception as e:
         logger.error(f"Error fetching dates: {e}")
         return jsonify({'error': 'Error fetching dates'}), 500
+    
+@app.route('/chatbot')
+def chatbot():
+    """Serve the standalone chatbot interface"""
+    return render_template('chatbot.html')
+
 
 def process_message(message, session):
     """Process user message based on current state"""
