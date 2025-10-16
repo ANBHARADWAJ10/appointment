@@ -12,6 +12,6 @@ RUN npm install
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 3052 5000
+EXPOSE 3022 5000
 
 CMD ["/usr/bin/supervisord"]
