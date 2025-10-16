@@ -604,47 +604,107 @@ def index():
 #         logger.error(f"Error in chat endpoint: {e}")
 #         return jsonify({'error': 'Internal server error'}), 500
 
+# @app.route('/api/chat', methods=['POST'])
+# def chat():
+#     """Handle chat messages"""
+#     try:
+#         print(f"Content-Type: {request.headers.get('Content-Type')}")
+#         print(f"Request method: {request.method}")
+#         print(f"Raw data: {request.data}")
+        
+#         data = request.json
+#         print(f"Parsed JSON: {data}")
+        
+#         if data is None:
+#             print("JSON parsing failed - using force=True")
+#             data = request.get_json(force=True)
+        
+#         message = data.get('message', '').strip()
+#         session_id = data.get('session_id', 'default')
+        
+#         print(f"Message: {message}, Session ID: {session_id}")
+        
+#         if not message:
+#             return jsonify({'error': 'Message cannot be empty'}), 400
+        
+#         # Your existing code continues...
+#         data = request.json
+#         message = data.get('message', '').strip()
+#         session_id = data.get('session_id', 'default')
+        
+#         if not message:
+#             return jsonify({'error': 'Message cannot be empty'}), 400
+        
+#         # Initialize session if not exists
+#         if session_id not in bot.user_sessions:
+#             bot.user_sessions[session_id] = {
+#                 'state': 'greeting',
+#                 'patient_data': {},
+#                 'conversation_history': []
+#             }
+        
+#         session = bot.user_sessions[session_id]
+#         response = process_message(message, session)
+        
+#         # Add to conversation history
+#         session['conversation_history'].append({
+#             'user': message,
+#             'bot': response['message'],
+#             'timestamp': datetime.now().isoformat()
+#         })
+        
+#         return jsonify(response)
+#     except Exception as e:
+#         print(f"Exception in chat route: {e}")
+#         logger.error(f"Error in chat endpoint: {e}")
+#         return jsonify({'error': 'Internal server error'}), 500
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     """Handle chat messages"""
     try:
-        print(f"Content-Type: {request.headers.get('Content-Type')}")
+        # Add comprehensive debugging
+        print(f"=== CHAT ENDPOINT HIT ===")
         print(f"Request method: {request.method}")
-        print(f"Raw data: {request.data}")
+        print(f"Content-Type: {request.headers.get('Content-Type')}")
+        print(f"Request URL: {request.url}")
+        print(f"Request path: {request.path}")
+        print(f"Raw request data: {request.data}")
         
         data = request.json
-        print(f"Parsed JSON: {data}")
+        print(f"Parsed JSON data: {data}")
         
         if data is None:
-            print("JSON parsing failed - using force=True")
+            print("JSON is None, trying force=True")
             data = request.get_json(force=True)
+            print(f"Force parsed data: {data}")
         
         message = data.get('message', '').strip()
         session_id = data.get('session_id', 'default')
         
-        print(f"Message: {message}, Session ID: {session_id}")
+        print(f"Extracted - Message: '{message}', Session ID: '{session_id}'")
         
         if not message:
-            return jsonify({'error': 'Message cannot be empty'}), 400
-        
-        # Your existing code continues...
-        data = request.json
-        message = data.get('message', '').strip()
-        session_id = data.get('session_id', 'default')
-        
-        if not message:
+            print("Empty message detected")
             return jsonify({'error': 'Message cannot be empty'}), 400
         
         # Initialize session if not exists
-        if session_id not in bot.user_sessions:
-            bot.user_sessions[session_id] = {
+        if not hasattr(chat, 'user_sessions'):
+            chat.user_sessions = {}
+            
+        if session_id not in chat.user_sessions:
+            print(f"Creating new session: {session_id}")
+            chat.user_sessions[session_id] = {
                 'state': 'greeting',
                 'patient_data': {},
                 'conversation_history': []
             }
         
-        session = bot.user_sessions[session_id]
+        session = chat.user_sessions[session_id]
+        print(f"Current session state: {session.get('state')}")
+        
         response = process_message(message, session)
+        print(f"Generated response: {response}")
         
         # Add to conversation history
         session['conversation_history'].append({
@@ -653,10 +713,14 @@ def chat():
             'timestamp': datetime.now().isoformat()
         })
         
+        print(f"Returning response: {response}")
         return jsonify(response)
+        
     except Exception as e:
-        print(f"Exception in chat route: {e}")
-        logger.error(f"Error in chat endpoint: {e}")
+        print(f"=== ERROR IN CHAT ENDPOINT ===")
+        print(f"Exception: {e}")
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': 'Internal server error'}), 500
 
 @app.route('/api/check-booking', methods=['POST'])
@@ -706,6 +770,11 @@ def get_dates():
     except Exception as e:
         logger.error(f"Error fetching dates: {e}")
         return jsonify({'error': 'Error fetching dates'}), 500
+
+def handle_booking_start(message, session):
+    """Handle start of booking process"""
+    session['state'] = 'waiting_name'
+    return handle_name_input(message, session)
 
 def process_message(message, session):
     """Process user message based on current state"""
