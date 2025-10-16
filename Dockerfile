@@ -17,7 +17,9 @@ RUN npm install
 
 # Copy Python Flask application files
 COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Install Python packages with --break-system-packages flag for Docker
+RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
 
 # Copy all application files
 COPY . .
