@@ -131,7 +131,8 @@ async function sendMessage() {
     
     try {
         // Send message to backend
-        const response = await fetch('http://localhost:5000/api/chat', {
+        // const response = await fetch('http://localhost:5000/api/chat', {
+        const response = await fetch('https://python-flask-bot-a1bk.onrender.com//api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
