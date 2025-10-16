@@ -1023,21 +1023,7 @@ def handle_time_selection(message, session):
             'time_slots': session.get('available_time_slots', [])
         }
 
-@app.route("/ping")
-def ping():
-    return "pong", 200
 
-# optional internal self-ping every 10 min
-def keep_alive():
-    while True:
-        try:
-            url = f"http://localhost:{os.getenv('PORT', 5000)}/ping"
-            requests.get(url)
-        except Exception as e:
-            print("Keep-alive failed:", e)
-        time.sleep(600)  # 10 minutes
-
-threading.Thread(target=keep_alive, daemon=True).start()
 
 if __name__ == '__main__':
     print("🏥 Medical Web Chatbot is starting...")
