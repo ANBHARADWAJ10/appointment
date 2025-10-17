@@ -1724,7 +1724,7 @@ function disableNameOnlyValidation() {
 // Listen for messages from iframe (for close button communication)
 window.addEventListener('message', function(event) {
     // Verify the origin for security
-    if (event.origin !== 'http://192.168.0.102:5000') {
+    if (event.origin !== 'https://medical-appointment-app-c699.onrender.com') {
         return;
     }
     
